@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 const { authenticate } = require('../middleware/auth');
 const config = require('../config');
+const { validatePagination, buildPaginationResponse } = require('../utils/pagination');
 
 /**
  * @GET /api/v1/users/profile
@@ -14,12 +15,12 @@ const config = require('../config');
  */
 router.get('/profile', authenticate, async (req, res) => {
   try {
-    const [users] = await req.db.execute(
-      'SELECT id, nickname, avatar, phone, language, created_at FROM users WHERE id = ?',
+    const usersResult = await req.db.query(
+      'SELECT id, nickname, avatar, phone, language, created_at FROM users WHERE id = $1',
       [req.user.id]
     );
     
-    if (users.length === 0) {
+    if (usersResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: '用户不存在',
@@ -29,7 +30,7 @@ router.get('/profile', authenticate, async (req, res) => {
     
     res.json({
       success: true,
-      data: users[0]
+      data: usersResult.rows[0]
     });
   } catch (error) {
     console.error('Get profile error:', error);
@@ -60,18 +61,22 @@ router.put('/profile', authenticate, async (req, res) => {
     
     const updates = [];
     const values = [];
+    let paramIndex = 1;
     
     if (nickname) {
-      updates.push('nickname = ?');
+      updates.push(`nickname = $${paramIndex}`);
       values.push(nickname);
+      paramIndex++;
     }
     if (avatar) {
-      updates.push('avatar = ?');
+      updates.push(`avatar = $${paramIndex}`);
       values.push(avatar);
+      paramIndex++;
     }
     if (language) {
-      updates.push('language = ?');
+      updates.push(`language = $${paramIndex}`);
       values.push(language);
+      paramIndex++;
     }
     
     if (updates.length === 0) {
@@ -84,20 +89,20 @@ router.put('/profile', authenticate, async (req, res) => {
     
     values.push(req.user.id);
     
-    await req.db.execute(
-      `UPDATE users SET ${updates.join(', ')} WHERE id = ?`,
+    await req.db.query(
+      `UPDATE users SET ${updates.join(', ')} WHERE id = $${paramIndex}`,
       values
     );
     
     // 获取更新后的用户信息
-    const [users] = await req.db.execute(
-      'SELECT id, nickname, avatar, phone, language FROM users WHERE id = ?',
+    const usersResult = await req.db.query(
+      'SELECT id, nickname, avatar, phone, language FROM users WHERE id = $1',
       [req.user.id]
     );
     
     res.json({
       success: true,
-      data: users[0]
+      data: usersResult.rows[0]
     });
   } catch (error) {
     console.error('Update profile error:', error);
@@ -115,16 +120,19 @@ router.put('/profile', authenticate, async (req, res) => {
  */
 router.get('/favorites', authenticate, async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = Math.min(parseInt(req.query.pageSize) || 20, config.pagination.maxPageSize);
-    const offset = (page - 1) * pageSize;
+    // BUG-001, BUG-002 修复: 使用统一的分页校验
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
     
     const language = req.user.language || config.defaultLanguage;
     const nameField = language === 'zh-TW' ? 'r.name_zh_tw' : 
                       language === 'en' ? 'r.name_en' : 'r.name_zh_cn';
     
     // 获取收藏列表
-    const [favorites] = await req.db.execute(
+    const favoritesResult = await req.db.query(
       `SELECT 
         f.id as favorite_id,
         f.created_at as favorited_at,
@@ -136,29 +144,23 @@ router.get('/favorites', authenticate, async (req, res) => {
         r.favorite_count
       FROM favorites f
       JOIN recipes r ON f.recipe_id = r.id
-      WHERE f.user_id = ? AND r.status = 1
+      WHERE f.user_id = $1 AND r.status = 1
       ORDER BY f.created_at DESC
-      LIMIT ? OFFSET ?`,
+      LIMIT $2 OFFSET $3`,
       [req.user.id, pageSize, offset]
     );
+    const favorites = favoritesResult.rows;
     
     // 获取总数
-    const [countResult] = await req.db.execute(
-      'SELECT COUNT(*) as total FROM favorites WHERE user_id = ?',
+    const countResult = await req.db.query(
+      'SELECT COUNT(*) as total FROM favorites WHERE user_id = $1',
       [req.user.id]
     );
+    const total = parseInt(countResult.rows[0].total);
     
     res.json({
       success: true,
-      data: {
-        list: favorites,
-        pagination: {
-          page,
-          pageSize,
-          total: countResult[0].total,
-          totalPages: Math.ceil(countResult[0].total / pageSize)
-        }
-      }
+      data: buildPaginationResponse(favorites, total, page, pageSize)
     });
   } catch (error) {
     console.error('Get favorites error:', error);
@@ -176,16 +178,19 @@ router.get('/favorites', authenticate, async (req, res) => {
  */
 router.get('/history', authenticate, async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = Math.min(parseInt(req.query.pageSize) || 20, config.pagination.maxPageSize);
-    const offset = (page - 1) * pageSize;
+    // BUG-001, BUG-002 修复: 使用统一的分页校验
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
     
     const language = req.user.language || config.defaultLanguage;
     const nameField = language === 'zh-TW' ? 'r.name_zh_tw' : 
                       language === 'en' ? 'r.name_en' : 'r.name_zh_cn';
     
     // 获取浏览历史
-    const [history] = await req.db.execute(
+    const historyResult = await req.db.query(
       `SELECT 
         h.id,
         h.viewed_at,
@@ -195,29 +200,23 @@ router.get('/history', authenticate, async (req, res) => {
         r.rating
       FROM user_history h
       JOIN recipes r ON h.recipe_id = r.id
-      WHERE h.user_id = ? AND r.status = 1
+      WHERE h.user_id = $1 AND r.status = 1
       ORDER BY h.viewed_at DESC
-      LIMIT ? OFFSET ?`,
+      LIMIT $2 OFFSET $3`,
       [req.user.id, pageSize, offset]
     );
+    const history = historyResult.rows;
     
     // 获取总数
-    const [countResult] = await req.db.execute(
-      'SELECT COUNT(*) as total FROM user_history WHERE user_id = ?',
+    const countResult = await req.db.query(
+      'SELECT COUNT(*) as total FROM user_history WHERE user_id = $1',
       [req.user.id]
     );
+    const total = parseInt(countResult.rows[0].total);
     
     res.json({
       success: true,
-      data: {
-        list: history,
-        pagination: {
-          page,
-          pageSize,
-          total: countResult[0].total,
-          totalPages: Math.ceil(countResult[0].total / pageSize)
-        }
-      }
+      data: buildPaginationResponse(history, total, page, pageSize)
     });
   } catch (error) {
     console.error('Get history error:', error);
@@ -235,8 +234,8 @@ router.get('/history', authenticate, async (req, res) => {
  */
 router.delete('/history', authenticate, async (req, res) => {
   try {
-    await req.db.execute(
-      'DELETE FROM user_history WHERE user_id = ?',
+    await req.db.query(
+      'DELETE FROM user_history WHERE user_id = $1',
       [req.user.id]
     );
     

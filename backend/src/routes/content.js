@@ -6,6 +6,7 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config');
+const { validatePagination, buildPaginationResponse } = require('../utils/pagination');
 
 /**
  * @GET /api/v1/contents
@@ -13,26 +14,32 @@ const config = require('../config');
  */
 router.get('/', async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = Math.min(parseInt(req.query.pageSize) || 20, config.pagination.maxPageSize);
-    const offset = (page - 1) * pageSize;
+    // BUG-001, BUG-002 修复: 使用统一的分页校验
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
     
     const { source, contentType } = req.query;
     
     let whereClause = 'WHERE status = 1';
     const params = [];
+    let paramIndex = 1;
     
     if (source) {
-      whereClause += ' AND source = ?';
+      whereClause += ` AND source = $${paramIndex}`;
       params.push(source);
+      paramIndex++;
     }
     
     if (contentType) {
-      whereClause += ' AND content_type = ?';
+      whereClause += ` AND content_type = $${paramIndex}`;
       params.push(contentType);
+      paramIndex++;
     }
     
-    const [contents] = await req.db.execute(
+    const contentsResult = await req.db.query(
       `SELECT 
         id,
         title,
@@ -47,27 +54,21 @@ router.get('/', async (req, res) => {
       FROM contents
       ${whereClause}
       ORDER BY published_at DESC, created_at DESC
-      LIMIT ? OFFSET ?`,
+      LIMIT $${paramIndex} OFFSET $${paramIndex + 1}`,
       [...params, pageSize, offset]
     );
+    const contents = contentsResult.rows;
     
     // 获取总数
-    const [countResult] = await req.db.execute(
+    const countResult = await req.db.query(
       `SELECT COUNT(*) as total FROM contents ${whereClause}`,
       params
     );
+    const total = parseInt(countResult.rows[0].total);
     
     res.json({
       success: true,
-      data: {
-        list: contents,
-        pagination: {
-          page,
-          pageSize,
-          total: countResult[0].total,
-          totalPages: Math.ceil(countResult[0].total / pageSize)
-        }
-      }
+      data: buildPaginationResponse(contents, total, page, pageSize)
     });
   } catch (error) {
     console.error('Get contents error:', error);
@@ -87,7 +88,7 @@ router.get('/:id', async (req, res) => {
   try {
     const contentId = req.params.id;
     
-    const [contents] = await req.db.execute(
+    const contentsResult = await req.db.query(
       `SELECT 
         id,
         title,
@@ -101,11 +102,11 @@ router.get('/:id', async (req, res) => {
         published_at,
         created_at
       FROM contents
-      WHERE id = ? AND status = 1`,
+      WHERE id = $1 AND status = 1`,
       [contentId]
     );
     
-    if (contents.length === 0) {
+    if (contentsResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: '内容不存在',
@@ -114,14 +115,14 @@ router.get('/:id', async (req, res) => {
     }
     
     // 更新浏览数
-    await req.db.execute(
-      'UPDATE contents SET view_count = view_count + 1 WHERE id = ?',
+    await req.db.query(
+      'UPDATE contents SET view_count = view_count + 1 WHERE id = $1',
       [contentId]
     );
     
     res.json({
       success: true,
-      data: contents[0]
+      data: contentsResult.rows[0]
     });
   } catch (error) {
     console.error('Get content detail error:', error);

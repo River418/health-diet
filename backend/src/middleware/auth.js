@@ -26,11 +26,12 @@ const authenticate = async (req, res, next) => {
     // 验证 Token
     const decoded = jwt.verify(token, config.jwt.secret);
     
-    // 查询用户信息
-    const [users] = await req.db.execute(
-      'SELECT id, nickname, avatar, language, status FROM users WHERE id = ?',
+    // BUG-004 修复: 统一使用 PostgreSQL 的 query 方法而不是 MySQL 的 execute
+    const usersResult = await req.db.query(
+      'SELECT id, nickname, avatar, language, status FROM users WHERE id = $1',
       [decoded.userId]
     );
+    const users = usersResult.rows;
     
     if (users.length === 0) {
       return res.status(401).json({
@@ -92,10 +93,12 @@ const optionalAuth = async (req, res, next) => {
     const token = authHeader.substring(7);
     const decoded = jwt.verify(token, config.jwt.secret);
     
-    const [users] = await req.db.execute(
-      'SELECT id, nickname, avatar, language FROM users WHERE id = ? AND status = 1',
+    // BUG-004 修复: 统一使用 PostgreSQL 的 query 方法而不是 MySQL 的 execute
+    const usersResult = await req.db.query(
+      'SELECT id, nickname, avatar, language FROM users WHERE id = $1 AND status = 1',
       [decoded.userId]
     );
+    const users = usersResult.rows;
     
     if (users.length > 0) {
       req.user = users[0];

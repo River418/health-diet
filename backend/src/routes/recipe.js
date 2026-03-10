@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 const { authenticate, optionalAuth } = require('../middleware/auth');
 const config = require('../config');
+const { validatePagination, buildPaginationResponse } = require('../utils/pagination');
 
 /**
  * @GET /api/v1/recipes
@@ -14,9 +15,12 @@ const config = require('../config');
  */
 router.get('/', optionalAuth, async (req, res) => {
   try {
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = Math.min(parseInt(req.query.pageSize) || 20, config.pagination.maxPageSize);
-    const offset = (page - 1) * pageSize;
+    // BUG-001, BUG-002 修复: 使用统一的分页校验
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
     
     const { 
       crowd, 
@@ -33,27 +37,27 @@ router.get('/', optionalAuth, async (req, res) => {
     let whereClause = 'WHERE r.status = 1';
     const params = [];
     
-    // 人群筛选
+    // 人群筛选 (PostgreSQL JSONB 操作符)
     if (crowd) {
-      whereClause += ' AND JSON_CONTAINS(r.crowd_tags, ?)';
-      params.push(`"${crowd}"`);
+      whereClause += ' AND r.crowd_tags @> $' + (params.length + 1);
+      params.push(JSON.stringify([crowd]));
     }
     
     // 功效筛选
     if (efficacy) {
-      whereClause += ' AND JSON_CONTAINS(r.efficacy_tags, ?)';
-      params.push(`"${efficacy}"`);
+      whereClause += ' AND r.efficacy_tags @> $' + (params.length + 1);
+      params.push(JSON.stringify([efficacy]));
     }
     
     // 节气筛选
     if (solarTerm) {
-      whereClause += ' AND JSON_CONTAINS(r.solar_term_tags, ?)';
-      params.push(`"${solarTerm}"`);
+      whereClause += ' AND r.solar_term_tags @> $' + (params.length + 1);
+      params.push(JSON.stringify([solarTerm]));
     }
     
     // 关键词搜索
     if (keyword) {
-      whereClause += ` AND (${nameField} LIKE ? OR r.description_zh_cn LIKE ?)`;
+      whereClause += ` AND (${nameField} ILIKE $${params.length + 1} OR r.description_zh_cn ILIKE $${params.length + 2})`;
       params.push(`%${keyword}%`, `%${keyword}%`);
     }
     
@@ -74,8 +78,8 @@ router.get('/', optionalAuth, async (req, res) => {
     }
     
     // 查询配方列表
-    const [recipes] = await req.db.execute(
-      `SELECT 
+    const query = `
+      SELECT 
         r.id,
         ${nameField} as name,
         r.cover_image,
@@ -88,27 +92,20 @@ router.get('/', optionalAuth, async (req, res) => {
       FROM recipes r
       ${whereClause}
       ${orderBy}
-      LIMIT ? OFFSET ?`,
-      [...params, pageSize, offset]
-    );
+      LIMIT $${params.length + 1} OFFSET $${params.length + 2}
+    `;
+    const recipesResult = await req.db.query(query, [...params, pageSize, offset]);
+    const recipes = recipesResult.rows;
     
     // 获取总数
-    const [countResult] = await req.db.execute(
-      `SELECT COUNT(*) as total FROM recipes r ${whereClause}`,
-      params
-    );
+    const countQuery = `SELECT COUNT(*) as total FROM recipes r ${whereClause}`;
+    const countResult = await req.db.query(countQuery, params);
+    const total = parseInt(countResult.rows[0].total);
     
+    // BUG-001 修复: 当page大于totalPages时，返回空列表而不是错误
     res.json({
       success: true,
-      data: {
-        list: recipes,
-        pagination: {
-          page,
-          pageSize,
-          total: countResult[0].total,
-          totalPages: Math.ceil(countResult[0].total / pageSize)
-        }
-      }
+      data: buildPaginationResponse(recipes, total, page, pageSize)
     });
   } catch (error) {
     console.error('Get recipes error:', error);
@@ -136,7 +133,7 @@ router.get('/:id', optionalAuth, async (req, res) => {
                       language === 'en' ? 'r.description_en' : 'r.description_zh_cn';
     
     // 查询配方详情
-    const [recipes] = await req.db.execute(
+    const recipesResult = await req.db.query(
       `SELECT 
         r.id,
         ${nameField} as name,
@@ -155,11 +152,11 @@ router.get('/:id', optionalAuth, async (req, res) => {
         r.comment_count,
         r.created_at
       FROM recipes r
-      WHERE r.id = ? AND r.status = 1`,
+      WHERE r.id = $1 AND r.status = 1`,
       [recipeId]
     );
     
-    if (recipes.length === 0) {
+    if (recipesResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: '配方不存在',
@@ -167,10 +164,10 @@ router.get('/:id', optionalAuth, async (req, res) => {
       });
     }
     
-    const recipe = recipes[0];
+    const recipe = recipesResult.rows[0];
     
     // 查询食材
-    const [ingredients] = await req.db.execute(
+    const ingredientsResult = await req.db.query(
       `SELECT 
         id,
         ${language === 'zh-TW' ? 'name_zh_tw' : language === 'en' ? 'name_en' : 'name_zh_cn'} as name,
@@ -178,45 +175,47 @@ router.get('/:id', optionalAuth, async (req, res) => {
         image,
         sort_order
       FROM recipe_ingredients
-      WHERE recipe_id = ?
+      WHERE recipe_id = $1
       ORDER BY sort_order`,
       [recipeId]
     );
+    const ingredients = ingredientsResult.rows;
     
     // 查询步骤
-    const [steps] = await req.db.execute(
+    const stepsResult = await req.db.query(
       `SELECT 
         id,
         step_order,
         ${language === 'zh-TW' ? 'description_zh_tw' : language === 'en' ? 'description_en' : 'description_zh_cn'} as description,
         image
       FROM recipe_steps
-      WHERE recipe_id = ?
+      WHERE recipe_id = $1
       ORDER BY step_order`,
       [recipeId]
     );
+    const steps = stepsResult.rows;
     
     // 检查是否已收藏
     let isFavorited = false;
     if (userId) {
-      const [favorites] = await req.db.execute(
-        'SELECT id FROM favorites WHERE user_id = ? AND recipe_id = ?',
+      const favoritesResult = await req.db.query(
+        'SELECT id FROM favorites WHERE user_id = $1 AND recipe_id = $2',
         [userId, recipeId]
       );
-      isFavorited = favorites.length > 0;
+      isFavorited = favoritesResult.rows.length > 0;
       
-      // 记录浏览历史
-      await req.db.execute(
+      // 记录浏览历史 (PostgreSQL UPSERT: ON CONFLICT)
+      await req.db.query(
         `INSERT INTO user_history (user_id, recipe_id, viewed_at) 
-         VALUES (?, ?, NOW())
-         ON DUPLICATE KEY UPDATE viewed_at = NOW()`,
+         VALUES ($1, $2, CURRENT_TIMESTAMP)
+         ON CONFLICT (user_id, recipe_id) DO UPDATE SET viewed_at = CURRENT_TIMESTAMP`,
         [userId, recipeId]
       );
     }
     
-    // 更新浏览数（异步）
-    await req.db.execute(
-      'UPDATE recipes SET view_count = view_count + 1 WHERE id = ?',
+    // 更新浏览数
+    await req.db.query(
+      'UPDATE recipes SET view_count = view_count + 1 WHERE id = $1',
       [recipeId]
     );
     
@@ -249,12 +248,12 @@ router.post('/:id/favorite', authenticate, async (req, res) => {
     const userId = req.user.id;
     
     // 检查配方是否存在
-    const [recipes] = await req.db.execute(
-      'SELECT id FROM recipes WHERE id = ? AND status = 1',
+    const recipesResult = await req.db.query(
+      'SELECT id FROM recipes WHERE id = $1 AND status = 1',
       [recipeId]
     );
     
-    if (recipes.length === 0) {
+    if (recipesResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: '配方不存在',
@@ -263,12 +262,12 @@ router.post('/:id/favorite', authenticate, async (req, res) => {
     }
     
     // 检查是否已收藏
-    const [existing] = await req.db.execute(
-      'SELECT id FROM favorites WHERE user_id = ? AND recipe_id = ?',
+    const existingResult = await req.db.query(
+      'SELECT id FROM favorites WHERE user_id = $1 AND recipe_id = $2',
       [userId, recipeId]
     );
     
-    if (existing.length > 0) {
+    if (existingResult.rows.length > 0) {
       return res.json({
         success: true,
         data: { isFavorited: true }
@@ -276,14 +275,14 @@ router.post('/:id/favorite', authenticate, async (req, res) => {
     }
     
     // 添加收藏
-    await req.db.execute(
-      'INSERT INTO favorites (user_id, recipe_id) VALUES (?, ?)',
+    await req.db.query(
+      'INSERT INTO favorites (user_id, recipe_id) VALUES ($1, $2)',
       [userId, recipeId]
     );
     
     // 更新配方收藏数
-    await req.db.execute(
-      'UPDATE recipes SET favorite_count = favorite_count + 1 WHERE id = ?',
+    await req.db.query(
+      'UPDATE recipes SET favorite_count = favorite_count + 1 WHERE id = $1',
       [recipeId]
     );
     
@@ -311,15 +310,15 @@ router.delete('/:id/favorite', authenticate, async (req, res) => {
     const userId = req.user.id;
     
     // 删除收藏
-    const [result] = await req.db.execute(
-      'DELETE FROM favorites WHERE user_id = ? AND recipe_id = ?',
+    const result = await req.db.query(
+      'DELETE FROM favorites WHERE user_id = $1 AND recipe_id = $2',
       [userId, recipeId]
     );
     
-    if (result.affectedRows > 0) {
+    if (result.rowCount > 0) {
       // 更新配方收藏数
-      await req.db.execute(
-        'UPDATE recipes SET favorite_count = favorite_count - 1 WHERE id = ?',
+      await req.db.query(
+        'UPDATE recipes SET favorite_count = favorite_count - 1 WHERE id = $1',
         [recipeId]
       );
     }

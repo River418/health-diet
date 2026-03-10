@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 const { authenticate, optionalAuth } = require('../middleware/auth');
 const config = require('../config');
+const { validatePagination, buildPaginationResponse } = require('../utils/pagination');
 
 /**
  * @GET /api/v1/comments
@@ -15,9 +16,12 @@ const config = require('../config');
 router.get('/', async (req, res) => {
   try {
     const { recipeId } = req.query;
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = Math.min(parseInt(req.query.pageSize) || 20, config.pagination.maxPageSize);
-    const offset = (page - 1) * pageSize;
+    // BUG-001, BUG-002 修复: 使用统一的分页校验
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
     
     if (!recipeId) {
       return res.status(400).json({
@@ -28,7 +32,7 @@ router.get('/', async (req, res) => {
     }
     
     // 查询评论列表
-    const [comments] = await req.db.execute(
+    const commentsResult = await req.db.query(
       `SELECT 
         c.id,
         c.content,
@@ -42,29 +46,23 @@ router.get('/', async (req, res) => {
         u.avatar
       FROM comments c
       JOIN users u ON c.user_id = u.id
-      WHERE c.recipe_id = ? AND c.status = 1 AND c.parent_id IS NULL
+      WHERE c.recipe_id = $1 AND c.status = 1 AND c.parent_id IS NULL
       ORDER BY c.created_at DESC
-      LIMIT ? OFFSET ?`,
+      LIMIT $2 OFFSET $3`,
       [recipeId, pageSize, offset]
     );
+    const comments = commentsResult.rows;
     
     // 获取总数
-    const [countResult] = await req.db.execute(
-      'SELECT COUNT(*) as total FROM comments WHERE recipe_id = ? AND status = 1 AND parent_id IS NULL',
+    const countResult = await req.db.query(
+      'SELECT COUNT(*) as total FROM comments WHERE recipe_id = $1 AND status = 1 AND parent_id IS NULL',
       [recipeId]
     );
+    const total = parseInt(countResult.rows[0].total);
     
     res.json({
       success: true,
-      data: {
-        list: comments,
-        pagination: {
-          page,
-          pageSize,
-          total: countResult[0].total,
-          totalPages: Math.ceil(countResult[0].total / pageSize)
-        }
-      }
+      data: buildPaginationResponse(comments, total, page, pageSize)
     });
   } catch (error) {
     console.error('Get comments error:', error);
@@ -93,12 +91,12 @@ router.post('/', authenticate, async (req, res) => {
     }
     
     // 检查配方是否存在
-    const [recipes] = await req.db.execute(
-      'SELECT id FROM recipes WHERE id = ? AND status = 1',
+    const recipesResult = await req.db.query(
+      'SELECT id FROM recipes WHERE id = $1 AND status = 1',
       [recipeId]
     );
     
-    if (recipes.length === 0) {
+    if (recipesResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: '配方不存在',
@@ -107,42 +105,43 @@ router.post('/', authenticate, async (req, res) => {
     }
     
     // 插入评论
-    const [result] = await req.db.execute(
+    const result = await req.db.query(
       `INSERT INTO comments (recipe_id, user_id, content, rating, images, parent_id, status) 
-       VALUES (?, ?, ?, ?, ?, ?, 0)`,
+       VALUES ($1, $2, $3, $4, $5, $6, 0)
+       RETURNING id`,
       [recipeId, req.user.id, content, rating || null, images ? JSON.stringify(images) : null, parentId || null]
     );
     
     // 更新配方评论数
-    await req.db.execute(
-      'UPDATE recipes SET comment_count = comment_count + 1 WHERE id = ?',
+    await req.db.query(
+      'UPDATE recipes SET comment_count = comment_count + 1 WHERE id = $1',
       [recipeId]
     );
     
     // 如果有父评论，更新回复数
     if (parentId) {
-      await req.db.execute(
-        'UPDATE comments SET reply_count = reply_count + 1 WHERE id = ?',
+      await req.db.query(
+        'UPDATE comments SET reply_count = reply_count + 1 WHERE id = $1',
         [parentId]
       );
     }
     
     // 更新评分
     if (rating) {
-      const [ratingResult] = await req.db.execute(
-        'SELECT AVG(rating) as avg_rating FROM comments WHERE recipe_id = ? AND rating IS NOT NULL AND status = 1',
+      const ratingResult = await req.db.query(
+        'SELECT AVG(rating) as avg_rating FROM comments WHERE recipe_id = $1 AND rating IS NOT NULL AND status = 1',
         [recipeId]
       );
-      await req.db.execute(
-        'UPDATE recipes SET rating = ? WHERE id = ?',
-        [ratingResult[0].avg_rating.toFixed(1), recipeId]
+      await req.db.query(
+        'UPDATE recipes SET rating = $1 WHERE id = $2',
+        [parseFloat(ratingResult.rows[0].avg_rating).toFixed(1), recipeId]
       );
     }
     
     res.json({
       success: true,
       data: {
-        id: result.insertId,
+        id: result.rows[0].id,
         content,
         rating,
         status: 0,
@@ -168,12 +167,12 @@ router.delete('/:id', authenticate, async (req, res) => {
     const commentId = req.params.id;
     
     // 检查评论是否存在且属于当前用户
-    const [comments] = await req.db.execute(
-      'SELECT id, recipe_id, parent_id FROM comments WHERE id = ? AND user_id = ?',
+    const commentsResult = await req.db.query(
+      'SELECT id, recipe_id, parent_id FROM comments WHERE id = $1 AND user_id = $2',
       [commentId, req.user.id]
     );
     
-    if (comments.length === 0) {
+    if (commentsResult.rows.length === 0) {
       return res.status(404).json({
         success: false,
         error: '评论不存在或无权限删除',
@@ -181,21 +180,21 @@ router.delete('/:id', authenticate, async (req, res) => {
       });
     }
     
-    const comment = comments[0];
+    const comment = commentsResult.rows[0];
     
     // 删除评论
-    await req.db.execute('DELETE FROM comments WHERE id = ?', [commentId]);
+    await req.db.query('DELETE FROM comments WHERE id = $1', [commentId]);
     
     // 更新配方评论数
-    await req.db.execute(
-      'UPDATE recipes SET comment_count = comment_count - 1 WHERE id = ?',
+    await req.db.query(
+      'UPDATE recipes SET comment_count = comment_count - 1 WHERE id = $1',
       [comment.recipe_id]
     );
     
     // 如果有父评论，更新回复数
     if (comment.parent_id) {
-      await req.db.execute(
-        'UPDATE comments SET reply_count = reply_count - 1 WHERE id = ?',
+      await req.db.query(
+        'UPDATE comments SET reply_count = reply_count - 1 WHERE id = $1',
         [comment.parent_id]
       );
     }

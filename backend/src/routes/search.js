@@ -6,6 +6,7 @@
 const express = require('express');
 const router = express.Router();
 const config = require('../config');
+const { validatePagination, buildPaginationResponse } = require('../utils/pagination');
 
 /**
  * @GET /api/v1/search
@@ -14,9 +15,12 @@ const config = require('../config');
 router.get('/', async (req, res) => {
   try {
     const { q: keyword } = req.query;
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = Math.min(parseInt(req.query.pageSize) || 20, config.pagination.maxPageSize);
-    const offset = (page - 1) * pageSize;
+    // BUG-001, BUG-002 修复: 使用统一的分页校验
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
     
     if (!keyword || keyword.trim().length === 0) {
       return res.status(400).json({
@@ -27,13 +31,15 @@ router.get('/', async (req, res) => {
     }
     
     const language = req.headers['accept-language'] || config.defaultLanguage;
-    const nameField = language === 'zh-TW' ? 'r.name_zh_tw' : 
-                      language === 'en' ? 'r.name_en' : 'r.name_zh_cn';
+    // BUG-003 修复: 严格校验语言参数，防止SQL注入
+    const validLanguage = config.languages.includes(language) ? language : config.defaultLanguage;
+    const nameField = validLanguage === 'zh-TW' ? 'r.name_zh_tw' : 
+                      validLanguage === 'en' ? 'r.name_en' : 'r.name_zh_cn';
     
     const searchTerm = `%${keyword.trim()}%`;
     
-    // 搜索配方
-    const [recipes] = await req.db.execute(
+    // 搜索配方 - 使用参数化查询防止SQL注入
+    const recipesResult = await req.db.query(
       `SELECT 
         r.id,
         ${nameField} as name,
@@ -45,21 +51,23 @@ router.get('/', async (req, res) => {
         r.favorite_count
       FROM recipes r
       WHERE r.status = 1 
-        AND (${nameField} LIKE ? OR r.description_zh_cn LIKE ?)
+        AND (${nameField} ILIKE $1 OR r.description_zh_cn ILIKE $2)
       ORDER BY 
-        CASE WHEN ${nameField} LIKE ? THEN 1 ELSE 2 END,
+        CASE WHEN ${nameField} ILIKE $3 THEN 1 ELSE 2 END,
         r.rating DESC,
         r.view_count DESC
-      LIMIT ? OFFSET ?`,
+      LIMIT $4 OFFSET $5`,
       [searchTerm, searchTerm, `${keyword.trim()}%`, pageSize, offset]
     );
+    const recipes = recipesResult.rows;
     
     // 获取总数
-    const [countResult] = await req.db.execute(
+    const countResult = await req.db.query(
       `SELECT COUNT(*) as total FROM recipes r
-       WHERE r.status = 1 AND (${nameField} LIKE ? OR r.description_zh_cn LIKE ?)`,
+       WHERE r.status = 1 AND (${nameField} ILIKE $1 OR r.description_zh_cn ILIKE $2)`,
       [searchTerm, searchTerm]
     );
+    const total = parseInt(countResult.rows[0].total);
     
     // 保存搜索历史到 Redis（用于热门搜索统计）
     if (req.redis && req.redis.isReady) {
@@ -70,13 +78,7 @@ router.get('/', async (req, res) => {
       success: true,
       data: {
         keyword: keyword.trim(),
-        list: recipes,
-        pagination: {
-          page,
-          pageSize,
-          total: countResult[0].total,
-          totalPages: Math.ceil(countResult[0].total / pageSize)
-        }
+        ...buildPaginationResponse(recipes, total, page, pageSize)
       }
     });
   } catch (error) {
@@ -140,19 +142,21 @@ router.get('/suggestions', async (req, res) => {
     }
     
     const language = req.headers['accept-language'] || config.defaultLanguage;
-    const nameField = language === 'zh-TW' ? 'name_zh_tw' : 
-                      language === 'en' ? 'name_en' : 'name_zh_cn';
+    // BUG-003 修复: 严格校验语言参数，防止SQL注入
+    const validLanguage = config.languages.includes(language) ? language : config.defaultLanguage;
+    const nameField = validLanguage === 'zh-TW' ? 'name_zh_tw' : 
+                      validLanguage === 'en' ? 'name_en' : 'name_zh_cn';
     
-    const [suggestions] = await req.db.execute(
+    const suggestionsResult = await req.db.query(
       `SELECT DISTINCT ${nameField} as name FROM recipes
-       WHERE status = 1 AND ${nameField} LIKE ?
+       WHERE status = 1 AND ${nameField} ILIKE $1
        LIMIT 10`,
       [`${keyword.trim()}%`]
     );
     
     res.json({
       success: true,
-      data: suggestions.map(s => s.name)
+      data: suggestionsResult.rows.map(s => s.name)
     });
   } catch (error) {
     console.error('Get suggestions error:', error);
