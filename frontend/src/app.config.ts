@@ -4,11 +4,9 @@ const config: Config = {
   pages: [
     'pages/index/index',
     'pages/category/index',
-    'pages/recipe/detail/index',
     'pages/user/index',
-    'pages/user/favorites/index',
-    'pages/user/history/index',
-    'pages/search/index'
+    'pages/login/index',
+    'pages/onboarding/index'
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -55,7 +53,14 @@ const config: Config = {
       pages: [
         'favorites/index',
         'history/index',
-        'settings/index'
+        'settings/index',
+        'settings/notifications',
+        'settings/accessibility',
+        'profile/index',
+        'about/index',
+        'help/index',
+        'agreement/index',
+        'privacy/index'
       ]
     }
   ],

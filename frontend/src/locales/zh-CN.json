@@ -15,7 +15,12 @@
     "search": "搜索",
     "back": "返回",
     "close": "关闭",
-    "retry": "重试"
+    "retry": "重试",
+    "more": "更多",
+    "expand": "展开",
+    "collapse": "收起",
+    "viewAll": "查看全部",
+    "noData": "暂无数据"
   },
   "disclaimer": {
     "text": "食疗养生，不替代药物治疗。如有身体不适，请及时就医。"
@@ -46,9 +51,71 @@
     "crowd": "人群",
     "solarTerm": "节气",
     "efficacy": "功效",
-    "ingredient": "食材"
+    "ingredient": "食材",
+    "crowdTitle": "适用人群",
+    "elderly": "中老年养生",
+    "elderlyDesc": "针对50+人群",
+    "office": "白领调理",
+    "officeDesc": "缓解亚健康",
+    "female": "女性养生",
+    "femaleDesc": "调理气血",
+    "children": "儿童健康",
+    "childrenDesc": "健康成长",
+    "general": "通用养生",
+    "generalDesc": "适合全家",
+    "allSolarTerms": "二十四节气",
+    "viewSolarRecipes": "查看节气养生",
+    "efficacyTitle": "功效分类",
+    "commonIngredients": "常见食材",
+    "medicinalIngredients": "药食同源"
+  },
+  "season": {
+    "spring": "春季",
+    "summer": "夏季",
+    "autumn": "秋季",
+    "winter": "冬季"
+  },
+  "solar": {
+    "立春": "立春",
+    "雨水": "雨水",
+    "惊蛰": "惊蛰",
+    "惊蛰Desc": "春雷响，万物生",
+    "春分": "春分",
+    "清明": "清明",
+    "谷雨": "谷雨",
+    "立夏": "立夏",
+    "小满": "小满",
+    "芒种": "芒种",
+    "夏至": "夏至",
+    "小暑": "小暑",
+    "大暑": "大暑",
+    "立秋": "立秋",
+    "处暑": "处暑",
+    "白露": "白露",
+    "秋分": "秋分",
+    "寒露": "寒露",
+    "霜降": "霜降",
+    "立冬": "立冬",
+    "小雪": "小雪",
+    "大雪": "大雪",
+    "冬至": "冬至",
+    "小寒": "小寒",
+    "大寒": "大寒"
+  },
+  "efficacy": {
+    "blood": "补气养血",
+    "stomach": "健脾养胃",
+    "sleep": "安神助眠",
+    "beauty": "美容养颜",
+    "heat": "清热解毒",
+    "lung": "润肺止咳",
+    "kidney": "补肾壮阳",
+    "dampness": "祛湿排毒",
+    "pressure": "降压降脂",
+    "immune": "增强免疫"
   },
   "recipe": {
+    "detail": "配方详情",
     "ingredients": "食材清单",
     "steps": "制作步骤",
     "video": "视频教程",
@@ -56,24 +123,39 @@
     "comments": "用户评论",
     "favorite": "收藏",
     "favorited": "已收藏",
+    "cancelFavorite": "已取消收藏",
     "share": "分享",
     "rating": "评分",
     "views": "浏览",
     "favorites": "收藏",
     "suitableFor": "适用人群",
     "efficacy": "功效",
-    "solarTerm": "节气"
+    "solarTerm": "节气",
+    "related": "相关推荐",
+    "viewAllComments": "查看全部 {count} 条评论"
   },
   "user": {
     "profile": "个人资料",
     "favorites": "我的收藏",
     "history": "浏览历史",
+    "following": "我的关注",
     "settings": "设置",
     "language": "语言设置",
+    "selectLanguage": "选择语言",
+    "languageChanged": "语言已切换",
+    "notifications": "消息通知",
+    "largeFont": "大字模式",
+    "darkMode": "夜间模式",
     "about": "关于我们",
+    "help": "帮助与反馈",
+    "agreement": "用户协议",
+    "privacy": "隐私政策",
     "logout": "退出登录",
+    "logoutConfirm": "确定要退出登录吗？",
+    "logoutSuccess": "退出成功",
     "notLoggedIn": "未登录",
-    "clickToLogin": "点击登录"
+    "clickToLogin": "点击登录",
+    "viewProfile": "查看个人资料 >"
   },
   "language": {
     "zhCN": "简体中文",
@@ -90,11 +172,42 @@
   },
   "comment": {
     "title": "评论",
+    "write": "写评论",
     "placeholder": "分享你的使用体验...",
     "submit": "发表评论",
+    "submitSuccess": "评论成功",
     "reply": "回复",
     "like": "点赞",
     "noComments": "暂无评论，来发表第一条评论吧"
+  },
+  "login": {
+    "wechat": "微信一键登录",
+    "douyin": "抖音一键登录",
+    "agreementPrefix": "登录即表示您同意",
+    "userAgreement": "《用户协议》",
+    "and": "和",
+    "privacyPolicy": "《隐私政策》",
+    "success": "登录成功"
+  },
+  "favorites": {
+    "emptyTitle": "暂无收藏",
+    "emptyDesc": "看到喜欢的配方就收藏吧",
+    "goHome": "去首页看看"
+  },
+  "history": {
+    "emptyTitle": "暂无浏览记录",
+    "emptyDesc": "浏览过的配方会显示在这里",
+    "goHome": "去首页看看",
+    "clear": "清空历史",
+    "clearConfirm": "确定要清空所有浏览历史吗？",
+    "cleared": "已清空"
+  },
+  "settings": {
+    "account": "账号与安全",
+    "general": "通用设置",
+    "about": "关于与帮助",
+    "enabled": "已开启",
+    "viewOnboarding": "查看引导页"
   },
   "error": {
     "network": "网络连接失败，请检查网络后重试",
@@ -102,5 +215,56 @@
     "notFound": "内容不存在",
     "unauthorized": "请先登录",
     "forbidden": "无权限访问"
+  },
+  "onboarding": {
+    "skip": "跳过",
+    "next": "下一步",
+    "start": "开始使用",
+    "skipConfirmTitle": "跳过引导",
+    "skipConfirmContent": "跳过后可以在设置中重新查看引导内容，确定要跳过吗？",
+    "agreement": "我已阅读并同意免责声明",
+    "page1": {
+      "title": "科学食疗，健康生活",
+      "subtitle": "Health-Diet",
+      "desc": "传承千年中医食疗智慧，结合现代营养学，为您提供个性化的食疗养生方案。"
+    },
+    "page2": {
+      "title": "发现适合您的食疗方案",
+      "feature1": "智能搜索食疗配方和食材",
+      "feature2": "二十四节气养生指南",
+      "feature3": "收藏喜爱的配方随时查看"
+    },
+    "page3": {
+      "title": "重要提示",
+      "desc": "在使用本应用前，请您仔细阅读以下免责声明："
+    }
+  },
+  "accessibility": {
+    "title": "适老化设置",
+    "subtitle": "调整应用显示和交互方式，让使用更加舒适",
+    "fontSize": "字体大小",
+    "fontNormal": "标准",
+    "fontLarge": "大号",
+    "previewText": "食疗养生，健康生活",
+    "fontSizeChanged": "字体大小已更改",
+    "followSystem": "跟随系统字体大小",
+    "followSystemDesc": "自动适配手机系统的字体大小设置",
+    "followSystemOn": "已开启跟随系统",
+    "followSystemOff": "已关闭跟随系统",
+    "visual": "视觉辅助",
+    "highContrast": "高对比度模式",
+    "highContrastDesc": "增强文字与背景的对比度，更清晰易读",
+    "highContrastOn": "高对比度模式已开启",
+    "highContrastOff": "高对比度模式已关闭",
+    "contrastPreview": "高对比度模式预览",
+    "audio": "语音辅助",
+    "voiceAssist": "语音辅助",
+    "voiceAssistDesc": "点击内容时自动语音播报",
+    "voiceAssistOn": "语音辅助已开启",
+    "voiceAssistOff": "语音辅助已关闭",
+    "testVoice": "测试语音",
+    "testVoiceText": "语音辅助功能已开启，我会为您播报内容",
+    "voicePlaying": "正在播放语音",
+    "tips": "适老化设置会保存在本地，更换设备后需要重新设置。"
   }
 }

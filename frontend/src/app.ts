@@ -10,6 +10,9 @@ import zhCN from './locales/zh-CN.json'
 import zhTW from './locales/zh-TW.json'
 import en from './locales/en.json'
 
+// 导入 stores
+import { useAccessibilityStore } from './stores/accessibility'
+
 // 创建 i18n 实例
 const i18n = createI18n({
   legacy: false,
@@ -26,12 +29,27 @@ const App = createApp({
   onShow(options) {
     console.log('App onShow', options)
   },
-  onLaunch() {
+  async onLaunch() {
     console.log('App onLaunch')
+    
     // 检查本地存储的语言设置
     const storedLang = Taro.getStorageSync('language')
     if (storedLang) {
       i18n.global.locale.value = storedLang
+    }
+    
+    // 初始化适老化设置
+    const pinia = createPinia()
+    const accessibilityStore = useAccessibilityStore(pinia)
+    accessibilityStore.initSettings()
+    
+    // 检查是否需要显示引导页
+    const onboardingCompleted = Taro.getStorageSync('onboardingCompleted')
+    if (!onboardingCompleted) {
+      // 首次启动，跳转到引导页
+      Taro.navigateTo({
+        url: '/pages/onboarding/index'
+      })
     }
   }
 })

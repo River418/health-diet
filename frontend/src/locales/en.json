@@ -1,7 +1,7 @@
 {
   "app": {
     "name": "Health-Diet",
-    "slogan": "Scientific Diet, Healthy Life"
+    "slogan": "Healthy Diet, Better Life"
   },
   "common": {
     "loading": "Loading...",
@@ -15,92 +15,256 @@
     "search": "Search",
     "back": "Back",
     "close": "Close",
-    "retry": "Retry"
+    "retry": "Retry",
+    "more": "More",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "viewAll": "View All",
+    "noData": "No Data"
   },
   "disclaimer": {
-    "text": "Dietary therapy is for wellness only and not a substitute for medical treatment. Please consult a doctor if you feel unwell."
+    "text": "Dietary therapy is for wellness only and not a substitute for medical treatment. Please seek medical attention if you feel unwell."
   },
   "nav": {
     "home": "Home",
     "category": "Category",
-    "user": "Me"
+    "user": "Profile"
   },
   "home": {
-    "searchPlaceholder": "Search recipes, ingredients",
+    "searchPlaceholder": "Search recipes, ingredients...",
     "kingKong": {
-      "elderly": "Senior Wellness",
+      "elderly": "Elderly Care",
       "office": "Office Wellness",
-      "solar": "Solar Term",
-      "blood": "Tonify Blood",
-      "stomach": "Strengthen Stomach",
-      "sleep": "Sleep Aid",
+      "solar": "Solar Terms",
+      "blood": "Blood & Qi",
+      "stomach": "Digestive Health",
+      "sleep": "Better Sleep",
       "beauty": "Beauty Care",
-      "more": "More Categories"
+      "more": "More"
     },
     "recommend": "Recommended",
     "hot": "Popular",
-    "content": "Health News"
+    "content": "Wellness Content"
   },
   "category": {
     "title": "Categories",
     "crowd": "Crowd",
-    "solarTerm": "Solar Term",
+    "solarTerm": "Solar Terms",
     "efficacy": "Efficacy",
-    "ingredient": "Ingredient"
+    "ingredient": "Ingredients",
+    "crowdTitle": "Target Groups",
+    "elderly": "Elderly Care",
+    "elderlyDesc": "For 50+ age group",
+    "office": "Office Workers",
+    "officeDesc": "Relieve sub-health",
+    "female": "Women's Health",
+    "femaleDesc": "Regulate Qi & Blood",
+    "children": "Children's Health",
+    "childrenDesc": "Healthy growth",
+    "general": "General Wellness",
+    "generalDesc": "For whole family",
+    "allSolarTerms": "24 Solar Terms",
+    "viewSolarRecipes": "View Solar Term Recipes",
+    "efficacyTitle": "Health Benefits",
+    "commonIngredients": "Common Ingredients",
+    "medicinalIngredients": "Medicinal Foods"
+  },
+  "season": {
+    "spring": "Spring",
+    "summer": "Summer",
+    "autumn": "Autumn",
+    "winter": "Winter"
+  },
+  "solar": {
+    "立春": "Start of Spring",
+    "雨水": "Rain Water",
+    "惊蛰": "Awakening of Insects",
+    "惊蛰Desc": "Thunder awakens all life",
+    "春分": "Spring Equinox",
+    "清明": "Pure Brightness",
+    "谷雨": "Grain Rain",
+    "立夏": "Start of Summer",
+    "小满": "Grain Full",
+    "芒种": "Grain in Ear",
+    "夏至": "Summer Solstice",
+    "小暑": "Minor Heat",
+    "大暑": "Major Heat",
+    "立秋": "Start of Autumn",
+    "处暑": "Limit of Heat",
+    "白露": "White Dew",
+    "秋分": "Autumn Equinox",
+    "寒露": "Cold Dew",
+    "霜降": "Frost's Descent",
+    "立冬": "Start of Winter",
+    "小雪": "Minor Snow",
+    "大雪": "Major Snow",
+    "冬至": "Winter Solstice",
+    "小寒": "Minor Cold",
+    "大寒": "Major Cold"
+  },
+  "efficacy": {
+    "blood": "Boost Qi & Blood",
+    "stomach": "Strengthen Digestion",
+    "sleep": "Better Sleep",
+    "beauty": "Beauty Care",
+    "heat": "Clear Heat & Toxins",
+    "lung": "Nourish Lungs",
+    "kidney": "Kidney Health",
+    "dampness": "Remove Dampness",
+    "pressure": "Blood Pressure",
+    "immune": "Immune Boost"
   },
   "recipe": {
+    "detail": "Recipe Detail",
     "ingredients": "Ingredients",
-    "steps": "Steps",
+    "steps": "Cooking Steps",
     "video": "Video Tutorial",
     "nutrition": "Nutrition",
     "comments": "Comments",
     "favorite": "Favorite",
     "favorited": "Favorited",
+    "cancelFavorite": "Unfavorited",
     "share": "Share",
     "rating": "Rating",
     "views": "Views",
     "favorites": "Favorites",
     "suitableFor": "Suitable For",
-    "efficacy": "Efficacy",
-    "solarTerm": "Solar Term"
+    "efficacy": "Benefits",
+    "solarTerm": "Solar Term",
+    "related": "Related Recipes",
+    "viewAllComments": "View all {count} comments"
   },
   "user": {
     "profile": "Profile",
-    "favorites": "My Favorites",
+    "favorites": "Favorites",
     "history": "History",
+    "following": "Following",
     "settings": "Settings",
     "language": "Language",
+    "selectLanguage": "Select Language",
+    "languageChanged": "Language changed",
+    "notifications": "Notifications",
+    "largeFont": "Large Font",
+    "darkMode": "Dark Mode",
     "about": "About Us",
+    "help": "Help & Feedback",
+    "agreement": "User Agreement",
+    "privacy": "Privacy Policy",
     "logout": "Logout",
-    "notLoggedIn": "Not Logged In",
-    "clickToLogin": "Click to Login"
+    "logoutConfirm": "Are you sure you want to logout?",
+    "logoutSuccess": "Logout successful",
+    "notLoggedIn": "Not logged in",
+    "clickToLogin": "Tap to login",
+    "viewProfile": "View profile >"
   },
   "language": {
-    "zhCN": "Simplified Chinese",
-    "zhTW": "Traditional Chinese",
+    "zhCN": "简体中文",
+    "zhTW": "繁體中文",
     "en": "English"
   },
   "search": {
-    "placeholder": "Search recipes, ingredients, efficacy",
+    "placeholder": "Search recipes, ingredients, benefits...",
     "history": "Search History",
-    "hot": "Hot Search",
+    "hot": "Hot Searches",
     "clear": "Clear History",
     "noResult": "No recipes found",
-    "tryOther": "Try other keywords"
+    "tryOther": "Try different keywords"
   },
   "comment": {
     "title": "Comments",
+    "write": "Write a comment",
     "placeholder": "Share your experience...",
     "submit": "Submit",
+    "submitSuccess": "Comment submitted",
     "reply": "Reply",
     "like": "Like",
-    "noComments": "No comments yet, be the first to comment"
+    "noComments": "No comments yet. Be the first!"
+  },
+  "login": {
+    "wechat": "Login with WeChat",
+    "douyin": "Login with Douyin",
+    "agreementPrefix": "By logging in, you agree to",
+    "userAgreement": "Terms of Service",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "success": "Login successful"
+  },
+  "favorites": {
+    "emptyTitle": "No Favorites",
+    "emptyDesc": "Favorite recipes you like",
+    "goHome": "Go to Home"
+  },
+  "history": {
+    "emptyTitle": "No History",
+    "emptyDesc": "Viewed recipes will appear here",
+    "goHome": "Go to Home",
+    "clear": "Clear History",
+    "clearConfirm": "Clear all browsing history?",
+    "cleared": "Cleared"
+  },
+  "settings": {
+    "account": "Account & Security",
+    "general": "General",
+    "about": "About & Help",
+    "enabled": "On",
+    "viewOnboarding": "View Tutorial"
   },
   "error": {
-    "network": "Network connection failed, please check your network",
-    "server": "Server is busy, please try again later",
+    "network": "Network error. Please check your connection.",
+    "server": "Server busy. Please try again later.",
     "notFound": "Content not found",
     "unauthorized": "Please login first",
-    "forbidden": "Access forbidden"
+    "forbidden": "Access denied"
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "next": "Next",
+    "start": "Get Started",
+    "skipConfirmTitle": "Skip Tutorial",
+    "skipConfirmContent": "You can view the tutorial again in settings. Are you sure you want to skip?",
+    "agreement": "I have read and agree to the disclaimer",
+    "page1": {
+      "title": "Healthy Diet, Better Life",
+      "subtitle": "Health-Diet",
+      "desc": "Inheriting thousands of years of TCM dietary wisdom, combined with modern nutrition, providing personalized dietary therapy solutions."
+    },
+    "page2": {
+      "title": "Discover Recipes for You",
+      "feature1": "Smart search for recipes and ingredients",
+      "feature2": "24 Solar Terms wellness guide",
+      "feature3": "Save favorite recipes for quick access"
+    },
+    "page3": {
+      "title": "Important Notice",
+      "desc": "Please read the following disclaimer carefully before using this app:"
+    }
+  },
+  "accessibility": {
+    "title": "Accessibility",
+    "subtitle": "Adjust display and interaction for better comfort",
+    "fontSize": "Font Size",
+    "fontNormal": "Normal",
+    "fontLarge": "Large",
+    "previewText": "Healthy Diet, Better Life",
+    "fontSizeChanged": "Font size changed",
+    "followSystem": "Follow System Font Size",
+    "followSystemDesc": "Automatically adapt to system font size settings",
+    "followSystemOn": "Following system font size",
+    "followSystemOff": "Not following system font size",
+    "visual": "Visual Assistance",
+    "highContrast": "High Contrast Mode",
+    "highContrastDesc": "Enhance text and background contrast for better readability",
+    "highContrastOn": "High contrast mode enabled",
+    "highContrastOff": "High contrast mode disabled",
+    "contrastPreview": "High contrast preview",
+    "audio": "Audio Assistance",
+    "voiceAssist": "Voice Assistance",
+    "voiceAssistDesc": "Automatically read content aloud when tapped",
+    "voiceAssistOn": "Voice assistance enabled",
+    "voiceAssistOff": "Voice assistance disabled",
+    "testVoice": "Test Voice",
+    "testVoiceText": "Voice assistance is enabled. I will read content for you.",
+    "voicePlaying": "Playing voice",
+    "tips": "Accessibility settings are saved locally. You'll need to reconfigure on a new device."
   }
 }

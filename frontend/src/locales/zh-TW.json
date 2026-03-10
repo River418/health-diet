@@ -15,7 +15,12 @@
     "search": "搜索",
     "back": "返回",
     "close": "關閉",
-    "retry": "重試"
+    "retry": "重試",
+    "more": "更多",
+    "expand": "展開",
+    "collapse": "收起",
+    "viewAll": "查看全部",
+    "noData": "暫無數據"
   },
   "disclaimer": {
     "text": "食療養生，不替代藥物治療。如有身體不適，請及時就醫。"
@@ -46,9 +51,71 @@
     "crowd": "人群",
     "solarTerm": "節氣",
     "efficacy": "功效",
-    "ingredient": "食材"
+    "ingredient": "食材",
+    "crowdTitle": "適用人群",
+    "elderly": "中老年養生",
+    "elderlyDesc": "針對50+人群",
+    "office": "白領調理",
+    "officeDesc": "緩解亞健康",
+    "female": "女性養生",
+    "femaleDesc": "調理氣血",
+    "children": "兒童健康",
+    "childrenDesc": "健康成長",
+    "general": "通用養生",
+    "generalDesc": "適合全家",
+    "allSolarTerms": "二十四節氣",
+    "viewSolarRecipes": "查看節氣養生",
+    "efficacyTitle": "功效分類",
+    "commonIngredients": "常見食材",
+    "medicinalIngredients": "藥食同源"
+  },
+  "season": {
+    "spring": "春季",
+    "summer": "夏季",
+    "autumn": "秋季",
+    "winter": "冬季"
+  },
+  "solar": {
+    "立春": "立春",
+    "雨水": "雨水",
+    "惊蛰": "驚蟄",
+    "惊蛰Desc": "春雷響，萬物生",
+    "春分": "春分",
+    "清明": "清明",
+    "谷雨": "穀雨",
+    "立夏": "立夏",
+    "小满": "小滿",
+    "芒种": "芒種",
+    "夏至": "夏至",
+    "小暑": "小暑",
+    "大暑": "大暑",
+    "立秋": "立秋",
+    "处暑": "處暑",
+    "白露": "白露",
+    "秋分": "秋分",
+    "寒露": "寒露",
+    "霜降": "霜降",
+    "立冬": "立冬",
+    "小雪": "小雪",
+    "大雪": "大雪",
+    "冬至": "冬至",
+    "小寒": "小寒",
+    "大寒": "大寒"
+  },
+  "efficacy": {
+    "blood": "補氣養血",
+    "stomach": "健脾養胃",
+    "sleep": "安神助眠",
+    "beauty": "美容養顏",
+    "heat": "清熱解毒",
+    "lung": "潤肺止咳",
+    "kidney": "補腎壯陽",
+    "dampness": "祛濕排毒",
+    "pressure": "降壓降脂",
+    "immune": "增強免疫"
   },
   "recipe": {
+    "detail": "配方詳情",
     "ingredients": "食材清單",
     "steps": "製作步驟",
     "video": "視頻教程",
@@ -56,27 +123,42 @@
     "comments": "用戶評論",
     "favorite": "收藏",
     "favorited": "已收藏",
+    "cancelFavorite": "已取消收藏",
     "share": "分享",
     "rating": "評分",
     "views": "瀏覽",
     "favorites": "收藏",
     "suitableFor": "適用人群",
     "efficacy": "功效",
-    "solarTerm": "節氣"
+    "solarTerm": "節氣",
+    "related": "相關推薦",
+    "viewAllComments": "查看全部 {count} 條評論"
   },
   "user": {
     "profile": "個人資料",
     "favorites": "我的收藏",
     "history": "瀏覽歷史",
+    "following": "我的關注",
     "settings": "設置",
     "language": "語言設置",
+    "selectLanguage": "選擇語言",
+    "languageChanged": "語言已切換",
+    "notifications": "消息通知",
+    "largeFont": "大字模式",
+    "darkMode": "夜間模式",
     "about": "關於我們",
+    "help": "幫助與反饋",
+    "agreement": "用戶協議",
+    "privacy": "隱私政策",
     "logout": "退出登錄",
+    "logoutConfirm": "確定要退出登錄嗎？",
+    "logoutSuccess": "退出成功",
     "notLoggedIn": "未登錄",
-    "clickToLogin": "點擊登錄"
+    "clickToLogin": "點擊登錄",
+    "viewProfile": "查看個人資料 >"
   },
   "language": {
-    "zhCN": "簡體中文",
+    "zhCN": "简体中文",
     "zhTW": "繁體中文",
     "en": "English"
   },
@@ -90,11 +172,42 @@
   },
   "comment": {
     "title": "評論",
+    "write": "寫評論",
     "placeholder": "分享你的使用體驗...",
     "submit": "發表評論",
-    "reply": "回復",
-    "like": "點贊",
+    "submitSuccess": "評論成功",
+    "reply": "回覆",
+    "like": "點讚",
     "noComments": "暫無評論，來發表第一條評論吧"
+  },
+  "login": {
+    "wechat": "微信一鍵登錄",
+    "douyin": "抖音一鍵登錄",
+    "agreementPrefix": "登錄即表示您同意",
+    "userAgreement": "《用戶協議》",
+    "and": "和",
+    "privacyPolicy": "《隱私政策》",
+    "success": "登錄成功"
+  },
+  "favorites": {
+    "emptyTitle": "暫無收藏",
+    "emptyDesc": "看到喜歡的配方就收藏吧",
+    "goHome": "去首頁看看"
+  },
+  "history": {
+    "emptyTitle": "暫無瀏覽記錄",
+    "emptyDesc": "瀏覽過的配方會顯示在這裡",
+    "goHome": "去首頁看看",
+    "clear": "清空歷史",
+    "clearConfirm": "確定要清空所有瀏覽歷史嗎？",
+    "cleared": "已清空"
+  },
+  "settings": {
+    "account": "賬號與安全",
+    "general": "通用設置",
+    "about": "關於與幫助",
+    "enabled": "已開啟",
+    "viewOnboarding": "查看引導頁"
   },
   "error": {
     "network": "網絡連接失敗，請檢查網絡後重試",
@@ -102,5 +215,56 @@
     "notFound": "內容不存在",
     "unauthorized": "請先登錄",
     "forbidden": "無權限訪問"
+  },
+  "onboarding": {
+    "skip": "跳過",
+    "next": "下一步",
+    "start": "開始使用",
+    "skipConfirmTitle": "跳過引導",
+    "skipConfirmContent": "跳過後可以在設置中重新查看引導內容，確定要跳過嗎？",
+    "agreement": "我已閱讀並同意免責聲明",
+    "page1": {
+      "title": "科學食療，健康生活",
+      "subtitle": "Health-Diet",
+      "desc": "傳承千年中醫食療智慧，結合現代營養學，為您提供個性化的食療養生方案。"
+    },
+    "page2": {
+      "title": "發現適合您的食療方案",
+      "feature1": "智能搜索食療配方和食材",
+      "feature2": "二十四節氣養生指南",
+      "feature3": "收藏喜愛的配方隨時查看"
+    },
+    "page3": {
+      "title": "重要提示",
+      "desc": "在使用本應用前，請您仔細閱讀以下免責聲明："
+    }
+  },
+  "accessibility": {
+    "title": "適老化設置",
+    "subtitle": "調整應用顯示和交互方式，讓使用更加舒適",
+    "fontSize": "字體大小",
+    "fontNormal": "標準",
+    "fontLarge": "大號",
+    "previewText": "食療養生，健康生活",
+    "fontSizeChanged": "字體大小已更改",
+    "followSystem": "跟隨系統字體大小",
+    "followSystemDesc": "自動適配手機系統的字體大小設置",
+    "followSystemOn": "已開啟跟隨系統",
+    "followSystemOff": "已關閉跟隨系統",
+    "visual": "視覺輔助",
+    "highContrast": "高對比度模式",
+    "highContrastDesc": "增強文字與背景的對比度，更清晰易讀",
+    "highContrastOn": "高對比度模式已開啟",
+    "highContrastOff": "高對比度模式已關閉",
+    "contrastPreview": "高對比度模式預覽",
+    "audio": "語音輔助",
+    "voiceAssist": "語音輔助",
+    "voiceAssistDesc": "點擊內容時自動語音播報",
+    "voiceAssistOn": "語音輔助已開啟",
+    "voiceAssistOff": "語音輔助已關閉",
+    "testVoice": "測試語音",
+    "testVoiceText": "語音輔助功能已開啟，我會為您播報內容",
+    "voicePlaying": "正在播放語音",
+    "tips": "適老化設置會保存在本地，更換設備後需要重新設置。"
   }
 }
