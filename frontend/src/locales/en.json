@@ -1,0 +1,106 @@
+{
+  "app": {
+    "name": "Health-Diet",
+    "slogan": "Scientific Diet, Healthy Life"
+  },
+  "common": {
+    "loading": "Loading...",
+    "loadMore": "Load More",
+    "noMore": "No More",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "back": "Back",
+    "close": "Close",
+    "retry": "Retry"
+  },
+  "disclaimer": {
+    "text": "Dietary therapy is for wellness only and not a substitute for medical treatment. Please consult a doctor if you feel unwell."
+  },
+  "nav": {
+    "home": "Home",
+    "category": "Category",
+    "user": "Me"
+  },
+  "home": {
+    "searchPlaceholder": "Search recipes, ingredients",
+    "kingKong": {
+      "elderly": "Senior Wellness",
+      "office": "Office Wellness",
+      "solar": "Solar Term",
+      "blood": "Tonify Blood",
+      "stomach": "Strengthen Stomach",
+      "sleep": "Sleep Aid",
+      "beauty": "Beauty Care",
+      "more": "More Categories"
+    },
+    "recommend": "Recommended",
+    "hot": "Popular",
+    "content": "Health News"
+  },
+  "category": {
+    "title": "Categories",
+    "crowd": "Crowd",
+    "solarTerm": "Solar Term",
+    "efficacy": "Efficacy",
+    "ingredient": "Ingredient"
+  },
+  "recipe": {
+    "ingredients": "Ingredients",
+    "steps": "Steps",
+    "video": "Video Tutorial",
+    "nutrition": "Nutrition",
+    "comments": "Comments",
+    "favorite": "Favorite",
+    "favorited": "Favorited",
+    "share": "Share",
+    "rating": "Rating",
+    "views": "Views",
+    "favorites": "Favorites",
+    "suitableFor": "Suitable For",
+    "efficacy": "Efficacy",
+    "solarTerm": "Solar Term"
+  },
+  "user": {
+    "profile": "Profile",
+    "favorites": "My Favorites",
+    "history": "History",
+    "settings": "Settings",
+    "language": "Language",
+    "about": "About Us",
+    "logout": "Logout",
+    "notLoggedIn": "Not Logged In",
+    "clickToLogin": "Click to Login"
+  },
+  "language": {
+    "zhCN": "Simplified Chinese",
+    "zhTW": "Traditional Chinese",
+    "en": "English"
+  },
+  "search": {
+    "placeholder": "Search recipes, ingredients, efficacy",
+    "history": "Search History",
+    "hot": "Hot Search",
+    "clear": "Clear History",
+    "noResult": "No recipes found",
+    "tryOther": "Try other keywords"
+  },
+  "comment": {
+    "title": "Comments",
+    "placeholder": "Share your experience...",
+    "submit": "Submit",
+    "reply": "Reply",
+    "like": "Like",
+    "noComments": "No comments yet, be the first to comment"
+  },
+  "error": {
+    "network": "Network connection failed, please check your network",
+    "server": "Server is busy, please try again later",
+    "notFound": "Content not found",
+    "unauthorized": "Please login first",
+    "forbidden": "Access forbidden"
+  }
+}

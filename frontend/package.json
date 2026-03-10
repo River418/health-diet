@@ -1,0 +1,54 @@
+{
+  "name": "health-diet-frontend",
+  "version": "1.0.0",
+  "description": "Health-Diet 食疗养生小程序前端",
+  "main": "index.js",
+  "scripts": {
+    "dev:weapp": "taro build --type weapp --watch",
+    "dev:tt": "taro build --type tt --watch",
+    "build:weapp": "taro build --type weapp",
+    "build:tt": "taro build --type tt",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
+  },
+  "keywords": [
+    "health",
+    "diet",
+    "recipe",
+    "miniprogram",
+    "taro"
+  ],
+  "author": "Health-Diet Team",
+  "license": "MIT",
+  "dependencies": {
+    "@tarojs/components": "3.6.23",
+    "@tarojs/helper": "3.6.23",
+    "@tarojs/plugin-framework-vue3": "3.6.23",
+    "@tarojs/runtime": "3.6.23",
+    "@tarojs/shared": "3.6.23",
+    "@tarojs/taro": "3.6.23",
+    "vue": "^3.3.8",
+    "pinia": "^2.1.7",
+    "vue-i18n": "^9.8.0"
+  },
+  "devDependencies": {
+    "@tarojs/cli": "3.6.23",
+    "@tarojs/webpack5-runner": "3.6.23",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "@vue/compiler-sfc": "^3.3.8",
+    "css-loader": "^6.8.1",
+    "eslint": "^8.54.0",
+    "eslint-config-taro": "3.6.23",
+    "eslint-plugin-vue": "^9.18.0",
+    "postcss": "^8.4.31",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "typescript": "^5.3.0",
+    "vue-loader": "^17.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

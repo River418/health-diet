@@ -1,0 +1,106 @@
+{
+  "app": {
+    "name": "Health-Diet",
+    "slogan": "科学食疗，健康生活"
+  },
+  "common": {
+    "loading": "加载中...",
+    "loadMore": "加载更多",
+    "noMore": "没有更多了",
+    "confirm": "确定",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "search": "搜索",
+    "back": "返回",
+    "close": "关闭",
+    "retry": "重试"
+  },
+  "disclaimer": {
+    "text": "食疗养生，不替代药物治疗。如有身体不适，请及时就医。"
+  },
+  "nav": {
+    "home": "首页",
+    "category": "分类",
+    "user": "我的"
+  },
+  "home": {
+    "searchPlaceholder": "搜索食疗配方、食材",
+    "kingKong": {
+      "elderly": "中老年养生",
+      "office": "白领调理",
+      "solar": "节气养生",
+      "blood": "补气养血",
+      "stomach": "健脾养胃",
+      "sleep": "安神助眠",
+      "beauty": "美容养颜",
+      "more": "更多分类"
+    },
+    "recommend": "推荐配方",
+    "hot": "热门配方",
+    "content": "养生资讯"
+  },
+  "category": {
+    "title": "分类浏览",
+    "crowd": "人群",
+    "solarTerm": "节气",
+    "efficacy": "功效",
+    "ingredient": "食材"
+  },
+  "recipe": {
+    "ingredients": "食材清单",
+    "steps": "制作步骤",
+    "video": "视频教程",
+    "nutrition": "营养分析",
+    "comments": "用户评论",
+    "favorite": "收藏",
+    "favorited": "已收藏",
+    "share": "分享",
+    "rating": "评分",
+    "views": "浏览",
+    "favorites": "收藏",
+    "suitableFor": "适用人群",
+    "efficacy": "功效",
+    "solarTerm": "节气"
+  },
+  "user": {
+    "profile": "个人资料",
+    "favorites": "我的收藏",
+    "history": "浏览历史",
+    "settings": "设置",
+    "language": "语言设置",
+    "about": "关于我们",
+    "logout": "退出登录",
+    "notLoggedIn": "未登录",
+    "clickToLogin": "点击登录"
+  },
+  "language": {
+    "zhCN": "简体中文",
+    "zhTW": "繁體中文",
+    "en": "English"
+  },
+  "search": {
+    "placeholder": "搜索食疗配方、食材、功效",
+    "history": "搜索历史",
+    "hot": "热门搜索",
+    "clear": "清除历史",
+    "noResult": "未找到相关配方",
+    "tryOther": "试试其他关键词"
+  },
+  "comment": {
+    "title": "评论",
+    "placeholder": "分享你的使用体验...",
+    "submit": "发表评论",
+    "reply": "回复",
+    "like": "点赞",
+    "noComments": "暂无评论，来发表第一条评论吧"
+  },
+  "error": {
+    "network": "网络连接失败，请检查网络后重试",
+    "server": "服务繁忙，请稍后再试",
+    "notFound": "内容不存在",
+    "unauthorized": "请先登录",
+    "forbidden": "无权限访问"
+  }
+}

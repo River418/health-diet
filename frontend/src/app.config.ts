@@ -1,0 +1,71 @@
+import { Config } from '@tarojs/taro'
+
+const config: Config = {
+  pages: [
+    'pages/index/index',
+    'pages/category/index',
+    'pages/recipe/detail/index',
+    'pages/user/index',
+    'pages/user/favorites/index',
+    'pages/user/history/index',
+    'pages/search/index'
+  ],
+  window: {
+    backgroundTextStyle: 'light',
+    navigationBarBackgroundColor: '#4CAF50',
+    navigationBarTitleText: 'Health-Diet',
+    navigationBarTextStyle: 'white'
+  },
+  tabBar: {
+    color: '#999999',
+    selectedColor: '#4CAF50',
+    backgroundColor: '#ffffff',
+    borderStyle: 'black',
+    list: [
+      {
+        pagePath: 'pages/index/index',
+        text: '首页',
+        iconPath: 'assets/icons/home.png',
+        selectedIconPath: 'assets/icons/home-active.png'
+      },
+      {
+        pagePath: 'pages/category/index',
+        text: '分类',
+        iconPath: 'assets/icons/category.png',
+        selectedIconPath: 'assets/icons/category-active.png'
+      },
+      {
+        pagePath: 'pages/user/index',
+        text: '我的',
+        iconPath: 'assets/icons/user.png',
+        selectedIconPath: 'assets/icons/user-active.png'
+      }
+    ]
+  },
+  subpackages: [
+    {
+      root: 'pages/recipe',
+      pages: [
+        'detail/index',
+        'list/index'
+      ]
+    },
+    {
+      root: 'pages/user',
+      pages: [
+        'favorites/index',
+        'history/index',
+        'settings/index'
+      ]
+    }
+  ],
+  permission: {
+    'scope.userLocation': {
+      desc: '您的位置信息将用于小程序位置接口的效果展示'
+    }
+  },
+  requiredBackgroundModes: ['audio'],
+  cloud: true
+}
+
+export default config

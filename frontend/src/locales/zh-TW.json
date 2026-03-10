@@ -1,0 +1,106 @@
+{
+  "app": {
+    "name": "Health-Diet",
+    "slogan": "科學食療，健康生活"
+  },
+  "common": {
+    "loading": "加載中...",
+    "loadMore": "加載更多",
+    "noMore": "沒有更多了",
+    "confirm": "確定",
+    "cancel": "取消",
+    "save": "保存",
+    "delete": "刪除",
+    "edit": "編輯",
+    "search": "搜索",
+    "back": "返回",
+    "close": "關閉",
+    "retry": "重試"
+  },
+  "disclaimer": {
+    "text": "食療養生，不替代藥物治療。如有身體不適，請及時就醫。"
+  },
+  "nav": {
+    "home": "首頁",
+    "category": "分類",
+    "user": "我的"
+  },
+  "home": {
+    "searchPlaceholder": "搜索食療配方、食材",
+    "kingKong": {
+      "elderly": "中老年養生",
+      "office": "白領調理",
+      "solar": "節氣養生",
+      "blood": "補氣養血",
+      "stomach": "健脾養胃",
+      "sleep": "安神助眠",
+      "beauty": "美容養顏",
+      "more": "更多分類"
+    },
+    "recommend": "推薦配方",
+    "hot": "熱門配方",
+    "content": "養生資訊"
+  },
+  "category": {
+    "title": "分類瀏覽",
+    "crowd": "人群",
+    "solarTerm": "節氣",
+    "efficacy": "功效",
+    "ingredient": "食材"
+  },
+  "recipe": {
+    "ingredients": "食材清單",
+    "steps": "製作步驟",
+    "video": "視頻教程",
+    "nutrition": "營養分析",
+    "comments": "用戶評論",
+    "favorite": "收藏",
+    "favorited": "已收藏",
+    "share": "分享",
+    "rating": "評分",
+    "views": "瀏覽",
+    "favorites": "收藏",
+    "suitableFor": "適用人群",
+    "efficacy": "功效",
+    "solarTerm": "節氣"
+  },
+  "user": {
+    "profile": "個人資料",
+    "favorites": "我的收藏",
+    "history": "瀏覽歷史",
+    "settings": "設置",
+    "language": "語言設置",
+    "about": "關於我們",
+    "logout": "退出登錄",
+    "notLoggedIn": "未登錄",
+    "clickToLogin": "點擊登錄"
+  },
+  "language": {
+    "zhCN": "簡體中文",
+    "zhTW": "繁體中文",
+    "en": "English"
+  },
+  "search": {
+    "placeholder": "搜索食療配方、食材、功效",
+    "history": "搜索歷史",
+    "hot": "熱門搜索",
+    "clear": "清除歷史",
+    "noResult": "未找到相關配方",
+    "tryOther": "試試其他關鍵詞"
+  },
+  "comment": {
+    "title": "評論",
+    "placeholder": "分享你的使用體驗...",
+    "submit": "發表評論",
+    "reply": "回復",
+    "like": "點贊",
+    "noComments": "暫無評論，來發表第一條評論吧"
+  },
+  "error": {
+    "network": "網絡連接失敗，請檢查網絡後重試",
+    "server": "服務繁忙，請稍後再試",
+    "notFound": "內容不存在",
+    "unauthorized": "請先登錄",
+    "forbidden": "無權限訪問"
+  }
+}
