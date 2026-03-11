@@ -11,11 +11,12 @@ const config = require('../config');
  * @returns {Object} - 标准化后的分页参数和可能的错误
  */
 function validatePagination(query) {
-  let page = parseInt(query.page);
+  // FIX: page 参数默认为 1，避免前端未传参时报错
+  let page = parseInt(query.page) || 1;
   let pageSize = parseInt(query.pageSize);
   
   // BUG-002 修复: 负数页码未校验 - page必须 >= 1
-  if (isNaN(page) || page < 1) {
+  if (page < 1) {
     return {
       error: {
         success: false,

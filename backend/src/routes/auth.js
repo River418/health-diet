@@ -40,23 +40,23 @@ router.post('/wechat/login', async (req, res) => {
     const { openid, session_key } = wxResponse.data;
     
     // 查询或创建用户
-    const [existingUsers] = await req.db.execute(
-      'SELECT id, nickname, avatar, language FROM users WHERE wx_openid = ?',
+    const existingUsersResult = await req.db.query(
+      'SELECT id, nickname, avatar, language FROM users WHERE wx_openid = $1',
       [openid]
     );
     
     let userId;
     let isNewUser = false;
     
-    if (existingUsers.length > 0) {
-      userId = existingUsers[0].id;
+    if (existingUsersResult.rows.length > 0) {
+      userId = existingUsersResult.rows[0].id;
     } else {
       // 创建新用户
-      const [result] = await req.db.execute(
-        'INSERT INTO users (wx_openid, nickname, avatar, language) VALUES (?, ?, ?, ?)',
+      const result = await req.db.query(
+        'INSERT INTO users (wx_openid, nickname, avatar, language) VALUES ($1, $2, $3, $4) RETURNING id',
         [openid, '微信用户', '/images/default-avatar.png', config.defaultLanguage]
       );
-      userId = result.insertId;
+      userId = result.rows[0].id;
       isNewUser = true;
     }
     
@@ -74,15 +74,15 @@ router.post('/wechat/login', async (req, res) => {
     );
     
     // 获取用户信息
-    const [users] = await req.db.execute(
-      'SELECT id, nickname, avatar, language FROM users WHERE id = ?',
+    const usersResult = await req.db.query(
+      'SELECT id, nickname, avatar, language FROM users WHERE id = $1',
       [userId]
     );
     
     res.json({
       success: true,
       data: {
-        user: users[0],
+        user: usersResult.rows[0],
         token,
         refreshToken,
         expiresIn: config.jwt.expiresIn,
@@ -135,23 +135,23 @@ router.post('/douyin/login', async (req, res) => {
     const { openid } = dyResponse.data.data;
     
     // 查询或创建用户
-    const [existingUsers] = await req.db.execute(
-      'SELECT id, nickname, avatar, language FROM users WHERE dy_openid = ?',
+    const existingUsersResult = await req.db.query(
+      'SELECT id, nickname, avatar, language FROM users WHERE dy_openid = $1',
       [openid]
     );
     
     let userId;
     let isNewUser = false;
     
-    if (existingUsers.length > 0) {
-      userId = existingUsers[0].id;
+    if (existingUsersResult.rows.length > 0) {
+      userId = existingUsersResult.rows[0].id;
     } else {
       // 创建新用户
-      const [result] = await req.db.execute(
-        'INSERT INTO users (dy_openid, nickname, avatar, language) VALUES (?, ?, ?, ?)',
+      const result = await req.db.query(
+        'INSERT INTO users (dy_openid, nickname, avatar, language) VALUES ($1, $2, $3, $4) RETURNING id',
         [openid, '抖音用户', '/images/default-avatar.png', config.defaultLanguage]
       );
-      userId = result.insertId;
+      userId = result.rows[0].id;
       isNewUser = true;
     }
     
@@ -169,15 +169,15 @@ router.post('/douyin/login', async (req, res) => {
     );
     
     // 获取用户信息
-    const [users] = await req.db.execute(
-      'SELECT id, nickname, avatar, language FROM users WHERE id = ?',
+    const usersResult = await req.db.query(
+      'SELECT id, nickname, avatar, language FROM users WHERE id = $1',
       [userId]
     );
     
     res.json({
       success: true,
       data: {
-        user: users[0],
+        user: usersResult.rows[0],
         token,
         refreshToken,
         expiresIn: config.jwt.expiresIn,

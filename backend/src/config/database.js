@@ -1,27 +1,23 @@
 /**
  * 数据库配置
- * PRD 技术约束: MySQL/PostgreSQL + Redis
+ * PRD 技术约束: PostgreSQL + Redis
  */
 
-const mysql = require('mysql2/promise');
+const { Pool } = require('pg');
 const redis = require('redis');
 
-// MySQL 配置
+// PostgreSQL 配置
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 3306,
-  user: process.env.DB_USER || 'root',
+  port: process.env.DB_PORT || 5432,
+  user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'health_diet',
-  charset: 'utf8mb4',
-  collation: 'utf8mb4_unicode_ci',
   // 连接池配置
-  pool: {
-    min: 5,
-    max: 20,
-    acquireTimeoutMillis: 30000,
-    idleTimeoutMillis: 30000
-  },
+  max: 20,
+  min: 5,
+  acquireTimeoutMillis: 30000,
+  idleTimeoutMillis: 30000,
   // 查询超时
   queryTimeout: 30000
 };
@@ -38,9 +34,19 @@ const redisConfig = {
   }
 };
 
-// 创建 MySQL 连接池
+// 创建 PostgreSQL 连接池
 const createPool = () => {
-  return mysql.createPool(dbConfig);
+  const pool = new Pool(dbConfig);
+  
+  pool.on('error', (err) => {
+    console.error('PostgreSQL Pool Error:', err);
+  });
+  
+  pool.on('connect', () => {
+    console.log('PostgreSQL Pool Connected');
+  });
+  
+  return pool;
 };
 
 // 创建 Redis 客户端
