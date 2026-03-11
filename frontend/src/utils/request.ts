@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'
 import { useUserStore } from '@/store/user'
 
-const BASE_URL = process.env.TARO_APP_API_URL || 'http://localhost:3000/api/v1'
+const BASE_URL = process.env.TARO_APP_API_URL || 'http://localhost:3001/api/v1'
 
 interface RequestOptions {
   url: string

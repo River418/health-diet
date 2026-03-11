@@ -53,6 +53,9 @@ const config = {
     publicPath: '/',
     staticDirectory: 'static',
     esnextModules: ['nutui-taro'],
+    router: {
+      mode: 'hash'
+    },
     postcss: {
       autoprefixer: {
         enable: true,
