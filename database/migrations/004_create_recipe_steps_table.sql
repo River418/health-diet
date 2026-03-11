@@ -1,16 +1,25 @@
 -- 步骤表 (recipe_steps)
 -- PRD 7.6.4
 CREATE TABLE IF NOT EXISTS recipe_steps (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '主键ID',
-    recipe_id BIGINT UNSIGNED NOT NULL COMMENT '配方ID',
-    step_order INT NOT NULL COMMENT '步骤序号',
-    description_zh_cn TEXT NOT NULL COMMENT '步骤说明(简中)',
-    description_zh_tw TEXT COMMENT '步骤说明(繁中)',
-    description_en TEXT COMMENT '步骤说明(英文)',
-    image VARCHAR(255) COMMENT '步骤图片',
+    id BIGSERIAL PRIMARY KEY,
+    recipe_id BIGINT NOT NULL,
+    step_order INTEGER NOT NULL,
+    description_zh_cn TEXT NOT NULL,
+    description_zh_tw TEXT,
+    description_en TEXT,
+    image VARCHAR(255),
     
-    INDEX idx_recipe_id (recipe_id),
-    INDEX idx_step_order (step_order),
-    
-    FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='配方步骤表';
+    CONSTRAINT fk_recipe_steps_recipe FOREIGN KEY (recipe_id) REFERENCES recipes(id) ON DELETE CASCADE
+);
+
+COMMENT ON TABLE recipe_steps IS '配方步骤表';
+COMMENT ON COLUMN recipe_steps.id IS '主键ID';
+COMMENT ON COLUMN recipe_steps.recipe_id IS '配方ID';
+COMMENT ON COLUMN recipe_steps.step_order IS '步骤序号';
+COMMENT ON COLUMN recipe_steps.description_zh_cn IS '步骤说明(简中)';
+COMMENT ON COLUMN recipe_steps.description_zh_tw IS '步骤说明(繁中)';
+COMMENT ON COLUMN recipe_steps.description_en IS '步骤说明(英文)';
+COMMENT ON COLUMN recipe_steps.image IS '步骤图片';
+
+CREATE INDEX idx_recipe_steps_recipe_id ON recipe_steps(recipe_id);
+CREATE INDEX idx_recipe_steps_step_order ON recipe_steps(step_order);

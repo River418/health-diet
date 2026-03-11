@@ -1,16 +1,26 @@
 -- 分类表 (categories)
 -- PRD 7.6.5
 CREATE TABLE IF NOT EXISTS categories (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY COMMENT '主键ID',
-    name_zh_cn VARCHAR(50) NOT NULL COMMENT '分类名称(简中)',
-    name_zh_tw VARCHAR(50) COMMENT '分类名称(繁中)',
-    name_en VARCHAR(50) COMMENT '分类名称(英文)',
-    type VARCHAR(20) NOT NULL COMMENT '类型: crowd/solar_term/efficacy/ingredient',
-    icon VARCHAR(255) COMMENT '图标URL',
-    sort_order INT NOT NULL DEFAULT 0 COMMENT '排序权重',
-    is_active TINYINT NOT NULL DEFAULT 1 COMMENT '是否启用: 0-禁用, 1-启用',
-    
-    INDEX idx_type (type),
-    INDEX idx_is_active (is_active),
-    INDEX idx_sort_order (sort_order)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='分类表';
+    id BIGSERIAL PRIMARY KEY,
+    name_zh_cn VARCHAR(50) NOT NULL,
+    name_zh_tw VARCHAR(50),
+    name_en VARCHAR(50),
+    type VARCHAR(20) NOT NULL,
+    icon VARCHAR(255),
+    sort_order INTEGER NOT NULL DEFAULT 0,
+    is_active SMALLINT NOT NULL DEFAULT 1
+);
+
+COMMENT ON TABLE categories IS '分类表';
+COMMENT ON COLUMN categories.id IS '主键ID';
+COMMENT ON COLUMN categories.name_zh_cn IS '分类名称(简中)';
+COMMENT ON COLUMN categories.name_zh_tw IS '分类名称(繁中)';
+COMMENT ON COLUMN categories.name_en IS '分类名称(英文)';
+COMMENT ON COLUMN categories.type IS '类型: crowd/solar_term/efficacy/ingredient';
+COMMENT ON COLUMN categories.icon IS '图标URL';
+COMMENT ON COLUMN categories.sort_order IS '排序权重';
+COMMENT ON COLUMN categories.is_active IS '是否启用: 0-禁用, 1-启用';
+
+CREATE INDEX idx_categories_type ON categories(type);
+CREATE INDEX idx_categories_is_active ON categories(is_active);
+CREATE INDEX idx_categories_sort_order ON categories(sort_order);
