@@ -1,6 +1,6 @@
 /**
  * Health-Diet 后端服务入口
- * PRD 技术栈: Node.js + Express + MySQL + Redis
+ * PRD 技术栈: Node.js + Express + PostgreSQL + Redis
  */
 
 const express = require('express');
@@ -32,9 +32,11 @@ const redisClient = createRedisClient();
 // 中间件
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: ['http://localhost:10086', 'http://localhost:10087', 'http://localhost:3000', 'http://192.168.2.248:10086', 'http://192.168.2.248:10087'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true,
+  optionsSuccessStatus: 204
 }));
 app.use(compression());
 
@@ -56,6 +58,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // 数据库连接中间件
 app.use((req, res, next) => {
+  // PostgreSQL: 提供 query 方法
   req.db = dbPool;
   req.redis = redisClient;
   next();
