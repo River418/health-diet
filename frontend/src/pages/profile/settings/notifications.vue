@@ -63,7 +63,7 @@ const toggleComment = (e: any) => {
 
 .notifications-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   padding-top: 16px;
   
   &__section {

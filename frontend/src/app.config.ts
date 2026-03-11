@@ -49,7 +49,7 @@ const config: Config = {
       ]
     },
     {
-      root: 'pages/user',
+      root: 'pages/profile',  // 改为 profile 避免与主包 pages/user 冲突
       pages: [
         'favorites/index',
         'history/index',

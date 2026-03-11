@@ -35,7 +35,7 @@
 
 .about-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   padding: 48px 16px;
   
   &__logo {

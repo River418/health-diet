@@ -76,7 +76,7 @@ const submitFeedback = () => {
 
 .help-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   padding: 16px;
   
   &__section {
@@ -90,7 +90,7 @@ const submitFeedback = () => {
       font-weight: $font-weight-medium;
       color: $text-secondary;
       padding: 12px 16px;
-      background: $bg-gray;
+      background: $bg-page;
     }
   }
   
@@ -108,7 +108,7 @@ const submitFeedback = () => {
       }
       
       &:active {
-        background: $bg-gray;
+        background: $bg-page;
       }
     }
     
@@ -130,7 +130,7 @@ const submitFeedback = () => {
   &__textarea {
     width: 100%;
     height: 120px;
-    background: $bg-gray;
+    background: $bg-page;
     border-radius: 8px;
     padding: 12px;
     font-size: 14px;

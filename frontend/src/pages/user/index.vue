@@ -1,8 +1,13 @@
 <template>
   <view class="user-page">
     <scroll-view scroll-y class="user-page__scroll">
-      <!-- 用户信息卡片 -->
+      <!-- 头部区域（渐变背景） -->
       <view class="user-page__header">
+        <!-- 装饰性圆形 -->
+        <view class="user-page__header-decoration user-page__header-decoration--1"></view>
+        <view class="user-page__header-decoration user-page__header-decoration--2"></view>
+        
+        <!-- 用户信息 -->
         <view class="user-page__user-card" @click="goToProfile">
           <view class="user-page__avatar-wrapper">
             <image
@@ -17,91 +22,137 @@
             </text>
             <text class="user-page__login-tip" @click.stop="handleLoginClick">
               {{ userStore.isLoggedIn ? $t('user.viewProfile') : $t('user.clickToLogin') }}
-              <text v-if="userStore.isLoggedIn" class="user-page__arrow">></text>
+              <text v-if="userStore.isLoggedIn" class="user-page__arrow">›</text>
             </text>
-          </view>
-        </view>
-        
-        <!-- 数据统计 -->
-        <view class="user-page__stats">
-          <view class="user-page__stat" @click="goToFavorites">
-            <text class="user-page__stat-icon">📋</text>
-            <text class="user-page__stat-label">{{ $t('user.favorites') }}</text>
-            <text class="user-page__stat-value">{{ stats.favorites }}</text>
-          </view>
-          <view class="user-page__stat" @click="goToHistory">
-            <text class="user-page__stat-icon">❤️</text>
-            <text class="user-page__stat-label">{{ $t('user.history') }}</text>
-            <text class="user-page__stat-value">{{ stats.history }}</text>
-          </view>
-          <view class="user-page__stat" @click="goToFollowing">
-            <text class="user-page__stat-icon">👁</text>
-            <text class="user-page__stat-label">{{ $t('user.following') }}</text>
-            <text class="user-page__stat-value">{{ stats.following }}</text>
           </view>
         </view>
       </view>
       
-      <!-- 功能设置 -->
+      <!-- 统计数据（悬浮卡片） -->
+      <view class="user-page__stats-card">
+        <view class="user-page__stat" @click="goToFavorites">
+          <text class="user-page__stat-value">{{ stats.favorites }}</text>
+          <text class="user-page__stat-label">{{ $t('user.favorites') }}</text>
+        </view>
+        <view class="user-page__stat-divider"></view>
+        <view class="user-page__stat" @click="goToHistory">
+          <text class="user-page__stat-value">{{ stats.history }}</text>
+          <text class="user-page__stat-label">{{ $t('user.history') }}</text>
+        </view>
+        <view class="user-page__stat-divider"></view>
+        <view class="user-page__stat" @click="goToFollowing">
+          <text class="user-page__stat-value">{{ stats.following }}</text>
+          <text class="user-page__stat-label">{{ $t('user.following') }}</text>
+        </view>
+      </view>
+      
+      <!-- 常用功能 -->
+      <view class="user-page__section">
+        <view class="user-page__section-title">{{ $t('user.commonFunctions') }}</view>
+        <view class="user-page__functions">
+          <view class="user-page__function" @click="goToMyRecipes">
+            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #81C784, #A5D6A7);">
+              <text>📝</text>
+            </view>
+            <text class="user-page__function-text">{{ $t('user.myRecipes') }}</text>
+          </view>
+          <view class="user-page__function" @click="goToMyReviews">
+            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #FFD54F, #FFE082);">
+              <text>⭐</text>
+            </view>
+            <text class="user-page__function-text">{{ $t('user.myReviews') }}</text>
+          </view>
+          <view class="user-page__function" @click="goToHealthData">
+            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #64B5F6, #90CAF9);">
+              <text>📊</text>
+            </view>
+            <text class="user-page__function-text">{{ $t('user.healthData') }}</text>
+          </view>
+          <view class="user-page__function" @click="goToMemberCenter">
+            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #F48FB1, #F8BBD9);">
+              <text>🎁</text>
+            </view>
+            <text class="user-page__function-text">{{ $t('user.memberCenter') }}</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 设置 -->
       <view class="user-page__section">
         <view class="user-page__section-title">{{ $t('user.settings') }}</view>
         <view class="user-page__list">
+          <view class="user-page__list-item" @click="goToNotifications">
+            <view class="user-page__list-icon-wrapper" style="background: #FFF3E0;">
+              <text class="user-page__list-icon">🔔</text>
+            </view>
+            <text class="user-page__list-text">{{ $t('user.notifications') }}</text>
+            <text class="user-page__list-arrow">›</text>
+          </view>
           <view class="user-page__list-item" @click="showLanguagePicker">
-            <text class="user-page__list-icon">🌐</text>
+            <view class="user-page__list-icon-wrapper" style="background: #E3F2FD;">
+              <text class="user-page__list-icon">🌐</text>
+            </view>
             <text class="user-page__list-text">{{ $t('user.language') }}</text>
             <text class="user-page__list-value">{{ currentLanguage }}</text>
-            <text class="user-page__list-arrow">></text>
-          </view>
-          <view class="user-page__list-item" @click="goToNotifications">
-            <text class="user-page__list-icon">🔔</text>
-            <text class="user-page__list-text">{{ $t('user.notifications') }}</text>
-            <text class="user-page__list-arrow">></text>
+            <text class="user-page__list-arrow">›</text>
           </view>
           <view class="user-page__list-item">
-            <text class="user-page__list-icon">👴</text>
+            <view class="user-page__list-icon-wrapper" style="background: #E8F5E9;">
+              <text class="user-page__list-icon">👁️</text>
+            </view>
             <text class="user-page__list-text">{{ $t('user.largeFont') }}</text>
             <switch
               class="user-page__list-switch"
               :checked="largeFont"
-              color="#4CAF50"
+              :color="$brand-primary"
               @change="toggleLargeFont"
             />
           </view>
           <view class="user-page__list-item">
-            <text class="user-page__list-icon">🌙</text>
+            <view class="user-page__list-icon-wrapper" style="background: #EDE7F6;">
+              <text class="user-page__list-icon">🌙</text>
+            </view>
             <text class="user-page__list-text">{{ $t('user.darkMode') }}</text>
             <switch
               class="user-page__list-switch"
               :checked="darkMode"
-              color="#4CAF50"
+              :color="$brand-primary"
               @change="toggleDarkMode"
             />
           </view>
         </view>
       </view>
       
-      <!-- 帮助与关于 -->
+      <!-- 帮助与反馈 -->
       <view class="user-page__section">
         <view class="user-page__list">
           <view class="user-page__list-item" @click="goToHelp">
-            <text class="user-page__list-icon">❓</text>
+            <view class="user-page__list-icon-wrapper" style="background: #FFF3E0;">
+              <text class="user-page__list-icon">❓</text>
+            </view>
             <text class="user-page__list-text">{{ $t('user.help') }}</text>
-            <text class="user-page__list-arrow">></text>
+            <text class="user-page__list-arrow">›</text>
           </view>
           <view class="user-page__list-item" @click="goToAbout">
-            <text class="user-page__list-icon">ℹ️</text>
+            <view class="user-page__list-icon-wrapper" style="background: #E3F2FD;">
+              <text class="user-page__list-icon">ℹ️</text>
+            </view>
             <text class="user-page__list-text">{{ $t('user.about') }}</text>
-            <text class="user-page__list-arrow">></text>
+            <text class="user-page__list-arrow">›</text>
           </view>
           <view class="user-page__list-item" @click="goToAgreement">
-            <text class="user-page__list-icon">📄</text>
+            <view class="user-page__list-icon-wrapper" style="background: #E8F5E9;">
+              <text class="user-page__list-icon">📄</text>
+            </view>
             <text class="user-page__list-text">{{ $t('user.agreement') }}</text>
-            <text class="user-page__list-arrow">></text>
+            <text class="user-page__list-arrow">›</text>
           </view>
           <view class="user-page__list-item" @click="goToPrivacy">
-            <text class="user-page__list-icon">🔒</text>
+            <view class="user-page__list-icon-wrapper" style="background: #FCE4EC;">
+              <text class="user-page__list-icon">🔒</text>
+            </view>
             <text class="user-page__list-text">{{ $t('user.privacy') }}</text>
-            <text class="user-page__list-arrow">></text>
+            <text class="user-page__list-arrow">›</text>
           </view>
         </view>
       </view>
@@ -111,14 +162,13 @@
       
       <!-- 退出登录 -->
       <view v-if="userStore.isLoggedIn" class="user-page__logout">
-        <hd-button
-          type="danger"
-          size="large"
-          block
-          :text="$t('user.logout')"
-          @click="handleLogout"
-        />
+        <view class="user-page__logout-btn" @click="handleLogout">
+          <text class="user-page__logout-text">{{ $t('user.logout') }}</text>
+        </view>
       </view>
+      
+      <!-- 底部占位 -->
+      <view class="user-page__bottom-placeholder"></view>
     </scroll-view>
     
     <!-- 语言选择弹窗 -->
@@ -155,8 +205,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
-import HdButton from '@/components/common/HdButton.vue'
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/stores/user'
 
 const { t: $t, locale } = useI18n()
 const userStore = useUserStore()
@@ -181,9 +230,9 @@ const currentLanguage = computed(() => {
 })
 
 const stats = ref({
-  favorites: 0,
-  history: 0,
-  following: 0
+  favorites: 12,
+  history: 58,
+  following: 6
 })
 
 // 获取用户统计
@@ -194,8 +243,8 @@ const fetchUserStats = async () => {
     // TODO: 调用API获取统计数据
     stats.value = {
       favorites: 12,
-      history: 28,
-      following: 5
+      history: 58,
+      following: 6
     }
   } catch (error) {
     console.error('获取用户统计失败', error)
@@ -220,7 +269,7 @@ const goToProfile = () => {
     return
   }
   Taro.navigateTo({
-    url: '/pages/user/profile/index'
+    url: '/pages/profile/profile/index'
   })
 }
 
@@ -233,7 +282,7 @@ const goToFavorites = () => {
     return
   }
   Taro.navigateTo({
-    url: '/pages/user/favorites/index'
+    url: '/pages/profile/favorites/index'
   })
 }
 
@@ -246,7 +295,7 @@ const goToHistory = () => {
     return
   }
   Taro.navigateTo({
-    url: '/pages/user/history/index'
+    url: '/pages/profile/history/index'
   })
 }
 
@@ -256,6 +305,39 @@ const goToFollowing = () => {
     title: '敬请期待',
     icon: 'none'
   })
+}
+
+// 常用功能
+const goToMyRecipes = () => {
+  if (!userStore.isLoggedIn) {
+    Taro.navigateTo({ url: '/pages/login/index' })
+    return
+  }
+  Taro.showToast({ title: '功能开发中', icon: 'none' })
+}
+
+const goToMyReviews = () => {
+  if (!userStore.isLoggedIn) {
+    Taro.navigateTo({ url: '/pages/login/index' })
+    return
+  }
+  Taro.showToast({ title: '功能开发中', icon: 'none' })
+}
+
+const goToHealthData = () => {
+  if (!userStore.isLoggedIn) {
+    Taro.navigateTo({ url: '/pages/login/index' })
+    return
+  }
+  Taro.showToast({ title: '功能开发中', icon: 'none' })
+}
+
+const goToMemberCenter = () => {
+  if (!userStore.isLoggedIn) {
+    Taro.navigateTo({ url: '/pages/login/index' })
+    return
+  }
+  Taro.showToast({ title: '功能开发中', icon: 'none' })
 }
 
 // 显示语言选择
@@ -284,7 +366,7 @@ const selectLanguage = (code: string) => {
 // 跳转到通知设置
 const goToNotifications = () => {
   Taro.navigateTo({
-    url: '/pages/user/settings/notifications'
+    url: '/pages/profile/settings/notifications'
   })
 }
 
@@ -305,28 +387,28 @@ const toggleDarkMode = (e: any) => {
 // 跳转到帮助
 const goToHelp = () => {
   Taro.navigateTo({
-    url: '/pages/user/help/index'
+    url: '/pages/profile/help/index'
   })
 }
 
 // 跳转到关于
 const goToAbout = () => {
   Taro.navigateTo({
-    url: '/pages/user/about/index'
+    url: '/pages/profile/about/index'
   })
 }
 
 // 跳转到用户协议
 const goToAgreement = () => {
   Taro.navigateTo({
-    url: '/pages/user/agreement/index'
+    url: '/pages/profile/agreement/index'
   })
 }
 
 // 跳转到隐私政策
 const goToPrivacy = () => {
   Taro.navigateTo({
-    url: '/pages/user/privacy/index'
+    url: '/pages/profile/privacy/index'
   })
 }
 
@@ -361,33 +443,58 @@ onMounted(() => {
 
 .user-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   
   &__scroll {
     min-height: 100vh;
-    padding-bottom: 32px;
   }
   
+  // 头部区域（渐变背景）
   &__header {
-    background: linear-gradient(135deg, $brand-primary, $brand-dark);
-    padding: 24px 16px;
-    margin-bottom: 16px;
+    position: relative;
+    background: linear-gradient(135deg, $brand-primary 0%, $brand-light 100%);
+    padding: $spacing-xxxl $spacing-lg $spacing-xxl;
+    overflow: hidden;
+    
+    // 装饰性圆形
+    &-decoration {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      
+      &--1 {
+        width: 150px;
+        height: 150px;
+        top: -50px;
+        right: -30px;
+      }
+      
+      &--2 {
+        width: 100px;
+        height: 100px;
+        bottom: 20px;
+        left: -20px;
+      }
+    }
   }
   
+  // 用户信息卡片
   &__user-card {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: $spacing-md;
+    position: relative;
+    z-index: 1;
   }
   
   &__avatar-wrapper {
     width: 72px;
     height: 72px;
     border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     overflow: hidden;
+    background: rgba(255, 255, 255, 0.3);
   }
   
   &__avatar {
@@ -400,111 +507,174 @@ onMounted(() => {
   }
   
   &__nickname {
-    font-size: 20px;
+    font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     color: #fff;
-    margin-bottom: 4px;
+    margin-bottom: $spacing-xs;
     display: block;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
   
   &__login-tip {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.9);
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: $spacing-xs;
   }
   
   &__arrow {
-    font-size: 14px;
+    font-size: $font-size-lg;
+    opacity: 0.8;
   }
   
-  &__stats {
+  // 统计数据（悬浮卡片）
+  &__stats-card {
     display: flex;
+    align-items: center;
     justify-content: space-around;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    padding: 16px 0;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    margin: -$spacing-lg $spacing-lg $spacing-lg;
+    padding: $spacing-lg 0;
+    box-shadow: $shadow-card;
+    position: relative;
+    z-index: 2;
   }
   
   &__stat {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: $spacing-xs;
+    flex: 1;
     cursor: pointer;
     
     &:active {
       opacity: 0.7;
     }
     
-    &-icon {
-      font-size: 24px;
+    &-value {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $brand-primary;
+      font-family: $font-family-number;
     }
     
     &-label {
-      font-size: 12px;
-      color: rgba(255, 255, 255, 0.8);
+      font-size: $font-size-xs;
+      color: $text-tertiary;
     }
     
-    &-value {
-      font-size: 20px;
-      font-weight: $font-weight-bold;
-      color: #fff;
+    &-divider {
+      width: 1px;
+      height: 30px;
+      background: $border-color;
     }
   }
   
+  // 区块样式
   &__section {
-    background: #fff;
-    margin: 0 16px 16px;
-    border-radius: 12px;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    margin: 0 $spacing-lg $spacing-md;
     overflow: hidden;
+    box-shadow: $shadow-card;
     
     &-title {
-      font-size: 14px;
+      font-size: $font-size-sm;
       font-weight: $font-weight-medium;
       color: $text-tertiary;
-      padding: 12px 16px;
-      background: $bg-gray;
+      padding: $spacing-md $spacing-lg;
+      background: $bg-page;
     }
   }
   
+  // 常用功能
+  &__functions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-md;
+    padding: $spacing-lg;
+  }
+  
+  &__function {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-sm;
+    cursor: pointer;
+    
+    &:active {
+      opacity: 0.7;
+      transform: scale(0.95);
+      transition: all $duration-fast $ease-standard;
+    }
+    
+    &-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: $shadow-level-1;
+    }
+    
+    &-text {
+      font-size: $font-size-xs;
+      color: $text-primary;
+    }
+  }
+  
+  // 列表样式
   &__list {
     &-item {
       display: flex;
       align-items: center;
       height: 56px;
-      padding: 0 16px;
-      border-bottom: 1px solid $bg-divider;
+      padding: 0 $spacing-lg;
+      border-bottom: 1px solid $border-color;
+      cursor: pointer;
       
       &:last-child {
         border-bottom: none;
       }
       
       &:active {
-        background: $bg-gray;
+        background: $bg-hover;
       }
     }
     
+    &-icon-wrapper {
+      width: 32px;
+      height: 32px;
+      border-radius: $radius-md;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: $spacing-md;
+    }
+    
     &-icon {
-      font-size: 20px;
-      margin-right: 12px;
+      font-size: 18px;
     }
     
     &-text {
       flex: 1;
-      font-size: 15px;
+      font-size: $font-size-base;
       color: $text-primary;
     }
     
     &-value {
-      font-size: 14px;
+      font-size: $font-size-sm;
       color: $text-tertiary;
-      margin-right: 8px;
+      margin-right: $spacing-xs;
     }
     
     &-arrow {
-      font-size: 16px;
+      font-size: $font-size-lg;
       color: $text-tertiary;
     }
     
@@ -513,14 +683,41 @@ onMounted(() => {
     }
   }
   
+  // 免责声明
   &__disclaimer {
-    margin: 0 16px 16px;
+    margin: 0 $spacing-lg $spacing-md;
   }
   
+  // 退出登录
   &__logout {
-    margin: 0 16px;
+    margin: 0 $spacing-lg $spacing-lg;
+    
+    &-btn {
+      height: $btn-height-lg;
+      background: $bg-card;
+      border: 1px solid $error;
+      border-radius: $radius-full;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &:active {
+        background: rgba(244, 67, 54, 0.05);
+      }
+    }
+    
+    &-text {
+      font-size: $font-size-base;
+      font-weight: $font-weight-medium;
+      color: $error;
+    }
   }
   
+  &__bottom-placeholder {
+    height: $spacing-lg;
+  }
+  
+  // 语言选择弹窗
   &__modal {
     position: fixed;
     top: 0;
@@ -534,28 +731,28 @@ onMounted(() => {
     justify-content: flex-end;
     
     &-content {
-      background: #fff;
-      border-radius: 16px 16px 0 0;
-      padding-bottom: env(safe-area-inset-bottom);
+      background: $bg-card;
+      border-radius: $radius-xl $radius-xl 0 0;
+      padding-bottom: $safe-area-bottom;
     }
     
     &-header {
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 16px;
+      padding: $spacing-lg;
     }
     
     &-indicator {
       width: 36px;
       height: 4px;
-      background: #ddd;
+      background: $border-color;
       border-radius: 2px;
-      margin-bottom: 16px;
+      margin-bottom: $spacing-md;
     }
     
     &-title {
-      font-size: 16px;
+      font-size: $font-size-lg;
       font-weight: $font-weight-medium;
       color: $text-primary;
     }
@@ -570,37 +767,47 @@ onMounted(() => {
       align-items: center;
       justify-content: space-between;
       height: 56px;
-      padding: 0 16px;
+      padding: 0 $spacing-lg;
+      cursor: pointer;
       
       &.is-active {
-        background: $bg-gray;
+        background: $bg-hover;
+      }
+      
+      &:active {
+        background: $bg-hover;
       }
       
       &-text {
-        font-size: 15px;
+        font-size: $font-size-base;
         color: $text-primary;
       }
       
       &-check {
-        font-size: 20px;
+        font-size: $font-size-lg;
         color: $brand-primary;
       }
     }
     
     &-footer {
-      padding: 8px 16px 16px;
+      padding: $spacing-sm $spacing-lg $spacing-lg;
     }
     
     &-cancel {
-      height: 48px;
+      height: $btn-height-lg;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $bg-gray;
-      border-radius: 8px;
+      background: $bg-hover;
+      border-radius: $radius-lg;
+      cursor: pointer;
+      
+      &:active {
+        background: $bg-divider;
+      }
       
       &-text {
-        font-size: 15px;
+        font-size: $font-size-base;
         color: $text-primary;
       }
     }

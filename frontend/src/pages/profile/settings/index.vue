@@ -101,7 +101,7 @@ const currentLanguage = computed(() => {
 // 跳转到个人资料
 const goToProfile = () => {
   Taro.navigateTo({
-    url: '/pages/user/profile/index'
+    url: '/pages/profile/profile/index'
   })
 }
 
@@ -125,14 +125,14 @@ const goToLanguage = () => {
 // 跳转到通知设置
 const goToNotifications = () => {
   Taro.navigateTo({
-    url: '/pages/user/settings/notifications'
+    url: '/pages/profile/settings/notifications'
   })
 }
 
 // 跳转到适老化设置
 const goToAccessibility = () => {
   Taro.navigateTo({
-    url: '/pages/user/settings/accessibility'
+    url: '/pages/profile/settings/accessibility'
   })
 }
 
@@ -146,28 +146,28 @@ const viewOnboarding = () => {
 // 跳转到帮助
 const goToHelp = () => {
   Taro.navigateTo({
-    url: '/pages/user/help/index'
+    url: '/pages/profile/help/index'
   })
 }
 
 // 跳转到关于
 const goToAbout = () => {
   Taro.navigateTo({
-    url: '/pages/user/about/index'
+    url: '/pages/profile/about/index'
   })
 }
 
 // 跳转到用户协议
 const goToAgreement = () => {
   Taro.navigateTo({
-    url: '/pages/user/agreement/index'
+    url: '/pages/profile/agreement/index'
   })
 }
 
 // 跳转到隐私政策
 const goToPrivacy = () => {
   Taro.navigateTo({
-    url: '/pages/user/privacy/index'
+    url: '/pages/profile/privacy/index'
   })
 }
 
@@ -201,7 +201,7 @@ const handleLogout = () => {
 
 .settings-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   padding: 16px 0;
   
   &__section {
@@ -230,7 +230,7 @@ const handleLogout = () => {
       padding: 0 16px;
       
       &:active {
-        background: $bg-gray;
+        background: $bg-page;
       }
       
       &:not(:last-child) {
@@ -279,7 +279,7 @@ const handleLogout = () => {
     height: 56px;
     
     &:active {
-      background: $bg-gray;
+      background: $bg-page;
     }
     
     &-text {

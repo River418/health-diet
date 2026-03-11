@@ -180,7 +180,7 @@ onMounted(() => {
 
 .history-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   display: flex;
   flex-direction: column;
   
@@ -203,7 +203,7 @@ onMounted(() => {
     border-bottom: 1px solid $bg-divider;
     
     &:active {
-      background: $bg-gray;
+      background: $bg-page;
     }
   }
   
@@ -212,7 +212,7 @@ onMounted(() => {
     height: 60px;
     border-radius: 8px;
     margin-right: 12px;
-    background: $bg-gray;
+    background: $bg-page;
   }
   
   &__info {

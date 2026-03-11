@@ -215,7 +215,7 @@ const testVoice = () => {
 
 .accessibility-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   padding-bottom: 32px;
   
   // 大字体模式
@@ -328,7 +328,7 @@ const testVoice = () => {
   }
   
   &__font-preview {
-    background: $bg-gray;
+    background: $bg-page;
     border-radius: $radius-md;
     padding: 20px;
     margin-bottom: 16px;
@@ -348,7 +348,7 @@ const testVoice = () => {
   
   &__font-option {
     flex: 1;
-    background: $bg-gray;
+    background: $bg-page;
     border-radius: $radius-md;
     padding: 16px;
     display: flex;

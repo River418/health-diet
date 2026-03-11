@@ -114,7 +114,7 @@ onMounted(() => {
 
 .profile-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   padding-top: 16px;
   
   &__section {
@@ -132,7 +132,7 @@ onMounted(() => {
     border-bottom: 1px solid $bg-divider;
     
     &:active {
-      background: $bg-gray;
+      background: $bg-page;
     }
   }
   
@@ -148,7 +148,7 @@ onMounted(() => {
     }
     
     &:active {
-      background: $bg-gray;
+      background: $bg-page;
     }
   }
   
@@ -177,7 +177,7 @@ onMounted(() => {
     width: 56px;
     height: 56px;
     border-radius: 50%;
-    background: $bg-gray;
+    background: $bg-page;
   }
   
   &__arrow {
