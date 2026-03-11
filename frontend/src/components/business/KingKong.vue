@@ -8,7 +8,7 @@
     >
       <view
         class="kingkong__icon"
-        :style="{ backgroundColor: item.bgColor }"
+        :style="{ background: item.gradient }"
       >
         <text class="kingkong__icon-text">{{ item.icon }}</text>
       </view>
@@ -26,7 +26,7 @@ const { t } = useI18n()
 interface KingKongItem {
   icon: string
   name: string
-  bgColor: string
+  gradient: string
   path: string
   query?: Record<string, string>
 }
@@ -35,56 +35,56 @@ const items = computed<KingKongItem[]>(() => [
   {
     icon: '🧓',
     name: t('home.kingKong.elderly'),
-    bgColor: '#E8F5E9',
+    gradient: 'linear-gradient(135deg, #FF8C42, #FFB74D)',
     path: '/pages/recipe/list/index',
     query: { crowd: 'elderly' }
   },
   {
     icon: '💼',
     name: t('home.kingKong.office'),
-    bgColor: '#E3F2FD',
+    gradient: 'linear-gradient(135deg, #64B5F6, #90CAF9)',
     path: '/pages/recipe/list/index',
     query: { crowd: 'office' }
   },
   {
     icon: '🌸',
     name: t('home.kingKong.solar'),
-    bgColor: '#FFF3E0',
+    gradient: 'linear-gradient(135deg, #FFD54F, #FFE082)',
     path: '/pages/category/index',
     query: { tab: 'solar' }
   },
   {
     icon: '🩸',
     name: t('home.kingKong.blood'),
-    bgColor: '#FCE4EC',
+    gradient: 'linear-gradient(135deg, #F48FB1, #F8BBD9)',
     path: '/pages/recipe/list/index',
     query: { efficacy: 'blood' }
   },
   {
     icon: '🍚',
     name: t('home.kingKong.stomach'),
-    bgColor: '#E8F5E9',
+    gradient: 'linear-gradient(135deg, #81C784, #A5D6A7)',
     path: '/pages/recipe/list/index',
     query: { efficacy: 'stomach' }
   },
   {
     icon: '🌙',
     name: t('home.kingKong.sleep'),
-    bgColor: '#EDE7F6',
+    gradient: 'linear-gradient(135deg, #9575CD, #B39DDB)',
     path: '/pages/recipe/list/index',
     query: { efficacy: 'sleep' }
   },
   {
     icon: '✨',
     name: t('home.kingKong.beauty'),
-    bgColor: '#FCE4EC',
+    gradient: 'linear-gradient(135deg, #F06292, #F48FB1)',
     path: '/pages/recipe/list/index',
     query: { efficacy: 'beauty' }
   },
   {
     icon: '➕',
     name: t('home.kingKong.more'),
-    bgColor: '#F5F5F5',
+    gradient: 'linear-gradient(135deg, #E0E0E0, #F5F5F5)',
     path: '/pages/category/index'
   }
 ])
@@ -104,11 +104,11 @@ const handleClick = (item: KingKongItem) => {
 .kingkong {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  padding: 16px;
-  background: #fff;
-  border-radius: 12px;
-  margin: 0 16px 16px;
+  gap: $spacing-md;
+  padding: $spacing-lg;
+  background: $bg-card;
+  border-radius: $radius-lg;
+  margin: 0 $spacing-lg $spacing-md;
   
   &__item {
     display: flex;
@@ -118,17 +118,20 @@ const handleClick = (item: KingKongItem) => {
     
     &:active {
       opacity: 0.7;
+      transform: scale(0.95);
+      transition: all $duration-fast $ease-standard;
     }
   }
   
   &__icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
+    width: $icon-size-xl;
+    height: $icon-size-xl;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: $spacing-sm;
+    box-shadow: $shadow-level-1;
     
     &-text {
       font-size: 28px;
@@ -136,8 +139,10 @@ const handleClick = (item: KingKongItem) => {
   }
   
   &__text {
-    font-size: 13px;
+    font-size: $font-size-xs;
     color: $text-primary;
+    text-align: center;
+    line-height: $line-height-tight;
   }
 }
 </style>

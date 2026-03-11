@@ -1,56 +1,54 @@
 <template>
-  <button
+  <view 
     class="hd-btn"
     :class="[
       `hd-btn--${type}`,
       `hd-btn--${size}`,
-      {
-        'hd-btn--disabled': disabled || loading,
-        'hd-btn--block': block
+      { 
+        'hd-btn--block': block,
+        'hd-btn--disabled': disabled,
+        'hd-btn--loading': loading
       }
     ]"
-    :disabled="disabled || loading"
+    :style="customStyle"
     @click="handleClick"
   >
-    <view v-if="loading" class="hd-btn__loading">
-      <view class="hd-btn__loading-spinner"></view>
-    </view>
-    <view v-else-if="icon" class="hd-btn__icon">
-      <text class="hd-btn__icon-text">{{ icon }}</text>
-    </view>
-    <text class="hd-btn__text">
-      <slot>{{ text }}</slot>
-    </text>
-  </button>
+    <text v-if="loading" class="hd-btn__loading"></text>
+    <text class="hd-btn__text">{{ text }}</text>
+  </view>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
+type ButtonType = 'primary' | 'secondary' | 'outline' | 'text' | 'danger'
+type ButtonSize = 'small' | 'medium' | 'large'
+
 interface Props {
-  type?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'text' | 'danger'
-  size?: 'small' | 'medium' | 'large' | 'xlarge'
+  text: string
+  type?: ButtonType
+  size?: ButtonSize
+  block?: boolean
   disabled?: boolean
   loading?: boolean
-  block?: boolean
-  icon?: string
-  text?: string
+  customStyle?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'primary',
   size: 'medium',
+  block: false,
   disabled: false,
-  loading: false,
-  block: false
+  loading: false
 })
 
 const emit = defineEmits<{
-  click: [event: Event]
+  click: []
 }>()
 
-const handleClick = (event: Event) => {
-  if (!props.disabled && !props.loading) {
-    emit('click', event)
-  }
+const handleClick = () => {
+  if (props.disabled || props.loading) return
+  emit('click')
 }
 </script>
 
@@ -61,141 +59,118 @@ const handleClick = (event: Event) => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: none;
-  border-radius: $radius-md;
+  border-radius: $radius-full;
   font-weight: $font-weight-medium;
-  transition: all 0.2s ease;
-  background: transparent;
+  transition: all $duration-fast $ease-standard;
+  cursor: pointer;
   
-  &::after {
-    border: none;
+  &:active:not(&--disabled):not(&--loading) {
+    transform: scale(0.98);
   }
   
-  &:active {
-    transform: scale(0.98);
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  &--loading {
+    cursor: not-allowed;
   }
   
   // 尺寸
   &--small {
-    height: 32px;
-    padding: 0 16px;
+    height: $btn-height-sm;
+    padding: 0 $spacing-lg;
     font-size: $font-size-sm;
   }
   
   &--medium {
-    height: 44px;
-    padding: 0 24px;
+    height: $btn-height-md;
+    padding: 0 $spacing-xl;
     font-size: $font-size-base;
   }
   
   &--large {
-    height: 52px;
-    padding: 0 32px;
-    font-size: $font-size-lg;
+    height: $btn-height-lg;
+    padding: 0 $spacing-xxl;
+    font-size: $font-size-md;
   }
   
-  &--xlarge {
-    height: 56px;
-    padding: 0 40px;
-    font-size: 17px;
-  }
-  
-  // 类型
-  &--primary {
-    background-color: $brand-primary;
-    color: #fff;
-    
-    &:active {
-      background-color: $brand-dark;
-    }
-  }
-  
-  &--secondary {
-    background-color: $brand-light;
-    color: $brand-primary;
-    
-    &:active {
-      background-color: darken($brand-light, 5%);
-    }
-  }
-  
-  &--outline {
-    background-color: transparent;
-    border: 1px solid $brand-primary;
-    color: $brand-primary;
-    
-    &:active {
-      background-color: $brand-light;
-    }
-  }
-  
-  &--ghost {
-    background-color: transparent;
-    color: $brand-primary;
-    
-    &:active {
-      background-color: rgba($brand-primary, 0.1);
-    }
-  }
-  
-  &--text {
-    background-color: transparent;
-    color: $brand-primary;
-    padding: 0;
-    height: auto;
-    
-    &:active {
-      opacity: 0.7;
-    }
-  }
-  
-  &--danger {
-    background-color: $error;
-    color: #fff;
-    
-    &:active {
-      background-color: darken($error, 10%);
-    }
-  }
-  
-  // 禁用状态
-  &--disabled {
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  
-  // 块级按钮
+  // 块级
   &--block {
     width: 100%;
   }
   
-  // 图标
-  &__icon {
-    margin-right: 8px;
-    display: flex;
-    align-items: center;
+  // 类型
+  &--primary {
+    background: $brand-primary;
+    color: #fff;
+    box-shadow: $shadow-brand;
     
-    &-text {
-      font-size: 24px;
+    &:active:not(&--disabled):not(&--loading) {
+      background: $brand-dark;
+    }
+  }
+  
+  &--secondary {
+    background: $brand-primary-10;
+    color: $brand-primary;
+    
+    &:active:not(&--disabled):not(&--loading) {
+      background: $brand-primary-20;
+    }
+  }
+  
+  &--outline {
+    background: transparent;
+    border: 1px solid $brand-primary;
+    color: $brand-primary;
+    
+    &:active:not(&--disabled):not(&--loading) {
+      background: $brand-primary-10;
+    }
+  }
+  
+  &--text {
+    background: transparent;
+    color: $brand-primary;
+    padding: 0;
+    height: auto;
+    
+    &:active:not(&--disabled):not(&--loading) {
+      color: $brand-dark;
+    }
+  }
+  
+  &--danger {
+    background: $error;
+    color: #fff;
+    
+    &:active:not(&--disabled):not(&--loading) {
+      opacity: 0.8;
     }
   }
   
   // 加载动画
   &__loading {
-    margin-right: 8px;
-    
-    &-spinner {
-      width: 16px;
-      height: 16px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: hd-btn-spin 0.8s linear infinite;
-    }
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: btn-loading 1s linear infinite;
+    margin-right: $spacing-xs;
+  }
+  
+  &__text {
+    line-height: 1;
   }
 }
 
-@keyframes hd-btn-spin {
+@keyframes btn-loading {
+  from {
+    transform: rotate(0deg);
+  }
   to {
     transform: rotate(360deg);
   }

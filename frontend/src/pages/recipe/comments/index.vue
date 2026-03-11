@@ -230,7 +230,7 @@ onMounted(() => {
 
 .comments-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   display: flex;
   flex-direction: column;
   
@@ -258,7 +258,7 @@ onMounted(() => {
     height: 40px;
     border-radius: 50%;
     margin-right: 12px;
-    background: $bg-gray;
+    background: $bg-page;
   }
   
   &__content {
@@ -300,7 +300,7 @@ onMounted(() => {
     width: 80px;
     height: 80px;
     border-radius: 8px;
-    background: $bg-gray;
+    background: $bg-page;
   }
   
   &__footer {
@@ -353,7 +353,7 @@ onMounted(() => {
   &__input-wrapper {
     flex: 1;
     height: 40px;
-    background: $bg-gray;
+    background: $bg-page;
     border-radius: 20px;
     display: flex;
     align-items: center;

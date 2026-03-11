@@ -138,14 +138,14 @@ const handleBack = () => {
 // 打开用户协议
 const openAgreement = () => {
   Taro.navigateTo({
-    url: '/pages/user/agreement/index'
+    url: '/pages/profile/agreement/index'
   })
 }
 
 // 打开隐私政策
 const openPrivacy = () => {
   Taro.navigateTo({
-    url: '/pages/user/privacy/index'
+    url: '/pages/profile/privacy/index'
   })
 }
 </script>

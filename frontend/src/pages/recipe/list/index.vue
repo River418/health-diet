@@ -183,7 +183,7 @@ onMounted(() => {
 
 .recipe-list-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   display: flex;
   flex-direction: column;
   

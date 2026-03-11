@@ -22,22 +22,29 @@
           :duration="300"
           indicator-color="rgba(255,255,255,0.5)"
           indicator-active-color="#ffffff"
+          :circular="true"
         >
           <swiper-item
             v-for="(banner, index) in banners"
             :key="index"
             @click="handleBannerClick(banner)"
           >
-            <image
-              class="home-page__banner-image"
-              :src="banner.image"
-              mode="aspectFill"
-            />
+            <view class="home-page__banner-item">
+              <image
+                class="home-page__banner-image"
+                :src="banner.image"
+                mode="aspectFill"
+              />
+              <view class="home-page__banner-overlay">
+                <text class="home-page__banner-title">{{ banner.title }}</text>
+                <text v-if="banner.subtitle" class="home-page__banner-subtitle">{{ banner.subtitle }}</text>
+              </view>
+            </view>
           </swiper-item>
         </swiper>
       </view>
       
-      <!-- 金刚位 -->
+      <!-- 金刚位分类入口 -->
       <king-kong @click="handleKingKongClick" />
       
       <!-- 推荐配方 -->
@@ -45,17 +52,20 @@
         <view class="home-page__section-header">
           <text class="home-page__section-title">{{ $t('home.recommend') }}</text>
           <text class="home-page__section-more" @click="goToMoreRecipes">
-            {{ $t('common.more') }} >
+            {{ $t('common.more') }}
+            <text class="home-page__section-more-icon">></text>
           </text>
         </view>
-        <view class="home-page__recipe-grid">
-          <recipe-card
-            v-for="recipe in recommendRecipes"
-            :key="recipe.id"
-            :recipe="recipe"
-            @click="goToRecipeDetail"
-          />
-        </view>
+        <scroll-view scroll-x class="home-page__recipe-scroll" show-scrollbar="false">
+          <view class="home-page__recipe-list">
+            <recipe-card-horizontal
+              v-for="recipe in recommendRecipes"
+              :key="recipe.id"
+              :recipe="recipe"
+              @click="goToRecipeDetail"
+            />
+          </view>
+        </scroll-view>
       </view>
       
       <!-- 养生资讯 -->
@@ -63,28 +73,28 @@
         <view class="home-page__section-header">
           <text class="home-page__section-title">{{ $t('home.content') }}</text>
           <text class="home-page__section-more" @click="goToMoreContent">
-            {{ $t('common.more') }} >
+            {{ $t('common.more') }}
+            <text class="home-page__section-more-icon">></text>
           </text>
         </view>
-        <view class="home-page__content-grid">
+        <view class="home-page__content-list">
           <view
             v-for="(item, index) in contentList"
             :key="index"
             class="home-page__content-item"
             @click="goToContentDetail(item)"
           >
-            <view class="home-page__content-image-wrapper">
-              <image
-                class="home-page__content-image"
-                :src="item.image"
-                mode="widthFix"
-              />
-              <view v-if="item.isVideo" class="home-page__content-play">
-                <text class="home-page__content-play-icon">▶</text>
-              </view>
+            <image
+              class="home-page__content-image"
+              :src="item.image"
+              mode="aspectFill"
+            />
+            <view class="home-page__content-info">
+              <text class="home-page__content-title">{{ item.title }}</text>
+              <text class="home-page__content-meta">
+                {{ item.readTime }} · {{ item.viewCount }}{{ $t('common.views') }}
+              </text>
             </view>
-            <text class="home-page__content-title">{{ item.title }}</text>
-            <text class="home-page__content-source">{{ item.source }}</text>
           </view>
         </view>
       </view>
@@ -96,7 +106,7 @@
       <view v-if="loadingMore" class="home-page__loading-more">
         <text class="home-page__loading-text">{{ $t('common.loading') }}</text>
       </view>
-      <view v-else-if="noMore" class="home-page__no-more">
+      <view v-else-if="noMore && contentList.length > 0" class="home-page__no-more">
         <text class="home-page__no-more-text">{{ $t('common.noMore') }}</text>
       </view>
     </scroll-view>
@@ -109,7 +119,7 @@ import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import SearchBar from '@/components/business/SearchBar.vue'
 import KingKong from '@/components/business/KingKong.vue'
-import RecipeCard from '@/components/business/RecipeCard.vue'
+import RecipeCardHorizontal from '@/components/business/RecipeCardHorizontal.vue'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { getBanners, getRecommendRecipes, getContentList } from '@/api/home'
 
@@ -128,7 +138,26 @@ const page = ref(1)
 const fetchBanners = async () => {
   try {
     const res = await getBanners()
-    banners.value = res.data || []
+    banners.value = res.data || [
+      {
+        title: '春季养肝 · 枸杞菊花茶',
+        subtitle: '顺应时节，养肝明目',
+        image: '/assets/images/banner-spring.jpg',
+        link: '/pages/recipe/detail/index?id=1'
+      },
+      {
+        title: '滋阴润燥 · 红枣银耳羹',
+        subtitle: '秋冬必备，滋润养颜',
+        image: '/assets/images/banner-autumn.jpg',
+        link: '/pages/recipe/detail/index?id=2'
+      },
+      {
+        title: '健脾养胃 · 山药薏米粥',
+        subtitle: '调理脾胃，祛湿养生',
+        image: '/assets/images/banner-spleen.jpg',
+        link: '/pages/recipe/detail/index?id=3'
+      }
+    ]
   } catch (error) {
     console.error('获取Banner失败', error)
   }
@@ -137,8 +166,41 @@ const fetchBanners = async () => {
 // 获取推荐配方
 const fetchRecommendRecipes = async () => {
   try {
-    const res = await getRecommendRecipes({ page: 1, size: 4 })
-    recommendRecipes.value = res.data?.list || []
+    const res = await getRecommendRecipes({ page: 1, size: 6 })
+    recommendRecipes.value = res.data?.list || [
+      {
+        id: 1,
+        name: '红枣银耳莲子羹',
+        coverImage: '/assets/images/recipes/hongzao-yiner.jpg',
+        rating: 4.9,
+        tags: ['滋阴润燥', '养颜美容'],
+        favoriteCount: 1200
+      },
+      {
+        id: 2,
+        name: '山药薏米粥',
+        coverImage: '/assets/images/recipes/shanyao-yimi.jpg',
+        rating: 4.8,
+        tags: ['健脾祛湿', '养胃'],
+        favoriteCount: 980
+      },
+      {
+        id: 3,
+        name: '枸杞菊花茶',
+        coverImage: '/assets/images/recipes/gouqi-juhua.jpg',
+        rating: 4.7,
+        tags: ['养肝明目', '清热'],
+        favoriteCount: 850
+      },
+      {
+        id: 4,
+        name: '当归红枣乌鸡汤',
+        coverImage: '/assets/images/recipes/danggui-wuji.jpg',
+        rating: 4.9,
+        tags: ['补气养血', '女性养生'],
+        favoriteCount: 1500
+      }
+    ]
   } catch (error) {
     console.error('获取推荐配方失败', error)
   }
@@ -154,7 +216,26 @@ const fetchContentList = async (isLoadMore = false) => {
   
   try {
     const res = await getContentList({ page: page.value, size: 10 })
-    const list = res.data?.list || []
+    const list = res.data?.list || [
+      {
+        title: '春季养生三要点：养肝、护脾、防感冒',
+        image: '/assets/images/content/spring-health.jpg',
+        readTime: '3分钟阅读',
+        viewCount: '2.3k'
+      },
+      {
+        title: '中老年人饮食调理指南',
+        image: '/assets/images/content/elderly-diet.jpg',
+        readTime: '5分钟阅读',
+        viewCount: '1.8k'
+      },
+      {
+        title: '白领女性必知的养颜食疗方',
+        image: '/assets/images/content/beauty-food.jpg',
+        readTime: '4分钟阅读',
+        viewCount: '3.2k'
+      }
+    ]
     
     if (isLoadMore) {
       contentList.value.push(...list)
@@ -268,7 +349,7 @@ onMounted(() => {
 
 .home-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   display: flex;
   flex-direction: column;
   
@@ -277,106 +358,138 @@ onMounted(() => {
     height: calc(100vh - 56px);
   }
   
+  // Banner区域
   &__banner {
-    padding: 0 16px;
-    margin-bottom: 16px;
+    padding: 0 $spacing-lg;
+    margin-bottom: $spacing-md;
+    
+    &-item {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: $radius-lg;
+      overflow: hidden;
+    }
+    
+    &-image {
+      width: 100%;
+      height: 100%;
+    }
+    
+    &-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: $spacing-lg;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+    }
+    
+    &-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: #fff;
+      margin-bottom: $spacing-xs;
+    }
+    
+    &-subtitle {
+      font-size: $font-size-sm;
+      color: rgba(255,255,255,0.9);
+    }
   }
   
   &__swiper {
-    height: 200px;
-    border-radius: 12px;
+    height: 160px;
+    border-radius: $radius-lg;
     overflow: hidden;
   }
   
-  &__banner-image {
-    width: 100%;
-    height: 100%;
-  }
-  
+  // 区块样式
   &__section {
-    margin-bottom: 16px;
+    margin-bottom: $spacing-lg;
     
     &-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 16px;
-      margin-bottom: 12px;
+      padding: 0 $spacing-lg;
+      margin-bottom: $spacing-md;
     }
     
     &-title {
-      font-size: 18px;
+      font-size: $font-size-lg;
       font-weight: $font-weight-bold;
       color: $text-primary;
     }
     
     &-more {
-      font-size: 14px;
+      font-size: $font-size-sm;
       color: $text-tertiary;
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+      
+      &-icon {
+        font-size: $font-size-xs;
+      }
     }
   }
   
-  &__recipe-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 0 16px;
+  // 推荐配方横向滚动
+  &__recipe-scroll {
+    white-space: nowrap;
   }
   
-  &__content-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    padding: 0 16px;
+  &__recipe-list {
+    display: flex;
+    gap: $spacing-md;
+    padding: 0 $spacing-lg;
+    padding-bottom: $spacing-sm;
+  }
+  
+  // 养生资讯列表
+  &__content-list {
+    padding: 0 $spacing-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
   }
   
   &__content-item {
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
+    display: flex;
+    gap: $spacing-md;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $spacing-md;
+    box-shadow: $shadow-card;
     
     &:active {
-      opacity: 0.8;
+      transform: translateY(-2px);
+      box-shadow: $shadow-card-hover;
+      transition: all $duration-fast $ease-standard;
     }
-  }
-  
-  &__content-image-wrapper {
-    position: relative;
-    width: 100%;
-    min-height: 120px;
   }
   
   &__content-image {
-    width: 100%;
-    display: block;
+    width: 80px;
+    height: 80px;
+    border-radius: $radius-md;
+    flex-shrink: 0;
   }
   
-  &__content-play {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 50%;
+  &__content-info {
+    flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    &-icon {
-      color: #fff;
-      font-size: 16px;
-      margin-left: 2px;
-    }
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 80px;
   }
   
   &__content-title {
-    display: block;
-    font-size: 14px;
+    font-size: $font-size-md;
+    font-weight: $font-weight-medium;
     color: $text-primary;
-    padding: 8px 12px 4px;
-    line-height: 1.4;
+    line-height: $line-height-tight;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -384,26 +497,26 @@ onMounted(() => {
     -webkit-box-orient: vertical;
   }
   
-  &__content-source {
-    display: block;
-    font-size: 12px;
+  &__content-meta {
+    font-size: $font-size-xs;
     color: $text-tertiary;
-    padding: 0 12px 12px;
   }
   
+  // 免责声明
   &__disclaimer {
-    margin: 16px;
+    margin: 0 $spacing-lg $spacing-lg;
   }
   
+  // 加载状态
   &__loading-more,
   &__no-more {
     text-align: center;
-    padding: 16px;
+    padding: $spacing-lg;
   }
   
   &__loading-text,
   &__no-more-text {
-    font-size: 14px;
+    font-size: $font-size-sm;
     color: $text-tertiary;
   }
 }

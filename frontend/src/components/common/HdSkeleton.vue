@@ -1,47 +1,34 @@
 <template>
-  <view class="hd-skeleton" :class="`hd-skeleton--${type}`">
-    <!-- 卡片骨架 -->
+  <view class="hd-skeleton" :class="[`hd-skeleton--${type}`]">
+    <!-- 卡片骨架屏 -->
     <template v-if="type === 'card'">
       <view class="hd-skeleton__card">
-        <view class="hd-skeleton__image"></view>
-        <view class="hd-skeleton__content">
-          <view class="hd-skeleton__title"></view>
-          <view class="hd-skeleton__line"></view>
-          <view class="hd-skeleton__line--short"></view>
+        <view class="hd-skeleton__card-image"></view>
+        <view class="hd-skeleton__card-content">
+          <view class="hd-skeleton__card-title"></view>
+          <view class="hd-skeleton__card-meta"></view>
         </view>
       </view>
     </template>
     
-    <!-- 列表骨架 -->
+    <!-- 列表骨架屏 -->
     <template v-if="type === 'list'">
-      <view v-for="i in rows" :key="i" class="hd-skeleton__list-item">
-        <view class="hd-skeleton__avatar"></view>
-        <view class="hd-skeleton__lines">
-          <view class="hd-skeleton__line"></view>
-          <view class="hd-skeleton__line--short"></view>
+      <view v-for="n in rows" :key="n" class="hd-skeleton__list-item">
+        <view class="hd-skeleton__list-avatar"></view>
+        <view class="hd-skeleton__list-content">
+          <view class="hd-skeleton__list-title"></view>
+          <view class="hd-skeleton__list-subtitle"></view>
         </view>
       </view>
     </template>
     
-    <!-- 详情骨架 -->
-    <template v-if="type === 'detail'">
-      <view class="hd-skeleton__detail">
-        <view class="hd-skeleton__banner"></view>
-        <view class="hd-skeleton__content">
-          <view class="hd-skeleton__title--large"></view>
-          <view class="hd-skeleton__line"></view>
-          <view class="hd-skeleton__line"></view>
-          <view class="hd-skeleton__line--short"></view>
-        </view>
-      </view>
-    </template>
-    
-    <!-- 金刚位骨架 -->
-    <template v-if="type === 'kingkong'">
-      <view class="hd-skeleton__kingkong">
-        <view v-for="i in 8" :key="i" class="hd-skeleton__kingkong-item">
-          <view class="hd-skeleton__kingkong-icon"></view>
-          <view class="hd-skeleton__kingkong-text"></view>
+    <!-- 图文骨架屏 -->
+    <template v-if="type === 'image'">
+      <view class="hd-skeleton__image-wrapper">
+        <view class="hd-skeleton__image"></view>
+        <view class="hd-skeleton__image-content">
+          <view class="hd-skeleton__image-title"></view>
+          <view class="hd-skeleton__image-desc"></view>
         </view>
       </view>
     </template>
@@ -49,8 +36,10 @@
 </template>
 
 <script setup lang="ts">
+type SkeletonType = 'card' | 'list' | 'image'
+
 interface Props {
-  type?: 'card' | 'list' | 'detail' | 'kingkong'
+  type?: SkeletonType
   rows?: number
 }
 
@@ -64,127 +53,117 @@ withDefaults(defineProps<Props>(), {
 @import '@/styles/variables.scss';
 
 .hd-skeleton {
-  // 基础动画
-  &__image,
-  &__avatar,
-  &__banner,
-  &__icon,
-  &__title,
-  &__title--large,
-  &__line,
-  &__line--short,
-  &__kingkong-icon,
-  &__kingkong-text {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  // 通用动画
+  & * {
+    background: linear-gradient(90deg, $bg-divider 25%, $bg-hover 50%, $bg-divider 75%);
     background-size: 200% 100%;
-    animation: hd-skeleton-loading 1.5s infinite;
-    border-radius: 4px;
+    animation: skeleton-loading 1.5s infinite;
   }
   
-  // 卡片骨架
+  // 卡片骨架屏
   &__card {
-    background: #fff;
-    border-radius: 12px;
+    background: $bg-card;
+    border-radius: $radius-lg;
     overflow: hidden;
-    margin-bottom: 16px;
+    margin-bottom: $spacing-md;
+    
+    &-image {
+      width: 100%;
+      height: 120px;
+    }
+    
+    &-content {
+      padding: $spacing-md;
+    }
+    
+    &-title {
+      height: 18px;
+      width: 70%;
+      border-radius: $radius-sm;
+      margin-bottom: $spacing-sm;
+    }
+    
+    &-meta {
+      height: 14px;
+      width: 40%;
+      border-radius: $radius-sm;
+    }
   }
   
-  &__image {
-    width: 100%;
-    padding-top: 56.25%;
-    border-radius: 0;
-  }
-  
-  &__content {
-    padding: 12px;
-  }
-  
-  // 列表骨架
+  // 列表骨架屏
   &__list-item {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    background: #fff;
-    margin-bottom: 1px;
+    gap: $spacing-md;
+    padding: $spacing-md;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    margin-bottom: $spacing-md;
   }
   
-  &__avatar {
-    width: 40px;
-    height: 40px;
+  &__list-avatar {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    margin-right: 12px;
     flex-shrink: 0;
   }
   
-  &__lines {
+  &__list-content {
     flex: 1;
   }
   
-  // 详情骨架
-  &__detail {
-    background: #fff;
-  }
-  
-  &__banner {
-    width: 100%;
-    padding-top: 56.25%;
-    border-radius: 0;
-  }
-  
-  // 通用元素
-  &__title {
+  &__list-title {
     height: 16px;
-    margin-bottom: 12px;
     width: 60%;
-    
-    &--large {
-      height: 24px;
-      margin-bottom: 16px;
-      width: 80%;
-    }
+    border-radius: $radius-sm;
+    margin-bottom: $spacing-xs;
   }
   
-  &__line {
+  &__list-subtitle {
     height: 14px;
-    margin-bottom: 8px;
-    width: 100%;
-    
-    &--short {
-      height: 14px;
-      margin-bottom: 8px;
-      width: 40%;
-    }
+    width: 40%;
+    border-radius: $radius-sm;
   }
   
-  // 金刚位骨架
-  &__kingkong {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    padding: 16px;
-    background: #fff;
-    
-    &-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    
-    &-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      margin-bottom: 8px;
-    }
-    
-    &-text {
-      width: 48px;
-      height: 12px;
-    }
+  // 图文骨架屏
+  &__image-wrapper {
+    display: flex;
+    gap: $spacing-md;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $spacing-md;
+    margin-bottom: $spacing-md;
+  }
+  
+  &__image {
+    width: 100px;
+    height: 100px;
+    border-radius: $radius-md;
+    flex-shrink: 0;
+  }
+  
+  &__image-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  &__image-title {
+    height: 18px;
+    width: 80%;
+    border-radius: $radius-sm;
+    margin-bottom: $spacing-sm;
+  }
+  
+  &__image-desc {
+    height: 14px;
+    width: 50%;
+    border-radius: $radius-sm;
   }
 }
 
-@keyframes hd-skeleton-loading {
+@keyframes skeleton-loading {
   0% {
     background-position: 200% 0;
   }

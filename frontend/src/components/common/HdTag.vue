@@ -1,45 +1,28 @@
 <template>
-  <view
+  <view 
     class="hd-tag"
-    :class="[
-      `hd-tag--${type}`,
-      `hd-tag--${size}`,
-      {
-        'hd-tag--selected': selected,
-        'hd-tag--disabled': disabled
-      }
-    ]"
-    @click="handleClick"
+    :class="[`hd-tag--${type}`, `hd-tag--${size}`, { 'hd-tag--round': round }]"
   >
     <text class="hd-tag__text">{{ text }}</text>
   </view>
 </template>
 
 <script setup lang="ts">
+type TagType = 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info'
+type TagSize = 'small' | 'medium' | 'large'
+
 interface Props {
   text: string
-  type?: 'primary' | 'secondary' | 'outline' | 'orange' | 'blue' | 'gray'
-  size?: 'small' | 'medium' | 'large'
-  selected?: boolean
-  disabled?: boolean
+  type?: TagType
+  size?: TagSize
+  round?: boolean
 }
 
-const props = withDefaults(defineProps<Props>(), {
-  type: 'secondary',
+withDefaults(defineProps<Props>(), {
+  type: 'primary',
   size: 'medium',
-  selected: false,
-  disabled: false
+  round: false
 })
-
-const emit = defineEmits<{
-  click: []
-}>()
-
-const handleClick = () => {
-  if (!props.disabled) {
-    emit('click')
-  }
-}
 </script>
 
 <style lang="scss">
@@ -49,73 +32,74 @@ const handleClick = () => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s ease;
+  
+  &__text {
+    line-height: 1;
+  }
   
   // 尺寸
   &--small {
-    height: 20px;
-    padding: 2px 8px;
-    font-size: 11px;
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: $radius-sm;
   }
   
   &--medium {
-    height: 24px;
-    padding: 4px 12px;
-    font-size: 12px;
+    padding: 4px 8px;
+    font-size: $font-size-xs;
+    border-radius: $radius-sm;
   }
   
   &--large {
-    height: 28px;
-    padding: 4px 16px;
-    font-size: 13px;
+    padding: 6px 12px;
+    font-size: $font-size-sm;
+    border-radius: $radius-md;
+  }
+  
+  // 圆角
+  &--round {
+    &.hd-tag--small {
+      border-radius: 10px;
+    }
+    
+    &.hd-tag--medium {
+      border-radius: $radius-full;
+    }
+    
+    &.hd-tag--large {
+      border-radius: $radius-full;
+    }
   }
   
   // 类型
   &--primary {
-    background-color: $brand-primary;
-    color: #fff;
+    background: $brand-primary-10;
+    color: $brand-primary;
   }
   
   &--secondary {
-    background-color: $brand-light;
-    color: $brand-primary;
-  }
-  
-  &--outline {
-    background-color: transparent;
-    border: 1px solid $brand-primary;
-    color: $brand-primary;
-  }
-  
-  &--orange {
-    background-color: #FFF3E0;
+    background: $accent-orange-10;
     color: $accent-orange;
   }
   
-  &--blue {
-    background-color: #E3F2FD;
-    color: $accent-blue;
+  &--success {
+    background: rgba(76, 175, 80, 0.1);
+    color: $success;
   }
   
-  &--gray {
-    background-color: $bg-gray;
-    color: $text-secondary;
+  &--warning {
+    background: rgba(255, 152, 0, 0.1);
+    color: $warning;
   }
   
-  // 选中状态
-  &--selected {
-    background-color: $brand-primary;
-    color: #fff;
+  &--error {
+    background: rgba(244, 67, 54, 0.1);
+    color: $error;
   }
   
-  // 禁用状态
-  &--disabled {
-    opacity: 0.5;
-  }
-  
-  &__text {
-    line-height: 1;
+  &--info {
+    background: rgba(33, 150, 243, 0.1);
+    color: $info;
   }
 }
 </style>

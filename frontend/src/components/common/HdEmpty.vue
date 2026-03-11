@@ -1,23 +1,22 @@
 <template>
   <view class="hd-empty">
-    <view class="hd-empty__icon">{{ icon || '📭' }}</view>
-    <text class="hd-empty__title">{{ title || $t('common.noData') || '暂无数据' }}</text>
+    <view class="hd-empty__icon-wrapper">
+      <text class="hd-empty__icon">{{ icon || '📭' }}</text>
+    </view>
+    <text class="hd-empty__title">{{ title || $t('common.noData') }}</text>
     <text v-if="desc" class="hd-empty__desc">{{ desc }}</text>
-    <hd-button
+    <view 
       v-if="showAction"
-      type="outline"
-      size="medium"
-      class="hd-empty__action"
+      class="hd-empty__btn"
       @click="handleAction"
     >
-      {{ actionText || $t('common.retry') || '重试' }}
-    </hd-button>
+      <text class="hd-empty__btn-text">{{ actionText || $t('common.retry') }}</text>
+    </view>
   </view>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import HdButton from './HdButton.vue'
 
 const { t: $t } = useI18n()
 
@@ -50,36 +49,57 @@ const handleAction = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 48px 16px;
+  padding: $spacing-xxxl $spacing-lg;
   
-  &__icon {
-    width: 120px;
-    height: 120px;
+  &__icon-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: $bg-hover;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 64px;
-    margin-bottom: 16px;
-    background: $bg-gray;
-    border-radius: 50%;
+    margin-bottom: $spacing-lg;
+  }
+  
+  &__icon {
+    font-size: 40px;
+    color: $text-tertiary;
   }
   
   &__title {
-    font-size: 16px;
-    color: $text-primary;
-    margin-bottom: 8px;
+    font-size: $font-size-lg;
     font-weight: $font-weight-medium;
+    color: $text-primary;
+    margin-bottom: $spacing-xs;
   }
   
   &__desc {
-    font-size: 14px;
-    color: $text-secondary;
-    margin-bottom: 24px;
+    font-size: $font-size-sm;
+    color: $text-tertiary;
+    margin-bottom: $spacing-xl;
     text-align: center;
   }
   
-  &__action {
-    margin-top: 8px;
+  &__btn {
+    height: $btn-height-md;
+    padding: 0 $spacing-xl;
+    background: transparent;
+    border: 1px solid $brand-primary;
+    border-radius: $radius-full;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    &:active {
+      background: $brand-primary-10;
+    }
+    
+    &-text {
+      font-size: $font-size-base;
+      color: $brand-primary;
+    }
   }
 }
 </style>

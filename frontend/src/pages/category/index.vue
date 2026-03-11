@@ -2,9 +2,10 @@
   <view class="category-page">
     <!-- 导航栏 -->
     <view class="category-page__nav">
-      <text class="category-page__nav-back" @click="handleBack">⌫</text>
       <text class="category-page__nav-title">{{ $t('category.title') }}</text>
-      <text class="category-page__nav-search" @click="goToSearch">🔍</text>
+      <view class="category-page__nav-search" @click="goToSearch">
+        <text class="category-page__nav-search-icon">⌕</text>
+      </view>
     </view>
     
     <!-- 分类内容区 -->
@@ -33,12 +34,16 @@
               v-for="item in crowdCategories"
               :key="item.key"
               class="category-page__crowd-card"
-              :style="{ backgroundColor: item.bgColor }"
+              :style="{ '--card-color': item.color }"
               @click="goToRecipeList('crowd', item.key)"
             >
-              <text class="category-page__crowd-icon">{{ item.icon }}</text>
-              <text class="category-page__crowd-name">{{ item.name }}</text>
-              <text class="category-page__crowd-desc">{{ item.desc }}</text>
+              <view class="category-page__crowd-icon-wrapper" :style="{ background: item.gradient }">
+                <text class="category-page__crowd-icon">{{ item.icon }}</text>
+              </view>
+              <view class="category-page__crowd-info">
+                <text class="category-page__crowd-name">{{ item.name }}</text>
+                <text class="category-page__crowd-desc">{{ item.desc }}</text>
+              </view>
             </view>
           </view>
         </view>
@@ -61,7 +66,9 @@
           <view class="category-page__solar-section">
             <view class="category-page__panel-title">{{ $t('category.allSolarTerms') }}</view>
             <view v-for="season in solarTerms" :key="season.name" class="category-page__solar-season">
-              <text class="category-page__solar-season-name">{{ season.name }}</text>
+              <view class="category-page__solar-season-header">
+                <text class="category-page__solar-season-name">{{ season.name }}</text>
+              </view>
               <view class="category-page__solar-tags">
                 <view
                   v-for="term in season.terms"
@@ -85,10 +92,12 @@
               v-for="item in efficacyCategories"
               :key="item.key"
               class="category-page__efficacy-card"
-              :style="{ backgroundColor: item.bgColor }"
+              :style="{ '--card-color': item.color }"
               @click="goToRecipeList('efficacy', item.key)"
             >
-              <text class="category-page__efficacy-icon">{{ item.icon }}</text>
+              <view class="category-page__efficacy-icon-wrapper" :style="{ background: item.gradient }">
+                <text class="category-page__efficacy-icon">{{ item.icon }}</text>
+              </view>
               <text class="category-page__efficacy-name">{{ item.name }}</text>
             </view>
           </view>
@@ -154,13 +163,48 @@ const tabs = computed(() => [
   { key: 'ingredient', icon: '🥬', name: $t('category.ingredient') }
 ])
 
-// 人群分类
+// 人群分类（带彩色标签）
 const crowdCategories = computed(() => [
-  { key: 'elderly', icon: '🧓', name: $t('category.elderly'), desc: $t('category.elderlyDesc'), bgColor: '#E8F5E9' },
-  { key: 'office', icon: '💼', name: $t('category.office'), desc: $t('category.officeDesc'), bgColor: '#E3F2FD' },
-  { key: 'female', icon: '👩', name: $t('category.female'), desc: $t('category.femaleDesc'), bgColor: '#FCE4EC' },
-  { key: 'children', icon: '👶', name: $t('category.children'), desc: $t('category.childrenDesc'), bgColor: '#FFF3E0' },
-  { key: 'general', icon: '👨‍👩‍👧‍👦', name: $t('category.general'), desc: $t('category.generalDesc'), bgColor: '#F5F5F5' }
+  { 
+    key: 'elderly', 
+    icon: '🧓', 
+    name: $t('category.elderly'), 
+    desc: $t('category.elderlyDesc'),
+    color: '#FF8C42',
+    gradient: 'linear-gradient(135deg, #FF8C42, #FFB74D)'
+  },
+  { 
+    key: 'office', 
+    icon: '💼', 
+    name: $t('category.office'), 
+    desc: $t('category.officeDesc'),
+    color: '#64B5F6',
+    gradient: 'linear-gradient(135deg, #64B5F6, #90CAF9)'
+  },
+  { 
+    key: 'female', 
+    icon: '👩', 
+    name: $t('category.female'), 
+    desc: $t('category.femaleDesc'),
+    color: '#F48FB1',
+    gradient: 'linear-gradient(135deg, #F48FB1, #F8BBD9)'
+  },
+  { 
+    key: 'children', 
+    icon: '👶', 
+    name: $t('category.children'), 
+    desc: $t('category.childrenDesc'),
+    color: '#FFD54F',
+    gradient: 'linear-gradient(135deg, #FFD54F, #FFE082)'
+  },
+  { 
+    key: 'general', 
+    icon: '👨‍👩‍👧‍👦', 
+    name: $t('category.general'), 
+    desc: $t('category.generalDesc'),
+    color: '#81C784',
+    gradient: 'linear-gradient(135deg, #81C784, #A5D6A7)'
+  }
 ])
 
 // 当前节气
@@ -220,16 +264,76 @@ const solarTerms = computed(() => [
 
 // 功效分类
 const efficacyCategories = computed(() => [
-  { key: 'blood', icon: '🩸', name: $t('efficacy.blood'), bgColor: '#FCE4EC' },
-  { key: 'stomach', icon: '🍚', name: $t('efficacy.stomach'), bgColor: '#E8F5E9' },
-  { key: 'sleep', icon: '🌙', name: $t('efficacy.sleep'), bgColor: '#EDE7F6' },
-  { key: 'beauty', icon: '✨', name: $t('efficacy.beauty'), bgColor: '#FCE4EC' },
-  { key: 'heat', icon: '🔥', name: $t('efficacy.heat'), bgColor: '#FFEBEE' },
-  { key: 'lung', icon: '🫁', name: $t('efficacy.lung'), bgColor: '#E3F2FD' },
-  { key: 'kidney', icon: '💪', name: $t('efficacy.kidney'), bgColor: '#FFF3E0' },
-  { key: 'dampness', icon: '💧', name: $t('efficacy.dampness'), bgColor: '#E0F2F1' },
-  { key: 'pressure', icon: '🩺', name: $t('efficacy.pressure'), bgColor: '#E8EAF6' },
-  { key: 'immune', icon: '🛡️', name: $t('efficacy.immune'), bgColor: '#E8F5E9' }
+  { 
+    key: 'blood', 
+    icon: '🩸', 
+    name: $t('efficacy.blood'),
+    color: '#F48FB1',
+    gradient: 'linear-gradient(135deg, #F48FB1, #F8BBD9)'
+  },
+  { 
+    key: 'stomach', 
+    icon: '🍚', 
+    name: $t('efficacy.stomach'),
+    color: '#81C784',
+    gradient: 'linear-gradient(135deg, #81C784, #A5D6A7)'
+  },
+  { 
+    key: 'sleep', 
+    icon: '🌙', 
+    name: $t('efficacy.sleep'),
+    color: '#9575CD',
+    gradient: 'linear-gradient(135deg, #9575CD, #B39DDB)'
+  },
+  { 
+    key: 'beauty', 
+    icon: '✨', 
+    name: $t('efficacy.beauty'),
+    color: '#F06292',
+    gradient: 'linear-gradient(135deg, #F06292, #F48FB1)'
+  },
+  { 
+    key: 'heat', 
+    icon: '🔥', 
+    name: $t('efficacy.heat'),
+    color: '#FF8C42',
+    gradient: 'linear-gradient(135deg, #FF8C42, #FFB74D)'
+  },
+  { 
+    key: 'lung', 
+    icon: '🫁', 
+    name: $t('efficacy.lung'),
+    color: '#64B5F6',
+    gradient: 'linear-gradient(135deg, #64B5F6, #90CAF9)'
+  },
+  { 
+    key: 'kidney', 
+    icon: '💪', 
+    name: $t('efficacy.kidney'),
+    color: '#FFD54F',
+    gradient: 'linear-gradient(135deg, #FFD54F, #FFE082)'
+  },
+  { 
+    key: 'dampness', 
+    icon: '💧', 
+    name: $t('efficacy.dampness'),
+    color: '#4DD0E1',
+    gradient: 'linear-gradient(135deg, #4DD0E1, #80DEEA)'
+  },
+  { 
+    key: 'pressure', 
+    icon: '🩺', 
+    name: $t('efficacy.pressure'),
+    color: '#7986CB',
+    gradient: 'linear-gradient(135deg, #7986CB, #9FA8DA)'
+  },
+  { 
+    key: 'immune', 
+    icon: '🛡️', 
+    name: $t('efficacy.immune'),
+    color: '#A1887F',
+    gradient: 'linear-gradient(135deg, #A1887F, #BCAAA4)'
+  }
 ])
 
 // 常见食材
@@ -283,11 +387,6 @@ const goToSearch = () => {
     url: '/pages/search/index'
   })
 }
-
-// 返回
-const handleBack = () => {
-  Taro.navigateBack()
-}
 </script>
 
 <style lang="scss">
@@ -295,30 +394,44 @@ const handleBack = () => {
 
 .category-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   display: flex;
   flex-direction: column;
   
+  // 导航栏
   &__nav {
-    height: 44px;
+    height: $nav-height;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
-    background: #fff;
-    box-shadow: 0 1px 0 $bg-divider;
-    
-    &-back,
-    &-search {
-      font-size: 24px;
-      color: $text-primary;
-      padding: 8px;
-    }
+    padding: 0 $spacing-lg;
+    background: $bg-card;
+    box-shadow: $shadow-level-1;
     
     &-title {
-      font-size: 18px;
-      font-weight: $font-weight-medium;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
       color: $text-primary;
+    }
+    
+    &-search {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $bg-hover;
+      border-radius: 50%;
+      cursor: pointer;
+      
+      &:active {
+        background: $bg-divider;
+      }
+      
+      &-icon {
+        font-size: $font-size-lg;
+        color: $text-tertiary;
+      }
     }
   }
   
@@ -328,10 +441,12 @@ const handleBack = () => {
     overflow: hidden;
   }
   
+  // 左侧分类导航
   &__sidebar {
     width: 80px;
-    background: $bg-gray;
+    background: $bg-page;
     flex-shrink: 0;
+    border-right: 1px solid $border-color;
     
     &-item {
       display: flex;
@@ -341,9 +456,10 @@ const handleBack = () => {
       height: 72px;
       cursor: pointer;
       position: relative;
+      transition: all $duration-fast $ease-standard;
       
       &.is-active {
-        background: #fff;
+        background: $bg-card;
         
         &::before {
           content: '';
@@ -353,7 +469,7 @@ const handleBack = () => {
           transform: translateY(-50%);
           width: 3px;
           height: 24px;
-          background: $brand-primary;
+          background: linear-gradient(180deg, $brand-primary, $brand-light);
           border-radius: 0 2px 2px 0;
         }
         
@@ -362,30 +478,38 @@ const handleBack = () => {
           color: $brand-primary;
         }
       }
+      
+      &:active {
+        opacity: 0.7;
+      }
     }
     
     &-icon {
       font-size: 24px;
-      margin-bottom: 4px;
+      margin-bottom: $spacing-xs;
+      color: $text-tertiary;
+      transition: color $duration-fast $ease-standard;
     }
     
     &-text {
-      font-size: 13px;
+      font-size: $font-size-xs;
       color: $text-tertiary;
+      transition: color $duration-fast $ease-standard;
     }
   }
   
+  // 右侧内容区
   &__main {
     flex: 1;
-    padding: 16px;
+    padding: $spacing-lg;
   }
   
   &__panel {
     &-title {
-      font-size: 16px;
-      font-weight: $font-weight-medium;
+      font-size: $font-size-md;
+      font-weight: $font-weight-bold;
       color: $text-primary;
-      margin-bottom: 16px;
+      margin-bottom: $spacing-md;
     }
   }
   
@@ -393,79 +517,105 @@ const handleBack = () => {
   &__crowd-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: $spacing-md;
   }
   
   &__crowd-card {
-    border-radius: 12px;
-    padding: 16px;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     cursor: pointer;
+    box-shadow: $shadow-card;
+    border-left: 3px solid var(--card-color);
     
     &:active {
-      opacity: 0.8;
+      transform: translateY(-2px);
+      box-shadow: $shadow-card-hover;
+      transition: all $duration-fast $ease-standard;
     }
   }
   
+  &__crowd-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-sm;
+    box-shadow: $shadow-level-1;
+  }
+  
   &__crowd-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
+    font-size: 28px;
+  }
+  
+  &__crowd-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
   
   &__crowd-name {
-    font-size: 15px;
+    font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $text-primary;
-    margin-bottom: 4px;
   }
   
   &__crowd-desc {
-    font-size: 12px;
-    color: $text-secondary;
+    font-size: $font-size-xs;
+    color: $text-tertiary;
   }
   
   // 当前节气
   &__current-solar {
-    margin-bottom: 24px;
+    margin-bottom: $spacing-xl;
     
     &-bg {
-      background: linear-gradient(135deg, $brand-primary, $brand-dark);
-      border-radius: 12px;
-      padding: 24px;
+      background: linear-gradient(135deg, $brand-primary, $brand-light);
+      border-radius: $radius-lg;
+      padding: $spacing-xl;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
+      box-shadow: $shadow-brand;
     }
     
     &-icon {
       font-size: 64px;
-      margin-bottom: 8px;
+      margin-bottom: $spacing-xs;
     }
     
     &-name {
-      font-size: 24px;
+      font-size: $font-size-xl;
       font-weight: $font-weight-bold;
       color: #fff;
-      margin-bottom: 8px;
+      margin-bottom: $spacing-xs;
     }
     
     &-desc {
-      font-size: 14px;
+      font-size: $font-size-sm;
       color: rgba(255, 255, 255, 0.9);
-      margin-bottom: 16px;
+      margin-bottom: $spacing-md;
     }
     
     &-btn {
-      padding: 8px 20px;
-      border: 1px solid #fff;
-      border-radius: 20px;
+      padding: $spacing-xs $spacing-lg;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: $radius-full;
+      cursor: pointer;
+      
+      &:active {
+        background: rgba(255, 255, 255, 0.2);
+      }
       
       &-text {
-        font-size: 14px;
+        font-size: $font-size-sm;
         color: #fff;
       }
     }
@@ -474,40 +624,50 @@ const handleBack = () => {
   // 二十四节气
   &__solar-section {
     .category-page__panel-title {
-      margin-top: 24px;
+      margin-top: $spacing-xl;
     }
   }
   
   &__solar-season {
-    margin-bottom: 16px;
+    margin-bottom: $spacing-lg;
+    
+    &-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing-sm;
+    }
     
     &-name {
-      font-size: 14px;
+      font-size: $font-size-sm;
       font-weight: $font-weight-medium;
       color: $text-secondary;
-      margin-bottom: 12px;
-      display: block;
+      padding: $spacing-xs $spacing-sm;
+      background: $bg-hover;
+      border-radius: $radius-sm;
     }
   }
   
   &__solar-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: $spacing-xs;
   }
   
   &__solar-tag {
-    padding: 8px 16px;
-    background: #fff;
-    border-radius: 8px;
-    font-size: 13px;
+    padding: $spacing-sm $spacing-md;
+    background: $bg-card;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
     color: $text-primary;
     cursor: pointer;
+    box-shadow: $shadow-level-1;
+    transition: all $duration-fast $ease-standard;
     
     &:active,
     &.is-active {
       background: $brand-primary;
       color: #fff;
+      box-shadow: $shadow-brand;
     }
   }
   
@@ -515,30 +675,45 @@ const handleBack = () => {
   &__efficacy-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    gap: $spacing-md;
   }
   
   &__efficacy-card {
-    border-radius: 12px;
-    padding: 20px 16px;
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $spacing-xl $spacing-lg;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     cursor: pointer;
+    box-shadow: $shadow-card;
+    border-top: 3px solid var(--card-color);
     
     &:active {
-      opacity: 0.8;
+      transform: translateY(-2px);
+      box-shadow: $shadow-card-hover;
+      transition: all $duration-fast $ease-standard;
     }
   }
   
+  &__efficacy-icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $spacing-sm;
+    box-shadow: $shadow-level-1;
+  }
+  
   &__efficacy-icon {
-    font-size: 32px;
-    margin-bottom: 8px;
+    font-size: 28px;
   }
   
   &__efficacy-name {
-    font-size: 15px;
+    font-size: $font-size-base;
     font-weight: $font-weight-medium;
     color: $text-primary;
   }
@@ -547,31 +722,33 @@ const handleBack = () => {
   &__ingredient-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    gap: $spacing-md;
   }
   
   &__ingredient-card {
-    background: #fff;
-    border-radius: 8px;
+    background: $bg-card;
+    border-radius: $radius-md;
     overflow: hidden;
     cursor: pointer;
+    box-shadow: $shadow-card;
     
     &:active {
-      opacity: 0.8;
+      transform: scale(0.98);
+      transition: transform $duration-fast $ease-standard;
     }
   }
   
   &__ingredient-image {
     width: 100%;
-    padding-top: 100%;
-    background: $bg-gray;
+    aspect-ratio: 1;
+    background: $bg-hover;
   }
   
   &__ingredient-name {
     display: block;
     text-align: center;
-    padding: 8px;
-    font-size: 14px;
+    padding: $spacing-sm;
+    font-size: $font-size-sm;
     color: $text-primary;
   }
 }

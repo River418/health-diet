@@ -25,6 +25,10 @@ const i18n = createI18n({
   }
 })
 
+// 创建 Pinia 实例
+const pinia = createPinia()
+
+// 创建 Vue 应用
 const App = createApp({
   onShow(options) {
     console.log('App onShow', options)
@@ -39,8 +43,7 @@ const App = createApp({
     }
     
     // 初始化适老化设置
-    const pinia = createPinia()
-    const accessibilityStore = useAccessibilityStore(pinia)
+    const accessibilityStore = useAccessibilityStore()
     accessibilityStore.initSettings()
     
     // 检查是否需要显示引导页
@@ -54,7 +57,8 @@ const App = createApp({
   }
 })
 
-App.use(createPinia())
+// 挂载插件
+App.use(pinia)
 App.use(i18n)
 
 export default App

@@ -54,7 +54,7 @@ interface Props {
   recipe: Recipe
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const defaultImage = '/assets/images/recipe-default.png'
 
@@ -65,8 +65,6 @@ const emit = defineEmits<{
 const handleClick = () => {
   emit('click', props.recipe.id)
 }
-
-const props = defineProps<Props>()
 
 const formatNumber = (num: number): string => {
   if (num >= 10000) {

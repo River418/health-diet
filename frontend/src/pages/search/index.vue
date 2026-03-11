@@ -250,7 +250,7 @@ onMounted(() => {
 
 .search-page {
   min-height: 100vh;
-  background: $bg-gray;
+  background: $bg-page;
   
   &__header {
     display: flex;
@@ -263,7 +263,7 @@ onMounted(() => {
   &__input-wrapper {
     flex: 1;
     height: 40px;
-    background: $bg-gray;
+    background: $bg-page;
     border-radius: 20px;
     display: flex;
     align-items: center;
@@ -308,7 +308,7 @@ onMounted(() => {
       border-bottom: 1px solid $bg-divider;
       
       &:active {
-        background: $bg-gray;
+        background: $bg-page;
       }
       
       &-icon {

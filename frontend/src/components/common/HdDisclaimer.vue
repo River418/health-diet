@@ -24,30 +24,31 @@ withDefaults(defineProps<Props>(), {
 @import '@/styles/variables.scss';
 
 .hd-disclaimer {
-  background-color: #FFF3CD;
+  background-color: #FFF8E1;
   border: 1px solid #FFE082;
-  border-radius: 8px;
-  padding: 12px 16px;
+  border-radius: $radius-md;
+  padding: $spacing-md $spacing-lg;
   display: flex;
   align-items: flex-start;
-  gap: 8px;
+  gap: $spacing-sm;
   
   &--fixed {
     position: fixed;
-    left: 0;
-    right: 0;
+    left: $spacing-lg;
+    right: $spacing-lg;
     z-index: 100;
   }
   
   &__icon {
-    font-size: 14px;
+    font-size: $font-size-sm;
     flex-shrink: 0;
+    color: #F57C00;
   }
   
   &__text {
-    font-size: 13px;
-    color: #856404;
-    line-height: 1.5;
+    font-size: $font-size-xs;
+    color: #F57C00;
+    line-height: $line-height-normal;
     flex: 1;
   }
 }
