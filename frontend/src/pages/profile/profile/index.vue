@@ -37,13 +37,14 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import Taro from '@tarojs/taro'
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/stores/user'
 import { getUserInfo } from '@/api/user'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const userStore = useUserStore()
 
 const userInfo = ref<any>({})
-const defaultAvatar = '/assets/images/avatar-default.png'
+const defaultAvatar = DEFAULT_IMAGES.avatar
 
 // 获取用户信息
 const fetchUserInfo = async () => {

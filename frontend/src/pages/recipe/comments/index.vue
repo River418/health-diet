@@ -89,7 +89,8 @@ import Taro from '@tarojs/taro'
 import HdSkeleton from '@/components/common/HdSkeleton.vue'
 import HdEmpty from '@/components/common/HdEmpty.vue'
 import { getRecipeComments, submitComment } from '@/api/recipe'
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/stores/user'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
@@ -104,7 +105,7 @@ const refreshing = ref(false)
 const loadingMore = ref(false)
 const noMore = ref(false)
 const page = ref(1)
-const defaultAvatar = '/assets/images/avatar-default.png'
+const defaultAvatar = DEFAULT_IMAGES.avatar
 
 // 获取评论列表
 const fetchComments = async (isLoadMore = false) => {

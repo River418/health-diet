@@ -206,13 +206,14 @@ import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { useUserStore } from '@/stores/user'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const { t: $t, locale } = useI18n()
 const userStore = useUserStore()
 
 // 数据
 const userInfo = computed(() => userStore.userInfo)
-const defaultAvatar = '/assets/images/avatar-default.png'
+const defaultAvatar = DEFAULT_IMAGES.avatar
 const largeFont = ref(false)
 const darkMode = ref(false)
 const showLanguageModal = ref(false)

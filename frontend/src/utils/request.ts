@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/stores/user'
 
 const BASE_URL = process.env.TARO_APP_API_URL || 'http://localhost:3001/api/v1'
 

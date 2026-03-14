@@ -254,6 +254,7 @@ import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import RecipeCardHorizontal from '@/components/business/RecipeCardHorizontal.vue'
 import { getRecipeDetail, getRecipeComments, getRelatedRecipes } from '@/api/recipe'
 import { useUserStore } from '@/stores/user'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
@@ -323,9 +324,9 @@ const showAllIngredients = ref(false)
 const navVisible = ref(false)
 const scrollTop = ref(0)
 
-const defaultImage = '/assets/images/recipe-default.png'
-const defaultIngredientImage = '/assets/images/ingredient-default.png'
-const defaultAvatar = '/assets/images/avatar-default.png'
+const defaultImage = DEFAULT_IMAGES.recipe
+const defaultIngredientImage = DEFAULT_IMAGES.ingredient
+const defaultAvatar = DEFAULT_IMAGES.avatar
 
 // 显示的食材
 const displayedIngredients = computed(() => {

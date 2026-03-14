@@ -1,0 +1,199 @@
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 22:45:27"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-10 23:15:26"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:15:41"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-10 23:15:47","userAgent":"curl/8.7.1"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-10 23:20:14"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:20:19"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-10 23:20:23","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/kingkong","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/auth/login","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/not-exist","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:21:50"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:22:01","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/kingkong","service":"health-diet-backend","timestamp":"2026-03-10 23:22:05","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:22:07","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/2","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/kingkong","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/2/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/auth/login","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/not-exist","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/2","service":"health-diet-backend","timestamp":"2026-03-10 23:23:47"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-10 23:23:49","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:24:05","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/auth/login","service":"health-diet-backend","timestamp":"2026-03-10 23:24:07","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/auth/wechat-login","service":"health-diet-backend","timestamp":"2026-03-10 23:24:10","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-10 23:25:05","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/2","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/auth/wechat-login","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/not-exist","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/2","service":"health-diet-backend","timestamp":"2026-03-10 23:25:46"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:27:15"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-10 23:30:04","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/auth/wechat-login","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/users/me","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"PUT /api/v1/users/me","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"PUT /api/v1/users/language","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/recipes/1/favorite","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"DELETE /api/v1/recipes/1/favorite","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/users/favorites","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1/favorite/status","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/comments","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/comments/1/like","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/users/history","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"DELETE /api/v1/users/history","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents/1","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"POST /api/v1/contents/1/favorite","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/kingkong","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/users/99999/profile","service":"health-diet-backend","timestamp":"2026-03-10 23:30:18"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:12"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:15"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:22"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:27"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:31"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:37"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:42"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:49"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:41:56"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:00"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:14"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:21"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:26"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:32"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:36"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:41"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:48"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:42:55"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:43:03"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:43:10"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:43:44"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-10 23:43:55"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-11 00:16:34","userAgent":"curl/8.7.1"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-11 09:31:53"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-11 09:32:02"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-11 09:32:10"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-11 09:32:16"}
+{"ip":"127.0.0.1","level":"info","message":"GET /health","service":"health-diet-backend","timestamp":"2026-03-11 09:32:17","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/recipes","service":"health-diet-backend","timestamp":"2026-03-11 09:32:32","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 09:32:51","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-11 09:32:55","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-11 09:32:55","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 09:33:44","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 12:01:13","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 12:35:43","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 12:37:59","userAgent":"curl/8.7.1"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-11 12:38:09"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-11 12:38:12"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 12:38:14","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 13:09:35","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 13:49:31","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 14:08:42","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 15:24:47","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 15:27:31","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-11 22:40:11","userAgent":"curl/8.7.1"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-12 00:06:28"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-12 00:06:31"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-12 00:08:24","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"HEAD /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-12 00:08:37","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-12 00:15:30","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-12 00:15:30","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-12 00:15:30","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/3","service":"health-diet-backend","timestamp":"2026-03-12 00:15:42","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/3/comments","service":"health-diet-backend","timestamp":"2026-03-12 00:15:42","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/3/related","service":"health-diet-backend","timestamp":"2026-03-12 00:15:42","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-13 09:48:38"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-14 17:21:43"}
+{"level":"info","message":"SIGTERM received, shutting down gracefully","service":"health-diet-backend","timestamp":"2026-03-14 17:22:04"}
+{"level":"info","message":"Server running on http://0.0.0.0:3001","service":"health-diet-backend","timestamp":"2026-03-14 17:22:07"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-14 17:22:41","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /","service":"health-diet-backend","timestamp":"2026-03-14 17:54:37","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-14 17:54:41","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-14 17:54:58","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-14 17:54:58","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-14 17:54:58","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/recipes","service":"health-diet-backend","timestamp":"2026-03-14 17:58:38","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-14 17:58:42","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/ingredients","service":"health-diet-backend","timestamp":"2026-03-14 17:58:44","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /health","service":"health-diet-backend","timestamp":"2026-03-14 17:58:50","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/17","service":"health-diet-backend","timestamp":"2026-03-14 17:58:52","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-14 18:23:14","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-14 18:23:14","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/contents","service":"health-diet-backend","timestamp":"2026-03-14 18:23:14","userAgent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.6 Safari/537.36"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/recipes","service":"health-diet-backend","timestamp":"2026-03-14 18:24:58","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/health","service":"health-diet-backend","timestamp":"2026-03-14 18:25:00","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /","service":"health-diet-backend","timestamp":"2026-03-14 18:25:02","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/health","service":"health-diet-backend","timestamp":"2026-03-14 18:25:20","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes","service":"health-diet-backend","timestamp":"2026-03-14 18:25:22","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/1","service":"health-diet-backend","timestamp":"2026-03-14 18:25:25","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/recipes/17","service":"health-diet-backend","timestamp":"2026-03-14 18:25:27","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/categories","service":"health-diet-backend","timestamp":"2026-03-14 18:25:30","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-14 18:25:34","userAgent":"curl/8.7.1"}
+{"ip":"127.0.0.1","level":"info","message":"GET /api/v1/search","service":"health-diet-backend","timestamp":"2026-03-14 18:25:38","userAgent":"curl/8.7.1"}

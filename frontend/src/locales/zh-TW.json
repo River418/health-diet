@@ -155,7 +155,12 @@
     "logoutSuccess": "退出成功",
     "notLoggedIn": "未登錄",
     "clickToLogin": "點擊登錄",
-    "viewProfile": "查看個人資料 >"
+    "viewProfile": "查看個人資料 >",
+    "commonFunctions": "常用功能",
+    "myRecipes": "我的食譜",
+    "myReviews": "我的評價",
+    "healthData": "健康數據",
+    "memberCenter": "會員中心"
   },
   "language": {
     "zhCN": "简体中文",

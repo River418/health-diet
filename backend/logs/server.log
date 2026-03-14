@@ -1,0 +1,17 @@
+
+> health-diet-backend@1.0.0 start
+> node src/app.js
+
+Redis Client Connected
+2026-03-11 09:32:16 [[32minfo[39m]: Server running on http://0.0.0.0:3001 {"service":"health-diet-backend"}
+2026-03-11 09:32:17 [[32minfo[39m]: GET /health {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 09:32:32 [[32minfo[39m]: GET /api/recipes {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 09:32:51 [[32minfo[39m]: GET /api/v1/recipes {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+PostgreSQL Pool Connected
+2026-03-11 09:32:55 [[32minfo[39m]: GET /api/v1/categories {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 09:32:55 [[32minfo[39m]: GET /api/v1/recipes/1 {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 09:33:44 [[32minfo[39m]: GET /api/v1/recipes {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 12:01:13 [[32minfo[39m]: GET /api/v1/recipes {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 12:35:43 [[32minfo[39m]: GET /api/v1/recipes {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 12:37:59 [[32minfo[39m]: GET /api/v1/recipes {"service":"health-diet-backend","ip":"127.0.0.1","userAgent":"curl/8.7.1"}
+2026-03-11 12:38:09 [[32minfo[39m]: SIGTERM received, shutting down gracefully {"service":"health-diet-backend"}

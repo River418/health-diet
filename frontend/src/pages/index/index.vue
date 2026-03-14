@@ -122,6 +122,7 @@ import KingKong from '@/components/business/KingKong.vue'
 import RecipeCardHorizontal from '@/components/business/RecipeCardHorizontal.vue'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { getBanners, getRecommendRecipes, getContentList } from '@/api/home'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const { t: $t } = useI18n()
 
@@ -142,19 +143,19 @@ const fetchBanners = async () => {
       {
         title: '春季养肝 · 枸杞菊花茶',
         subtitle: '顺应时节，养肝明目',
-        image: '/assets/images/banner-spring.jpg',
+        image: DEFAULT_IMAGES.banner,
         link: '/pages/recipe/detail/index?id=1'
       },
       {
         title: '滋阴润燥 · 红枣银耳羹',
         subtitle: '秋冬必备，滋润养颜',
-        image: '/assets/images/banner-autumn.jpg',
+        image: DEFAULT_IMAGES.banner,
         link: '/pages/recipe/detail/index?id=2'
       },
       {
         title: '健脾养胃 · 山药薏米粥',
         subtitle: '调理脾胃，祛湿养生',
-        image: '/assets/images/banner-spleen.jpg',
+        image: DEFAULT_IMAGES.banner,
         link: '/pages/recipe/detail/index?id=3'
       }
     ]

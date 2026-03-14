@@ -161,6 +161,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const { t: $t } = useI18n()
 
@@ -175,7 +176,7 @@ const isManageMode = ref(false)
 const selectedItems = ref<number[]>([])
 const currentFilter = ref('all')
 
-const defaultImage = '/assets/images/recipe-default.png'
+const defaultImage = DEFAULT_IMAGES.recipe
 
 // 筛选选项
 const filters = [

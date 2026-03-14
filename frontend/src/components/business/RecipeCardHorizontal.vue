@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const { t: $t } = useI18n()
 
@@ -49,7 +50,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const defaultImage = '/assets/images/recipe-default.png'
+const defaultImage = DEFAULT_IMAGES.recipe
 
 const emit = defineEmits<{
   click: [id: number]

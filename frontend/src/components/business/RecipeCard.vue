@@ -39,6 +39,7 @@
 
 <script setup lang="ts">
 import HdTag from '@/components/common/HdTag.vue'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 interface Recipe {
   id: number
@@ -56,7 +57,7 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const defaultImage = '/assets/images/recipe-default.png'
+const defaultImage = DEFAULT_IMAGES.recipe
 
 const emit = defineEmits<{
   click: [id: number]

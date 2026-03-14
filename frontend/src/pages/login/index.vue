@@ -57,7 +57,7 @@ import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import HdButton from '@/components/common/HdButton.vue'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/stores/user'
 import { wechatLogin, douyinLogin } from '@/api/auth'
 
 const { t: $t } = useI18n()

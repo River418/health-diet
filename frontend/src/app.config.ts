@@ -45,11 +45,18 @@ const config: Config = {
       root: 'pages/recipe',
       pages: [
         'detail/index',
-        'list/index'
+        'list/index',
+        'comments/index'
       ]
     },
     {
-      root: 'pages/profile',  // 改为 profile 避免与主包 pages/user 冲突
+      root: 'pages/search',
+      pages: [
+        'index'
+      ]
+    },
+    {
+      root: 'pages/profile',
       pages: [
         'favorites/index',
         'history/index',

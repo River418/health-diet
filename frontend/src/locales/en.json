@@ -155,7 +155,12 @@
     "logoutSuccess": "Logout successful",
     "notLoggedIn": "Not logged in",
     "clickToLogin": "Tap to login",
-    "viewProfile": "View profile >"
+    "viewProfile": "View profile >",
+    "commonFunctions": "Common Functions",
+    "myRecipes": "My Recipes",
+    "myReviews": "My Reviews",
+    "healthData": "Health Data",
+    "memberCenter": "Member Center"
   },
   "language": {
     "zhCN": "简体中文",

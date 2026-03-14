@@ -148,6 +148,7 @@
 import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
+import { DEFAULT_IMAGES } from '@/utils/image'
 
 const { t: $t } = useI18n()
 
@@ -338,22 +339,22 @@ const efficacyCategories = computed(() => [
 
 // 常见食材
 const commonIngredients = ref([
-  { key: 'hongzao', name: '红枣', image: '/assets/images/ingredients/hongzao.png' },
-  { key: 'gouqi', name: '枸杞', image: '/assets/images/ingredients/gouqi.png' },
-  { key: 'shanyao', name: '山药', image: '/assets/images/ingredients/shanyao.png' },
-  { key: 'yiner', name: '银耳', image: '/assets/images/ingredients/yiner.png' },
-  { key: 'lianzi', name: '莲子', image: '/assets/images/ingredients/lianzi.png' },
-  { key: 'baihe', name: '百合', image: '/assets/images/ingredients/baihe.png' }
+  { key: 'hongzao', name: '红枣', image: DEFAULT_IMAGES.ingredient },
+  { key: 'gouqi', name: '枸杞', image: DEFAULT_IMAGES.ingredient },
+  { key: 'shanyao', name: '山药', image: DEFAULT_IMAGES.ingredient },
+  { key: 'yiner', name: '银耳', image: DEFAULT_IMAGES.ingredient },
+  { key: 'lianzi', name: '莲子', image: DEFAULT_IMAGES.ingredient },
+  { key: 'baihe', name: '百合', image: DEFAULT_IMAGES.ingredient }
 ])
 
 // 药食同源
 const medicinalIngredients = ref([
-  { key: 'danggui', name: '当归', image: '/assets/images/ingredients/danggui.png' },
-  { key: 'huangqi', name: '黄芪', image: '/assets/images/ingredients/huangqi.png' },
-  { key: 'dangshen', name: '党参', image: '/assets/images/ingredients/dangshen.png' },
-  { key: 'goji', name: '枸杞', image: '/assets/images/ingredients/gouqi.png' },
-  { key: 'redDate', name: '红枣', image: '/assets/images/ingredients/hongzao.png' },
-  { key: 'yam', name: '山药', image: '/assets/images/ingredients/shanyao.png' }
+  { key: 'danggui', name: '当归', image: DEFAULT_IMAGES.ingredient },
+  { key: 'huangqi', name: '黄芪', image: DEFAULT_IMAGES.ingredient },
+  { key: 'dangshen', name: '党参', image: DEFAULT_IMAGES.ingredient },
+  { key: 'goji', name: '枸杞', image: DEFAULT_IMAGES.ingredient },
+  { key: 'redDate', name: '红枣', image: DEFAULT_IMAGES.ingredient },
+  { key: 'yam', name: '山药', image: DEFAULT_IMAGES.ingredient }
 ])
 
 // 切换分类

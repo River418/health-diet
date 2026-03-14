@@ -56,6 +56,10 @@ const config = {
     router: {
       mode: 'hash'
     },
+    // 禁用 webpack 性能警告
+    webpackChain(chain) {
+      chain.performance.hints(false)
+    },
     postcss: {
       autoprefixer: {
         enable: true,
