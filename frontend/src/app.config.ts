@@ -52,12 +52,6 @@ const config: Config = {
       ]
     },
     {
-      root: 'pages/search',
-      pages: [
-        'index'
-      ]
-    },
-    {
       root: 'pages/profile',
       pages: [
         'favorites/index',
