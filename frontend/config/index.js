@@ -33,6 +33,11 @@ const config = {
         /taro-video-core\.js/,
         {
           module: /node_modules[\\/]@tarojs[\\/]components/
+        },
+        /taro_app_library.*remoteEntry/,
+        /EnvironmentNotSupportAsyncWarning/,
+        {
+          message: /async\/await.*external.*script/
         }
       ])
     },
@@ -80,6 +85,11 @@ const config = {
         /taro-video-core\.js/,
         {
           module: /node_modules[\\/]@tarojs[\\/]components/
+        },
+        /taro_app_library.*remoteEntry/,
+        /EnvironmentNotSupportAsyncWarning/,
+        {
+          message: /async\/await.*external.*script/
         }
       ])
     },
