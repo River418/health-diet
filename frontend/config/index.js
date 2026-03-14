@@ -27,6 +27,15 @@ const config = {
     enable: false // Webpack 持久化缓存配置，建议开启
   },
   mini: {
+    webpackChain(chain) {
+      chain.performance.hints(false)
+      chain.set('ignoreWarnings', [
+        /taro-video-core\.js/,
+        {
+          module: /node_modules[\\/]@tarojs[\\/]components/
+        }
+      ])
+    },
     postcss: {
       pxtransform: {
         enable: true,
@@ -64,9 +73,15 @@ const config = {
         }
       }
     },
-    // 禁用 webpack 性能警告
+    // Webpack 配置
     webpackChain(chain) {
       chain.performance.hints(false)
+      chain.set('ignoreWarnings', [
+        /taro-video-core\.js/,
+        {
+          module: /node_modules[\\/]@tarojs[\\/]components/
+        }
+      ])
     },
     postcss: {
       autoprefixer: {
