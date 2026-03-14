@@ -56,6 +56,14 @@ const config = {
     router: {
       mode: 'hash'
     },
+    devServer: {
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3001',
+          changeOrigin: true
+        }
+      }
+    },
     // 禁用 webpack 性能警告
     webpackChain(chain) {
       chain.performance.hints(false)
