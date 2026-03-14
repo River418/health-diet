@@ -20,7 +20,15 @@
     "expand": "展开",
     "collapse": "收起",
     "viewAll": "查看全部",
-    "noData": "暂无数据"
+    "noData": "暂无数据",
+    "manage": "管理",
+    "done": "完成",
+    "filter": "筛选",
+    "sort": "排序",
+    "selectAll": "全选",
+    "deselectAll": "取消全选",
+    "hot": "热门",
+    "views": "浏览"
   },
   "disclaimer": {
     "text": "食疗养生，不替代药物治疗。如有身体不适，请及时就医。"
@@ -132,7 +140,9 @@
     "efficacy": "功效",
     "solarTerm": "节气",
     "related": "相关推荐",
-    "viewAllComments": "查看全部 {count} 条评论"
+    "viewAllComments": "查看全部 {count} 条评论",
+    "buyIngredients": "一键购买食材",
+    "comment": "评论"
   },
   "user": {
     "profile": "个人资料",
@@ -195,9 +205,24 @@
     "success": "登录成功"
   },
   "favorites": {
+    "title": "我的收藏",
     "emptyTitle": "暂无收藏",
     "emptyDesc": "看到喜欢的配方就收藏吧",
-    "goHome": "去首页看看"
+    "goHome": "去首页看看",
+    "savedAt": "收藏于",
+    "unfavoriteTitle": "取消收藏",
+    "unfavoriteConfirm": "确定要取消收藏「{name}」吗？",
+    "unfavoriteSuccess": "已取消收藏",
+    "batchDeleteTitle": "批量删除",
+    "batchDeleteConfirm": "确定要删除选中的 {count} 个收藏吗？",
+    "deleteSuccess": "删除成功",
+    "filter": {
+      "all": "全部",
+      "soup": "汤羹",
+      "porridge": "粥品",
+      "tea": "茶饮",
+      "other": "其他"
+    }
   },
   "history": {
     "emptyTitle": "暂无浏览记录",

@@ -158,10 +158,7 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     if (!voiceAssist.value) return
     
     try {
-      // 使用微信小程序的语音合成 API
-      const innerAudioContext = Taro.createInnerAudioContext()
-      // 这里应该调用语音合成服务
-      // 实际项目中需要接入语音合成 API
+      Taro.createInnerAudioContext()
       console.log('语音播报:', text)
     } catch (e) {
       console.log('语音播报失败', e)

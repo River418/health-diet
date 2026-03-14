@@ -30,7 +30,7 @@ const pinia = createPinia()
 
 // 创建 Vue 应用
 const App = createApp({
-  onShow(options) {
+  onShow(options: Record<string, unknown>) {
     console.log('App onShow', options)
   },
   async onLaunch() {

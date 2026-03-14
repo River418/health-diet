@@ -1,4 +1,4 @@
-import { get, post } from '@/utils/request'
+import { get } from '@/utils/request'
 
 // 获取Banner列表 - 使用 recipes 接口模拟
 export const getBanners = () => {

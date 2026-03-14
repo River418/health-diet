@@ -20,7 +20,15 @@
     "expand": "Expand",
     "collapse": "Collapse",
     "viewAll": "View All",
-    "noData": "No Data"
+    "noData": "No Data",
+    "manage": "Manage",
+    "done": "Done",
+    "filter": "Filter",
+    "sort": "Sort",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "hot": "Hot",
+    "views": "Views"
   },
   "disclaimer": {
     "text": "Dietary therapy is for wellness only and not a substitute for medical treatment. Please seek medical attention if you feel unwell."
@@ -132,7 +140,9 @@
     "efficacy": "Benefits",
     "solarTerm": "Solar Term",
     "related": "Related Recipes",
-    "viewAllComments": "View all {count} comments"
+    "viewAllComments": "View all {count} comments",
+    "buyIngredients": "Buy Ingredients",
+    "comment": "Comment"
   },
   "user": {
     "profile": "Profile",
@@ -195,9 +205,24 @@
     "success": "Login successful"
   },
   "favorites": {
+    "title": "My Favorites",
     "emptyTitle": "No Favorites",
     "emptyDesc": "Favorite recipes you like",
-    "goHome": "Go to Home"
+    "goHome": "Go to Home",
+    "savedAt": "Saved at",
+    "unfavoriteTitle": "Unfavorite",
+    "unfavoriteConfirm": "Remove \"{name}\" from favorites?",
+    "unfavoriteSuccess": "Removed from favorites",
+    "batchDeleteTitle": "Batch Delete",
+    "batchDeleteConfirm": "Delete {count} selected favorites?",
+    "deleteSuccess": "Deleted successfully",
+    "filter": {
+      "all": "All",
+      "soup": "Soup",
+      "porridge": "Porridge",
+      "tea": "Tea",
+      "other": "Other"
+    }
   },
   "history": {
     "emptyTitle": "No History",

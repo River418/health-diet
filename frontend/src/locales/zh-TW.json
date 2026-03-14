@@ -20,7 +20,15 @@
     "expand": "展開",
     "collapse": "收起",
     "viewAll": "查看全部",
-    "noData": "暫無數據"
+    "noData": "暫無數據",
+    "manage": "管理",
+    "done": "完成",
+    "filter": "篩選",
+    "sort": "排序",
+    "selectAll": "全選",
+    "deselectAll": "取消全選",
+    "hot": "熱門",
+    "views": "瀏覽"
   },
   "disclaimer": {
     "text": "食療養生，不替代藥物治療。如有身體不適，請及時就醫。"
@@ -132,7 +140,9 @@
     "efficacy": "功效",
     "solarTerm": "節氣",
     "related": "相關推薦",
-    "viewAllComments": "查看全部 {count} 條評論"
+    "viewAllComments": "查看全部 {count} 條評論",
+    "buyIngredients": "一鍵購買食材",
+    "comment": "評論"
   },
   "user": {
     "profile": "個人資料",
@@ -195,9 +205,24 @@
     "success": "登錄成功"
   },
   "favorites": {
+    "title": "我的收藏",
     "emptyTitle": "暫無收藏",
     "emptyDesc": "看到喜歡的配方就收藏吧",
-    "goHome": "去首頁看看"
+    "goHome": "去首頁看看",
+    "savedAt": "收藏於",
+    "unfavoriteTitle": "取消收藏",
+    "unfavoriteConfirm": "確定要取消收藏「{name}」嗎？",
+    "unfavoriteSuccess": "已取消收藏",
+    "batchDeleteTitle": "批量刪除",
+    "batchDeleteConfirm": "確定要刪除選中的 {count} 個收藏嗎？",
+    "deleteSuccess": "刪除成功",
+    "filter": {
+      "all": "全部",
+      "soup": "湯羹",
+      "porridge": "粥品",
+      "tea": "茶飲",
+      "other": "其他"
+    }
   },
   "history": {
     "emptyTitle": "暫無瀏覽記錄",
