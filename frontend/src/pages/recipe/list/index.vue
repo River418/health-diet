@@ -161,13 +161,21 @@ const fetchCategories = async () => {
   try {
     const res = await getCategories()
     if (res.success && res.data) {
+      // API 返回的 key 是 snake_case，需要转换为 camelCase
+      const keyMapping: Record<string, string> = {
+        'crowd': 'crowd',
+        'solar_term': 'solarTerm',
+        'efficacy': 'efficacy'
+      }
+
       // 按类型分组存储
       if (Array.isArray(res.data)) {
         // 如果返回的是数组，需要根据 type 分组
         const grouped = res.data.reduce((acc, item) => {
           const type = item.type
-          if (!acc[type]) acc[type] = []
-          acc[type].push(item)
+          const mappedKey = keyMapping[type] || type
+          if (!acc[mappedKey]) acc[mappedKey] = []
+          acc[mappedKey].push(item)
           return acc
         }, {} as Record<string, any[]>)
         
@@ -176,10 +184,15 @@ const fetchCategories = async () => {
           ...grouped
         }
       } else {
-        // 如果返回的是已分组的对象
+        // 如果返回的是已分组的对象，转换 key
+        const mappedData: Record<string, any[]> = {}
+        for (const [key, value] of Object.entries(res.data)) {
+          const mappedKey = keyMapping[key] || key
+          mappedData[mappedKey] = value as any[]
+        }
         categoryData.value = {
           ...categoryData.value,
-          ...res.data
+          ...mappedData
         }
       }
     }
