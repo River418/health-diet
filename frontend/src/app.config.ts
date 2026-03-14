@@ -6,7 +6,8 @@ const config: Config = {
     'pages/category/index',
     'pages/user/index',
     'pages/login/index',
-    'pages/onboarding/index'
+    'pages/onboarding/index',
+    'pages/search/index'
   ],
   window: {
     backgroundTextStyle: 'light',
