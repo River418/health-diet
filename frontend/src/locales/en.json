@@ -296,5 +296,11 @@
     "testVoiceText": "Voice assistance is enabled. I will read content for you.",
     "voicePlaying": "Playing voice",
     "tips": "Accessibility settings are saved locally. You'll need to reconfigure on a new device."
+  },
+  "sort": {
+    "recommend": "Recommend",
+    "hot": "Popular",
+    "newest": "Newest",
+    "rating": "Rating"
   }
 }

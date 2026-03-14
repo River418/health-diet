@@ -296,5 +296,11 @@
     "testVoiceText": "语音辅助功能已开启，我会为您播报内容",
     "voicePlaying": "正在播放语音",
     "tips": "适老化设置会保存在本地，更换设备后需要重新设置。"
+  },
+  "sort": {
+    "recommend": "推荐",
+    "hot": "热门",
+    "newest": "最新",
+    "rating": "评分"
   }
 }

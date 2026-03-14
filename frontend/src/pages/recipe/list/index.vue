@@ -6,9 +6,10 @@
         v-for="filter in filters"
         :key="filter.key"
         class="recipe-list-page__filter-item"
+        :class="{ 'is-active': getFilterValue(filter.key) }"
         @click="showFilter(filter.key)"
       >
-        <text class="recipe-list-page__filter-text">{{ filter.name }}</text>
+        <text class="recipe-list-page__filter-text">{{ getFilterDisplayName(filter.key, filter.name) }}</text>
         <text class="recipe-list-page__filter-arrow">▼</text>
       </view>
     </view>
@@ -52,26 +53,39 @@
         <text class="recipe-list-page__no-more-text">{{ $t('common.noMore') }}</text>
       </view>
     </scroll-view>
+    
+    <!-- 筛选弹窗 -->
+    <filter-picker
+      v-model:visible="filterPickerVisible"
+      v-model="currentFilterValue"
+      :title="currentFilterTitle"
+      :options="currentFilterOptions"
+      @confirm="handleFilterConfirm"
+      @reset="handleFilterReset"
+    />
   </view>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import RecipeCard from '@/components/business/RecipeCard.vue'
+import FilterPicker from '@/components/business/FilterPicker.vue'
 import HdSkeleton from '@/components/common/HdSkeleton.vue'
 import HdEmpty from '@/components/common/HdEmpty.vue'
 import { getRecipeList } from '@/api/recipe'
+import { getCategories } from '@/api/category'
 
 const { t: $t } = useI18n()
 
 // 页面参数
 const queryParams = ref<{
   crowd?: string
-  solar?: string
+  solarTerm?: string
   efficacy?: string
   ingredient?: string
+  sortBy?: string
 }>({})
 
 // 数据
@@ -82,13 +96,97 @@ const loadingMore = ref(false)
 const noMore = ref(false)
 const page = ref(1)
 
-// 筛选器
+// 分类数据
+const categoryData = ref<Record<string, any[]>>({
+  crowd: [],
+  solarTerm: [],
+  efficacy: [],
+  sort: [
+    { id: 'recommend', name: $t('sort.recommend') },
+    { id: 'hot', name: $t('sort.hot') },
+    { id: 'newest', name: $t('sort.newest') },
+    { id: 'rating', name: $t('sort.rating') }
+  ]
+})
+
+// 筛选器配置
 const filters = ref([
   { key: 'crowd', name: $t('category.crowd') },
-  { key: 'solar', name: $t('category.solarTerm') },
+  { key: 'solarTerm', name: $t('category.solarTerm') },
   { key: 'efficacy', name: $t('category.efficacy') },
   { key: 'sort', name: $t('common.sort') }
 ])
+
+// 筛选弹窗状态
+const filterPickerVisible = ref(false)
+const currentFilterKey = ref('')
+const currentFilterValue = ref('')
+
+// 当前筛选标题
+const currentFilterTitle = computed(() => {
+  const filter = filters.value.find(f => f.key === currentFilterKey.value)
+  return filter?.name || ''
+})
+
+// 当前筛选选项
+const currentFilterOptions = computed(() => {
+  const key = currentFilterKey.value
+  const data = categoryData.value[key] || []
+  return data.map(item => ({
+    label: item.name,
+    value: item.id || item.code || String(item.id)
+  }))
+})
+
+// 获取筛选值
+const getFilterValue = (key: string) => {
+  if (key === 'sort') {
+    return queryParams.value.sortBy
+  }
+  return queryParams.value[key as keyof typeof queryParams.value]
+}
+
+// 获取筛选显示名称
+const getFilterDisplayName = (key: string, defaultName: string) => {
+  const value = getFilterValue(key)
+  if (!value) return defaultName
+  
+  const data = categoryData.value[key] || []
+  const item = data.find(d => (d.id || d.code || String(d.id)) === value)
+  return item?.name || defaultName
+}
+
+// 获取分类数据
+const fetchCategories = async () => {
+  try {
+    const res = await getCategories()
+    if (res.success && res.data) {
+      // 按类型分组存储
+      if (Array.isArray(res.data)) {
+        // 如果返回的是数组，需要根据 type 分组
+        const grouped = res.data.reduce((acc, item) => {
+          const type = item.type
+          if (!acc[type]) acc[type] = []
+          acc[type].push(item)
+          return acc
+        }, {} as Record<string, any[]>)
+        
+        categoryData.value = {
+          ...categoryData.value,
+          ...grouped
+        }
+      } else {
+        // 如果返回的是已分组的对象
+        categoryData.value = {
+          ...categoryData.value,
+          ...res.data
+        }
+      }
+    }
+  } catch (error) {
+    console.error('获取分类数据失败', error)
+  }
+}
 
 // 获取配方列表
 const fetchRecipes = async (isLoadMore = false) => {
@@ -101,11 +199,16 @@ const fetchRecipes = async (isLoadMore = false) => {
   }
   
   try {
-    const params = {
+    const params: Record<string, any> = {
       page: page.value,
-      size: 10,
-      ...queryParams.value
+      size: 10
     }
+    
+    // 添加筛选参数
+    if (queryParams.value.crowd) params.crowd = queryParams.value.crowd
+    if (queryParams.value.solarTerm) params.solarTerm = queryParams.value.solarTerm
+    if (queryParams.value.efficacy) params.efficacy = queryParams.value.efficacy
+    if (queryParams.value.sortBy) params.sortBy = queryParams.value.sortBy
     
     const res = await getRecipeList(params)
     const list = res.data?.list || []
@@ -149,10 +252,39 @@ const onLoadMore = () => {
 
 // 显示筛选
 const showFilter = (key: string) => {
-  Taro.showToast({
-    title: '筛选功能开发中',
-    icon: 'none'
-  })
+  currentFilterKey.value = key
+  currentFilterValue.value = getFilterValue(key) || ''
+  filterPickerVisible.value = true
+}
+
+// 确认筛选
+const handleFilterConfirm = (value: string) => {
+  if (currentFilterKey.value === 'sort') {
+    queryParams.value.sortBy = value
+  } else {
+    queryParams.value[currentFilterKey.value as keyof typeof queryParams.value] = value
+  }
+  
+  // 重置页面并重新加载
+  page.value = 1
+  noMore.value = false
+  recipes.value = []
+  fetchRecipes()
+}
+
+// 重置筛选
+const handleFilterReset = () => {
+  if (currentFilterKey.value === 'sort') {
+    queryParams.value.sortBy = undefined
+  } else {
+    queryParams.value[currentFilterKey.value as keyof typeof queryParams.value] = undefined
+  }
+  
+  // 重置页面并重新加载
+  page.value = 1
+  noMore.value = false
+  recipes.value = []
+  fetchRecipes()
 }
 
 // 跳转配方详情
@@ -169,11 +301,16 @@ onMounted(() => {
   
   queryParams.value = {
     crowd: query.crowd,
-    solar: query.solar,
+    solarTerm: query.solarTerm || query.solar, // 兼容旧参数
     efficacy: query.efficacy,
-    ingredient: query.ingredient
+    ingredient: query.ingredient,
+    sortBy: query.sortBy
   }
   
+  // 获取分类数据
+  fetchCategories()
+  
+  // 获取配方列表
   fetchRecipes()
 })
 </script>
@@ -200,6 +337,19 @@ onMounted(() => {
       align-items: center;
       gap: 4px;
       padding: 8px 16px;
+      border-radius: $radius-lg;
+      
+      &.is-active {
+        background: rgba($brand-primary, 0.1);
+        
+        .recipe-list-page__filter-text {
+          color: $brand-primary;
+        }
+        
+        .recipe-list-page__filter-arrow {
+          color: $brand-primary;
+        }
+      }
       
       &:active {
         opacity: 0.7;

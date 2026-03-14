@@ -296,5 +296,11 @@
     "testVoiceText": "語音輔助功能已開啟，我會為您播報內容",
     "voicePlaying": "正在播放語音",
     "tips": "適老化設置會保存在本地，更換設備後需要重新設置。"
+  },
+  "sort": {
+    "recommend": "推薦",
+    "hot": "熱門",
+    "newest": "最新",
+    "rating": "評分"
   }
 }
