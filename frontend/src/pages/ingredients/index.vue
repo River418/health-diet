@@ -55,7 +55,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import HdEmpty from '@/components/common/HdEmpty.vue'
@@ -94,15 +94,8 @@ const fetchIngredients = async () => {
   loading.value = true
   
   try {
-    // 模拟数据，实际应该调用API
-    const mockData = [
-      { id: 1, name: '红枣', description: '补血养颜', image: '' },
-      { id: 2, name: '枸杞', description: '明目养肝', image: '' },
-      { id: 3, name: '山药', description: '健脾养胃', image: '' },
-      { id: 4, name: '莲子', description: '清心安神', image: '' },
-      { id: 5, name: '银耳', description: '滋阴润肺', image: '' },
-      { id: 6, name: '百合', description: '润肺止咳', image: '' }
-    ]
+    // TODO: 调用真实接口获取食材数据
+    const mockData: any[] = []
     
     if (page.value === 1) {
       ingredients.value = mockData

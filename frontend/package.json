@@ -55,5 +55,11 @@
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "browserslist": [
+    "last 3 versions",
+    "Android >= 4.1",
+    "ios >= 8",
+    "not ie <= 11"
+  ]
 }

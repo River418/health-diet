@@ -263,62 +263,9 @@ const userStore = useUserStore()
 const recipeId = ref<number>(0)
 
 // 数据
-const recipe = ref<any>({
-  name: '红枣银耳莲子羹',
-  coverImage: '/assets/images/recipes/hongzao-yiner.jpg',
-  rating: 4.9,
-  commentCount: 128,
-  favoriteCount: 1200,
-  difficulty: '简单',
-  servings: 3,
-  tags: ['滋阴润燥', '养颜美容', '秋季推荐'],
-  calories: 120,
-  protein: 3,
-  fat: 2,
-  carbs: 25,
-  ingredients: [
-    { name: '银耳', amount: '20g', remark: '干', image: '/assets/images/ingredients/yiner.png' },
-    { name: '红枣', amount: '10颗', remark: '去核', image: '/assets/images/ingredients/hongzao.png' },
-    { name: '莲子', amount: '15g', remark: '去芯', image: '/assets/images/ingredients/lianzi.png' },
-    { name: '冰糖', amount: '适量', remark: '根据个人口味', image: '/assets/images/ingredients/bingtang.png' },
-    { name: '枸杞', amount: '10g', remark: '', image: '/assets/images/ingredients/gouqi.png' }
-  ],
-  steps: [
-    { description: '银耳提前2小时用冷水泡发，泡发后撕成小朵，去除根部硬蒂。', image: '/assets/images/steps/step1.jpg' },
-    { description: '红枣洗净去核，莲子洗净去芯，枸杞用清水冲洗备用。', image: '/assets/images/steps/step2.jpg' },
-    { description: '将银耳放入锅中，加入适量清水，大火煮沸后转小火炖煮30分钟。', image: '/assets/images/steps/step3.jpg' },
-    { description: '加入红枣、莲子继续炖煮20分钟，至银耳出胶、莲子软烂。', image: '/assets/images/steps/step4.jpg' },
-    { description: '最后加入冰糖和枸杞，煮5分钟即可关火。', image: '/assets/images/steps/step5.jpg' }
-  ]
-})
-const comments = ref<any[]>([
-  {
-    userName: '养生达人',
-    userAvatar: '/assets/images/avatars/user1.png',
-    rating: 5,
-    content: '真的很好喝，坚持喝了两周，感觉皮肤都变好了！推荐给姐妹们。',
-    createTime: '2天前'
-  },
-  {
-    userName: '美食爱好者',
-    userAvatar: '/assets/images/avatars/user2.png',
-    rating: 5,
-    content: '做法简单，味道清甜，老人小孩都爱喝。',
-    createTime: '5天前'
-  },
-  {
-    userName: '健康生活',
-    userAvatar: '/assets/images/avatars/user3.png',
-    rating: 4,
-    content: '不错，就是银耳要炖久一点才会出胶。',
-    createTime: '1周前'
-  }
-])
-const relatedRecipes = ref<any[]>([
-  { id: 2, name: '山药薏米粥', coverImage: '/assets/images/recipes/shanyao-yimi.jpg', rating: 4.8, tags: ['健脾祛湿'] },
-  { id: 3, name: '枸杞菊花茶', coverImage: '/assets/images/recipes/gouqi-juhua.jpg', rating: 4.7, tags: ['养肝明目'] },
-  { id: 4, name: '当归红枣乌鸡汤', coverImage: '/assets/images/recipes/danggui-wuji.jpg', rating: 4.9, tags: ['补气养血'] }
-])
+const recipe = ref<any>({})
+const comments = ref<any[]>([])
+const relatedRecipes = ref<any[]>([])
 const isFavorited = ref(false)
 const showAllIngredients = ref(false)
 const navVisible = ref(false)

@@ -78,19 +78,16 @@ const config = {
         }
       }
     },
-    // Webpack 配置
+    // 禁用整理特定的 Webpack 编译警告
     webpackChain(chain) {
       chain.performance.hints(false)
       chain.set('ignoreWarnings', [
         /taro-video-core\.js/,
-        {
-          module: /node_modules[\\/]@tarojs[\\/]components/
-        },
+        { module: /node_modules[\\/]@tarojs[\\/]components/ },
         /taro_app_library.*remoteEntry/,
         /EnvironmentNotSupportAsyncWarning/,
-        {
-          message: /async\/await.*external.*script/
-        }
+        { message: /async\/await.*external.*script/ },
+        { message: /webpackExports/ }
       ])
     },
     postcss: {

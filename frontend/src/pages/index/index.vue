@@ -168,40 +168,7 @@ const fetchBanners = async () => {
 const fetchRecommendRecipes = async () => {
   try {
     const res = await getRecommendRecipes({ page: 1, size: 6 })
-    recommendRecipes.value = res.data?.list || [
-      {
-        id: 1,
-        name: '红枣银耳莲子羹',
-        coverImage: '/assets/images/recipes/hongzao-yiner.jpg',
-        rating: 4.9,
-        tags: ['滋阴润燥', '养颜美容'],
-        favoriteCount: 1200
-      },
-      {
-        id: 2,
-        name: '山药薏米粥',
-        coverImage: '/assets/images/recipes/shanyao-yimi.jpg',
-        rating: 4.8,
-        tags: ['健脾祛湿', '养胃'],
-        favoriteCount: 980
-      },
-      {
-        id: 3,
-        name: '枸杞菊花茶',
-        coverImage: '/assets/images/recipes/gouqi-juhua.jpg',
-        rating: 4.7,
-        tags: ['养肝明目', '清热'],
-        favoriteCount: 850
-      },
-      {
-        id: 4,
-        name: '当归红枣乌鸡汤',
-        coverImage: '/assets/images/recipes/danggui-wuji.jpg',
-        rating: 4.9,
-        tags: ['补气养血', '女性养生'],
-        favoriteCount: 1500
-      }
-    ]
+    recommendRecipes.value = res.data?.list || []
   } catch (error) {
     console.error('获取推荐配方失败', error)
   }
@@ -217,26 +184,7 @@ const fetchContentList = async (isLoadMore = false) => {
   
   try {
     const res = await getContentList({ page: page.value, size: 10 })
-    const list = res.data?.list || [
-      {
-        title: '春季养生三要点：养肝、护脾、防感冒',
-        image: '/assets/images/content/spring-health.jpg',
-        readTime: '3分钟阅读',
-        viewCount: '2.3k'
-      },
-      {
-        title: '中老年人饮食调理指南',
-        image: '/assets/images/content/elderly-diet.jpg',
-        readTime: '5分钟阅读',
-        viewCount: '1.8k'
-      },
-      {
-        title: '白领女性必知的养颜食疗方',
-        image: '/assets/images/content/beauty-food.jpg',
-        readTime: '4分钟阅读',
-        viewCount: '3.2k'
-      }
-    ]
+    const list = res.data?.list || []
     
     if (isLoadMore) {
       contentList.value.push(...list)

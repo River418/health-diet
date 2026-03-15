@@ -64,7 +64,7 @@
       <!-- 收藏列表 -->
       <view v-else-if="favorites.length" class="favorites-page__list">
         <view
-          v-for="(item, index) in filteredFavorites"
+          v-for="item in filteredFavorites"
           :key="item.id"
           class="favorites-page__item"
           :class="{ 'is-manage': isManageMode, 'is-selected': selectedItems.includes(item.id) }"
@@ -162,6 +162,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import { DEFAULT_IMAGES } from '@/utils/image'
+import { getFavorites } from '@/api/user'
 
 const { t: $t } = useI18n()
 
@@ -215,58 +216,8 @@ const fetchFavorites = async (isLoadMore = false) => {
   }
   
   try {
-    // TODO: 调用API获取收藏列表
-    // const res = await getFavorites({ page: page.value, size: 10, filter: currentFilter.value })
-    // const list = res.data?.list || []
-    
-    // 模拟数据
-    const list = [
-      {
-        id: 1,
-        name: '红枣银耳莲子羹',
-        coverImage: '/assets/images/recipes/hongzao-yiner.jpg',
-        rating: 4.9,
-        tags: ['滋阴润燥', '养颜美容'],
-        savedTime: '3天前',
-        category: 'soup'
-      },
-      {
-        id: 2,
-        name: '山药薏米粥',
-        coverImage: '/assets/images/recipes/shanyao-yimi.jpg',
-        rating: 4.8,
-        tags: ['健脾祛湿'],
-        savedTime: '1周前',
-        category: 'porridge'
-      },
-      {
-        id: 3,
-        name: '枸杞菊花茶',
-        coverImage: '/assets/images/recipes/gouqi-juhua.jpg',
-        rating: 4.7,
-        tags: ['养肝明目'],
-        savedTime: '2周前',
-        category: 'tea'
-      },
-      {
-        id: 4,
-        name: '当归红枣乌鸡汤',
-        coverImage: '/assets/images/recipes/danggui-wuji.jpg',
-        rating: 4.9,
-        tags: ['补气养血', '女性养生'],
-        savedTime: '3周前',
-        category: 'soup'
-      },
-      {
-        id: 5,
-        name: '百合莲子粥',
-        coverImage: '/assets/images/recipes/baihe-lianzi.jpg',
-        rating: 4.6,
-        tags: ['安神助眠'],
-        savedTime: '1个月前',
-        category: 'porridge'
-      }
-    ]
+    const res = await getFavorites({ page: page.value, size: 10 })
+    const list = res.data?.list || []
     
     if (isLoadMore) {
       favorites.value.push(...list)
@@ -654,6 +605,7 @@ onMounted(() => {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    line-clamp: 2;
   }
   
   &__meta {

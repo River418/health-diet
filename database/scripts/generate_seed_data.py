@@ -321,7 +321,7 @@ def generate_steps(recipe_name: str) -> List[Dict[str, Any]]:
             "description_zh_cn": desc,
             "description_zh_tw": desc,
             "description_en": f"Step {i}: {desc}",
-            "image": f"/images/steps/{recipe_name}_{i}.jpg"
+            "image": f"https://loremflickr.com/400/300/cooking,step?lock={recipe_name}_{i}"
         })
     return steps
 
@@ -373,7 +373,7 @@ def generate_sql() -> str:
         recipe_ids.append(recipe_id)
         name = recipe["name"]
         descriptions = generate_recipe_descriptions(name, recipe["efficacy"])
-        cover_image = f"/images/recipes/{name}.jpg"
+        cover_image = f"https://loremflickr.com/600/400/food,recipe?lock={recipe_id}"
         video_url = f"/videos/recipes/{name}.mp4" if random.random() > 0.5 else None
         video_duration = random.randint(60, 300) if video_url else None
         crowd_tags = json.dumps(recipe["crowd"], ensure_ascii=False)
@@ -416,7 +416,7 @@ def generate_sql() -> str:
         
         for sort_order, (ing_name, amount) in enumerate(ingredients, 0):
             sql_lines.append(f"INSERT INTO recipe_ingredients (id, recipe_id, name_zh_cn, name_zh_tw, name_en, amount, image, sort_order)")
-            sql_lines.append(f"VALUES ({ingredient_id}, {recipe_id}, '{ing_name}', '{ing_name}', '{ing_name}', '{amount}', '/images/ingredients/{ing_name}.jpg', {sort_order});")
+            sql_lines.append(f"VALUES ({ingredient_id}, {recipe_id}, '{ing_name}', '{ing_name}', '{ing_name}', '{amount}', 'https://loremflickr.com/200/200/food,ingredient?lock={ingredient_id}', {sort_order});")
             ingredient_id += 1
     
     total_ingredients = ingredient_id - 1
@@ -459,7 +459,7 @@ def generate_sql() -> str:
         title = random.choice(CONTENT_TITLES)
         source = source_info["source"]
         source_url = f"https://example.com/content/{content_id}"
-        cover_image = f"/images/contents/content_{content_id}.jpg"
+        cover_image = f"https://loremflickr.com/600/400/health,lifestyle?lock={content_id}"
         author = source_info["author"]
         content_type = "video" if source in ["wechat_video", "douyin"] else "article"
         tags = json.dumps(random.sample(["养生", "食疗", "健康", "美食", "中医", "节气", "保健"], 3), ensure_ascii=False)
@@ -534,7 +534,7 @@ def generate_sql() -> str:
             user_id = random.choice(user_ids)
             content = random.choice(COMMENT_TEMPLATES)
             rating = random.randint(3, 5)
-            images = json.dumps([f"/images/comments/comment_{comment_id}_1.jpg"] if random.random() > 0.8 else [], ensure_ascii=False)
+            images = json.dumps([f"https://loremflickr.com/400/400/food,review?lock={comment_id}"] if random.random() > 0.8 else [], ensure_ascii=False)
             likes = random.randint(0, 50)
             reply_count = random.randint(0, 5)
             status = 1
