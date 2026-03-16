@@ -1,5 +1,5 @@
 <template>
-  <view class="recipe-detail-page">
+  <view class="recipe-detail-page" :class="fontLargeClass">
     <!-- 顶部导航栏（滚动后显示） -->
     <view class="recipe-detail-page__nav" :class="{ 'recipe-detail-page__nav--visible': navVisible }">
       <view class="recipe-detail-page__nav-back" @click="handleBack">
@@ -29,7 +29,7 @@
       <view class="recipe-detail-page__cover">
         <image
           class="recipe-detail-page__cover-image"
-          :src="recipe.coverImage || defaultImage"
+          :src="coverImageUrl"
           mode="aspectFill"
           @click="previewImage"
         />
@@ -117,7 +117,7 @@
           >
             <image
               class="recipe-detail-page__ingredient-image"
-              :src="item.image || defaultIngredientImage"
+              :src="getIngredientImageUrl(item)"
               mode="aspectFill"
             />
             <view class="recipe-detail-page__ingredient-info">
@@ -152,7 +152,7 @@
               <image
                 v-if="step.image"
                 class="recipe-detail-page__step-image"
-                :src="step.image"
+                :src="getStepImageUrl(step.image)"
                 mode="widthFix"
                 @click="previewStepImage(step.image)"
               />
@@ -212,7 +212,7 @@
               v-for="item in relatedRecipes"
               :key="item.id"
               :recipe="item"
-              @click="goToRecipeDetail"
+              @click="goToRecipeDetail(item.id)"
             />
           </view>
         </scroll-view>
@@ -254,10 +254,12 @@ import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import RecipeCardHorizontal from '@/components/business/RecipeCardHorizontal.vue'
 import { getRecipeDetail, getRecipeComments, getRelatedRecipes } from '@/api/recipe'
 import { useUserStore } from '@/stores/user'
-import { DEFAULT_IMAGES } from '@/utils/image'
+import { DEFAULT_IMAGES, getImageUrl } from '@/utils/image'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
+const { fontLargeClass } = usePageFontSize()
 
 // 页面参数
 const recipeId = ref<number>(0)
@@ -274,6 +276,21 @@ const scrollTop = ref(0)
 const defaultImage = DEFAULT_IMAGES.recipe
 const defaultIngredientImage = DEFAULT_IMAGES.ingredient
 const defaultAvatar = DEFAULT_IMAGES.avatar
+
+// 获取封面图片 URL
+const coverImageUrl = computed(() => {
+  return getImageUrl(recipe.value.coverImage || recipe.value.cover_image, 'recipe')
+})
+
+// 获取食材图片 URL
+const getIngredientImageUrl = (item: any) => {
+  return getImageUrl(item.image, 'ingredient')
+}
+
+// 获取步骤图片 URL
+const getStepImageUrl = (url: string) => {
+  return getImageUrl(url, 'step')
+}
 
 // 显示的食材
 const displayedIngredients = computed(() => {

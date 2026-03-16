@@ -109,13 +109,22 @@ $shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.1);
 $font-family-base: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', 'Segoe UI', Roboto, sans-serif;
 $font-family-number: 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
 
-// 字号规范
-$font-size-xs: 12px;            // 小字：时间、次要信息
-$font-size-sm: 13px;            // 辅助文：说明、标签
-$font-size-base: 15px;          // 正文：主要阅读文字
-$font-size-md: 16px;            // 小标题：列表标题、模块标题
-$font-size-lg: 18px;            // 标题：卡片标题、分类名
-$font-size-xl: 22px;            // 大标题：页面主标题
+// 字号规范 - 支持动态缩放
+// 基础字号，实际显示会根据 --font-scale CSS 变量进行缩放
+$font-size-xs-base: 12px;       // 小字：时间、次要信息
+$font-size-sm-base: 13px;       // 辅助文：说明、标签
+$font-size-base-base: 15px;     // 正文：主要阅读文字
+$font-size-md-base: 16px;       // 小标题：列表标题、模块标题
+$font-size-lg-base: 18px;       // 标题：卡片标题、分类名
+$font-size-xl-base: 22px;       // 大标题：页面主标题
+
+// 动态计算的字号（使用 CSS calc 函数）
+$font-size-xs: calc(#{$font-size-xs-base} * var(--font-scale, 1));
+$font-size-sm: calc(#{$font-size-sm-base} * var(--font-scale, 1));
+$font-size-base: calc(#{$font-size-base-base} * var(--font-scale, 1));
+$font-size-md: calc(#{$font-size-md-base} * var(--font-scale, 1));
+$font-size-lg: calc(#{$font-size-lg-base} * var(--font-scale, 1));
+$font-size-xl: calc(#{$font-size-xl-base} * var(--font-scale, 1));
 
 // 字重
 $font-weight-normal: 400;

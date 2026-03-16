@@ -65,6 +65,12 @@ const config: Config = {
         'agreement/index',
         'privacy/index'
       ]
+    },
+    {
+      root: 'pages/content',
+      pages: [
+        'detail/index'
+      ]
     }
   ],
   permission: {

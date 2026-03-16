@@ -1,5 +1,5 @@
 <template>
-  <view class="onboarding-page" :class="{ 'onboarding-page--high-contrast': accessibilityStore.highContrast }">
+  <view class="onboarding-page" :class="[fontLargeClass, { 'onboarding-page--high-contrast': accessibilityStore.highContrast }]">
     <!-- 跳过按钮 -->
     <view class="onboarding-page__skip" v-if="currentPage < 3">
       <text class="onboarding-page__skip-text" @click="skipOnboarding">{{ $t('onboarding.skip') }}</text>
@@ -117,9 +117,11 @@ import Taro from '@tarojs/taro'
 import { useI18n } from 'vue-i18n'
 import { useAccessibilityStore } from '@/stores/accessibility'
 import HdButton from '@/components/common/HdButton.vue'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
 const accessibilityStore = useAccessibilityStore()
+const { fontLargeClass } = usePageFontSize()
 
 const currentPage = ref(1)
 const agreed = ref(false)

@@ -1,5 +1,5 @@
 <template>
-  <view class="privacy-page">
+  <view class="privacy-page" :class="fontLargeClass">
     <scroll-view scroll-y class="privacy-page__scroll">
       <view class="privacy-page__content">
         <text class="privacy-page__title">隐私政策</text>
@@ -41,6 +41,8 @@
 </template>
 
 <script setup lang="ts">
+import { usePageFontSize } from '@/composables'
+const { fontLargeClass } = usePageFontSize()
 </script>
 
 <style lang="scss">

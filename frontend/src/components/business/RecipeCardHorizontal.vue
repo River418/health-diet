@@ -3,7 +3,7 @@
     <view class="recipe-card-h__image-wrapper">
       <image
         class="recipe-card-h__image"
-        :src="recipe.coverImage || defaultImage"
+        :src="coverImageUrl"
         mode="aspectFill"
         lazy-load
       />
@@ -29,8 +29,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DEFAULT_IMAGES } from '@/utils/image'
+import { DEFAULT_IMAGES, getImageUrl } from '@/utils/image'
 
 const { t: $t } = useI18n()
 
@@ -38,6 +39,7 @@ interface Recipe {
   id: number
   name: string
   coverImage?: string
+  cover_image?: string
   rating?: number
   tags?: string[]
   isHot?: boolean
@@ -59,6 +61,10 @@ const emit = defineEmits<{
 const handleClick = () => {
   emit('click', props.recipe.id)
 }
+
+const coverImageUrl = computed(() => {
+  return getImageUrl(props.recipe.coverImage || props.recipe.cover_image, 'recipe')
+})
 </script>
 
 <style lang="scss">

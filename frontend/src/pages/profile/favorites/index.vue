@@ -1,5 +1,5 @@
 <template>
-  <view class="favorites-page">
+  <view class="favorites-page" :class="fontLargeClass">
     <!-- 顶部导航 -->
     <view class="favorites-page__nav">
       <text class="favorites-page__nav-title">
@@ -163,8 +163,10 @@ import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import { DEFAULT_IMAGES } from '@/utils/image'
 import { getFavorites } from '@/api/user'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
+const { fontLargeClass } = usePageFontSize()
 
 // 数据
 const favorites = ref<any[]>([])

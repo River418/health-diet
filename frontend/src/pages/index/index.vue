@@ -1,5 +1,5 @@
 <template>
-  <view class="home-page">
+  <view class="home-page" :class="fontLargeClass">
     <!-- 搜索栏 -->
     <search-bar sticky @click="goToSearch" />
     
@@ -30,11 +30,11 @@
             @click="handleBannerClick(banner)"
           >
             <view class="home-page__banner-item">
-              <image
-                class="home-page__banner-image"
-                :src="banner.image"
-                mode="aspectFill"
-              />
+<image
+                 class="home-page__banner-image"
+                 :src="getBannerImageUrl(banner)"
+                 mode="aspectFill"
+               />
               <view class="home-page__banner-overlay">
                 <text class="home-page__banner-title">{{ banner.title }}</text>
                 <text v-if="banner.subtitle" class="home-page__banner-subtitle">{{ banner.subtitle }}</text>
@@ -62,7 +62,7 @@
               v-for="recipe in recommendRecipes"
               :key="recipe.id"
               :recipe="recipe"
-              @click="goToRecipeDetail"
+              @click="goToRecipeDetail(recipe.id)"
             />
           </view>
         </scroll-view>
@@ -84,11 +84,11 @@
             class="home-page__content-item"
             @click="goToContentDetail(item)"
           >
-            <image
-              class="home-page__content-image"
-              :src="item.image"
-              mode="aspectFill"
-            />
+<image
+               class="home-page__content-image"
+               :src="getContentImageUrl(item)"
+               mode="aspectFill"
+             />
             <view class="home-page__content-info">
               <text class="home-page__content-title">{{ item.title }}</text>
               <text class="home-page__content-meta">
@@ -122,9 +122,11 @@ import KingKong from '@/components/business/KingKong.vue'
 import RecipeCardHorizontal from '@/components/business/RecipeCardHorizontal.vue'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { getBanners, getRecommendRecipes, getContentList } from '@/api/home'
-import { DEFAULT_IMAGES } from '@/utils/image'
+import { DEFAULT_IMAGES, getImageUrl } from '@/utils/image'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
+const { fontLargeClass } = usePageFontSize()
 
 // 数据
 const banners = ref<any[]>([])
@@ -279,11 +281,52 @@ const goToMoreContent = () => {
 
 // 内容详情
 const goToContentDetail = (item: any) => {
-  if (item.link) {
+  console.log('[goToContentDetail] item:', item)
+  if (item.id) {
+    // 跳转到内容详情页
+    console.log('[goToContentDetail] navigating to:', `/pages/content/detail/index?id=${item.id}`)
     Taro.navigateTo({
-      url: item.link
+      url: `/pages/content/detail/index?id=${item.id}`,
+      success: () => {
+        console.log('[goToContentDetail] navigate success')
+      },
+      fail: (err) => {
+        console.error('[goToContentDetail] navigate failed:', err)
+      }
+    })
+  } else if (item.source_url) {
+    // 外部链接处理
+    // #ifdef H5
+    window.open(item.source_url, '_blank')
+    // #endif
+    // #ifndef H5
+    // 小程序中复制链接或提示
+    Taro.setClipboardData({
+      data: item.source_url,
+      success: () => {
+        Taro.showToast({
+          title: '链接已复制',
+          icon: 'success'
+        })
+      }
+    })
+    // #endif
+  } else {
+    Taro.showToast({
+      title: '内容详情暂未开放',
+      icon: 'none'
     })
   }
+}
+
+// 获取内容图片 URL
+const getContentImageUrl = (item: any) => {
+  return getImageUrl(item.cover_image || item.image, 'content')
+}
+
+// 获取 Banner 图片 URL
+const getBannerImageUrl = (banner: any) => {
+  return getImageUrl(banner.image, 'banner')
 }
 
 onMounted(() => {

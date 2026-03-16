@@ -1,5 +1,5 @@
 <template>
-  <view class="login-page">
+  <view class="login-page" :class="fontLargeClass">
     <!-- 顶部返回 -->
     <view class="login-page__nav">
       <text class="login-page__back" @click="handleBack">⌫</text>
@@ -59,9 +59,11 @@ import HdButton from '@/components/common/HdButton.vue'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { useUserStore } from '@/stores/user'
 import { wechatLogin, douyinLogin } from '@/api/auth'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
+const { fontLargeClass } = usePageFontSize()
 
 const loading = ref<string>('')
 

@@ -1,5 +1,5 @@
 <template>
-  <view class="settings-page">
+  <view class="settings-page" :class="fontLargeClass">
     <!-- 账号与安全 -->
     <view class="settings-page__section">
       <view class="settings-page__section-title">{{ $t('settings.account') }}</view>
@@ -82,9 +82,11 @@ import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import { useAccessibilityStore } from '@/stores/accessibility'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t, locale } = useI18n()
 const accessibilityStore = useAccessibilityStore()
+const { fontLargeClass } = usePageFontSize()
 
 const isLoggedIn = ref(false) // 实际项目中应从用户状态获取
 

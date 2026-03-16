@@ -3,7 +3,7 @@
     <view class="recipe-card__image-wrapper">
       <image
         class="recipe-card__image"
-        :src="recipe.coverImage || defaultImage"
+        :src="coverImageUrl"
         mode="aspectFill"
         lazy-load
       />
@@ -38,13 +38,15 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import HdTag from '@/components/common/HdTag.vue'
-import { DEFAULT_IMAGES } from '@/utils/image'
+import { DEFAULT_IMAGES, getImageUrl } from '@/utils/image'
 
 interface Recipe {
   id: number
   name: string
   coverImage?: string
+  cover_image?: string
   rating?: number
   commentCount?: number
   favoriteCount?: number
@@ -66,6 +68,10 @@ const emit = defineEmits<{
 const handleClick = () => {
   emit('click', props.recipe.id)
 }
+
+const coverImageUrl = computed(() => {
+  return getImageUrl(props.recipe.coverImage || props.recipe.cover_image, 'recipe')
+})
 
 const formatNumber = (num: number): string => {
   if (num >= 10000) {

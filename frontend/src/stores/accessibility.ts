@@ -139,13 +139,39 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
   }
   
   // 应用字体大小到页面
+  // 通过触发全局事件，让各个页面组件响应字体大小变化
   const applyFontSize = () => {
-    // 通过修改根元素字体大小来影响整个页面
-    // 在小程序中，可以通过设置页面样式或者使用 CSS 变量
     const scale = scaleRatio.value
+    const isLarge = fontSize.value === 'large'
     
-    // 触发一个全局事件，让页面组件响应字体大小变化
-    Taro.eventCenter.trigger('accessibility:fontSizeChanged', { scale, fontSize: fontSize.value })
+    // 保存到 storage，供页面加载时读取
+    Taro.setStorageSync('font_size_scale', String(scale))
+    Taro.setStorageSync('font_size_class', isLarge ? 'font-large' : '')
+    
+    // 在 Web/H5 环境下，操作 document.documentElement
+    try {
+      if (typeof document !== 'undefined' && document.documentElement) {
+        document.documentElement.style.setProperty('--font-scale', String(scale))
+        document.documentElement.style.setProperty('--root-font-size', rootFontSize.value)
+        
+        // 添加/移除 class
+        if (isLarge) {
+          document.documentElement.classList.add('font-large')
+        } else {
+          document.documentElement.classList.remove('font-large')
+        }
+      }
+    } catch (e) {
+      // 忽略非 H5 环境的错误
+    }
+    
+    // 触发全局事件，让所有页面组件响应字体大小变化
+    // 各页面通过 usePageFontSize composable 监听此事件
+    Taro.eventCenter.trigger('accessibility:fontSizeChanged', { 
+      scale, 
+      fontSize: fontSize.value,
+      isLarge
+    })
   }
   
   // 获取字体大小对应的数值

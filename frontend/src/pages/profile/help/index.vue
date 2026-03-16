@@ -1,5 +1,5 @@
 <template>
-  <view class="help-page">
+  <view class="help-page" :class="fontLargeClass">
     <view class="help-page__section">
       <view class="help-page__section-title">常见问题</view>
       <view class="help-page__list">
@@ -43,7 +43,9 @@
 import { ref } from 'vue'
 import Taro from '@tarojs/taro'
 import HdButton from '@/components/common/HdButton.vue'
+import { usePageFontSize } from '@/composables'
 
+const { fontLargeClass } = usePageFontSize()
 const feedback = ref('')
 
 const showFAQ = (title: string) => {

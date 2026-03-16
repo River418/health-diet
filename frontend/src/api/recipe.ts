@@ -11,8 +11,11 @@ export const getRecipeList = (params: {
   size?: number
   crowd?: string
   solarTerm?: string
+  solar_term?: string
   efficacy?: string
   ingredient?: string
+  sortBy?: string
+  sort_by?: string
 }) => {
   return get('/recipes', params)
 }

@@ -8,6 +8,31 @@
 // --------------------------------------------
 // 基础样式重置
 // --------------------------------------------
+// 根元素 CSS 变量定义
+:root,
+page {
+  --font-scale: 1;
+  --root-font-size: 16px;
+}
+
+// 大字模式样式 - 支持页面级和视图级应用
+page.font-large,
+.font-large {
+  --font-scale: 1.125;
+  --root-font-size: 18px;
+}
+
+// 大字模式下的字体大小调整
+.font-large {
+  font-size: $font-size-base;
+  
+  text,
+  view,
+  label {
+    font-size: inherit;
+  }
+}
+
 page {
   font-family: $font-family-base;
   font-size: $font-size-base;

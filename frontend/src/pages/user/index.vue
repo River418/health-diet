@@ -1,5 +1,5 @@
 <template>
-  <view class="user-page">
+  <view class="user-page" :class="fontLargeClass">
     <scroll-view scroll-y class="user-page__scroll">
       <!-- 头部区域（渐变背景） -->
       <view class="user-page__header">
@@ -207,9 +207,11 @@ import Taro from '@tarojs/taro'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { useUserStore } from '@/stores/user'
 import { DEFAULT_IMAGES } from '@/utils/image'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t, locale } = useI18n()
 const userStore = useUserStore()
+const { fontLargeClass } = usePageFontSize()
 
 // 数据
 const userInfo = computed(() => userStore.userInfo)

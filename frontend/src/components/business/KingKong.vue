@@ -37,14 +37,14 @@ const items = computed<KingKongItem[]>(() => [
     name: t('home.kingKong.elderly'),
     gradient: 'linear-gradient(135deg, #FF8C42, #FFB74D)',
     path: '/pages/recipe/list/index',
-    query: { crowd: 'elderly' }
+    query: { crowd: '中老年' }
   },
   {
     icon: '💼',
     name: t('home.kingKong.office'),
     gradient: 'linear-gradient(135deg, #64B5F6, #90CAF9)',
     path: '/pages/recipe/list/index',
-    query: { crowd: 'office' }
+    query: { crowd: '白领' }
   },
   {
     icon: '🌸',
@@ -58,28 +58,28 @@ const items = computed<KingKongItem[]>(() => [
     name: t('home.kingKong.blood'),
     gradient: 'linear-gradient(135deg, #F48FB1, #F8BBD9)',
     path: '/pages/recipe/list/index',
-    query: { efficacy: 'blood' }
+    query: { efficacy: '补气养血' }
   },
   {
     icon: '🍚',
     name: t('home.kingKong.stomach'),
     gradient: 'linear-gradient(135deg, #81C784, #A5D6A7)',
     path: '/pages/recipe/list/index',
-    query: { efficacy: 'stomach' }
+    query: { efficacy: '健脾养胃' }
   },
   {
     icon: '🌙',
     name: t('home.kingKong.sleep'),
     gradient: 'linear-gradient(135deg, #9575CD, #B39DDB)',
     path: '/pages/recipe/list/index',
-    query: { efficacy: 'sleep' }
+    query: { efficacy: '安神助眠' }
   },
   {
     icon: '✨',
     name: t('home.kingKong.beauty'),
     gradient: 'linear-gradient(135deg, #F06292, #F48FB1)',
     path: '/pages/recipe/list/index',
-    query: { efficacy: 'beauty' }
+    query: { efficacy: '美容养颜' }
   },
   {
     icon: '➕',

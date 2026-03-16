@@ -61,3 +61,8 @@ export const clearSearchHistory = () => {
 export const getHotSearch = () => {
   return Promise.resolve({ success: true, data: [] })
 }
+
+// 获取内容详情
+export const getContentDetail = (id: string | number) => {
+  return get(`/contents/${id}`)
+}

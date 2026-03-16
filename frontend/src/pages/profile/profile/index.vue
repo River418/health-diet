@@ -1,5 +1,5 @@
 <template>
-  <view class="profile-page">
+  <view class="profile-page" :class="fontLargeClass">
     <view class="profile-page__section">
       <view class="profile-page__avatar-item" @click="changeAvatar">
         <text class="profile-page__label">头像</text>
@@ -40,8 +40,10 @@ import Taro from '@tarojs/taro'
 import { useUserStore } from '@/stores/user'
 import { getUserInfo } from '@/api/user'
 import { DEFAULT_IMAGES } from '@/utils/image'
+import { usePageFontSize } from '@/composables'
 
 const userStore = useUserStore()
+const { fontLargeClass } = usePageFontSize()
 
 const userInfo = ref<any>({})
 const defaultAvatar = DEFAULT_IMAGES.avatar

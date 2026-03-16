@@ -1,5 +1,5 @@
 <template>
-  <view class="history-page">
+  <view class="history-page" :class="fontLargeClass">
     <!-- 列表 -->
     <scroll-view
       scroll-y
@@ -72,8 +72,10 @@ import Taro from '@tarojs/taro'
 import HdSkeleton from '@/components/common/HdSkeleton.vue'
 import HdEmpty from '@/components/common/HdEmpty.vue'
 import HdButton from '@/components/common/HdButton.vue'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
+const { fontLargeClass } = usePageFontSize()
 
 // 数据
 const history = ref<any[]>([])

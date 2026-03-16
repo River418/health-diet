@@ -1,5 +1,5 @@
 <template>
-  <view class="search-page">
+  <view class="search-page" :class="fontLargeClass">
     <!-- 搜索栏 -->
     <view class="search-page__header">
       <view class="search-page__input-wrapper">
@@ -99,8 +99,10 @@ import Taro from '@tarojs/taro'
 import RecipeCard from '@/components/business/RecipeCard.vue'
 import HdEmpty from '@/components/common/HdEmpty.vue'
 import { search, getSearchHistory, getHotSearch, clearSearchHistory } from '@/api/home'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
+const { fontLargeClass } = usePageFontSize()
 
 // 数据
 const keyword = ref('')

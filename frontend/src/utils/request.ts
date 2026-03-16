@@ -107,7 +107,18 @@ const refreshToken = async (): Promise<boolean> => {
 
 // 便捷方法
 export const get = <T = any>(url: string, params?: any, needAuth = true) => {
-  return request<T>({ url, method: 'GET', data: params, needAuth })
+  // 将参数拼接到 URL 中
+  let fullUrl = url
+  if (params && Object.keys(params).length > 0) {
+    const queryString = Object.entries(params)
+      .filter(([_, value]) => value !== undefined && value !== null)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(String(value))}`)
+      .join('&')
+    if (queryString) {
+      fullUrl = `${url}?${queryString}`
+    }
+  }
+  return request<T>({ url: fullUrl, method: 'GET', needAuth })
 }
 
 export const post = <T = any>(url: string, data?: any, needAuth = true) => {

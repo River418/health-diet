@@ -1,5 +1,5 @@
 <template>
-  <view class="comments-page">
+  <view class="comments-page" :class="fontLargeClass">
     <!-- 评论列表 -->
     <scroll-view
       scroll-y
@@ -91,9 +91,11 @@ import HdEmpty from '@/components/common/HdEmpty.vue'
 import { getRecipeComments, submitComment } from '@/api/recipe'
 import { useUserStore } from '@/stores/user'
 import { DEFAULT_IMAGES } from '@/utils/image'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
+const { fontLargeClass } = usePageFontSize()
 
 // 页面参数
 const recipeId = ref<number>(0)

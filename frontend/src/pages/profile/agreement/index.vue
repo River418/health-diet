@@ -1,5 +1,5 @@
 <template>
-  <view class="agreement-page">
+  <view class="agreement-page" :class="fontLargeClass">
     <scroll-view scroll-y class="agreement-page__scroll">
       <view class="agreement-page__content">
         <text class="agreement-page__title">用户协议</text>
@@ -32,6 +32,8 @@
 </template>
 
 <script setup lang="ts">
+import { usePageFontSize } from '@/composables'
+const { fontLargeClass } = usePageFontSize()
 </script>
 
 <style lang="scss">

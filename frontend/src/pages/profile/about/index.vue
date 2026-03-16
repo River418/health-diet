@@ -1,5 +1,5 @@
 <template>
-  <view class="about-page">
+  <view class="about-page" :class="fontLargeClass">
     <view class="about-page__logo">
       <view class="about-page__logo-icon">
         <text class="about-page__logo-emoji">🥗</text>
@@ -28,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+import { usePageFontSize } from '@/composables'
+const { fontLargeClass } = usePageFontSize()
 </script>
 
 <style lang="scss">

@@ -1,5 +1,5 @@
 <template>
-  <view class="ingredients-page">
+  <view class="ingredients-page" :class="fontLargeClass">
     <!-- 页面标题 -->
     <view class="ingredients-page__header">
       <text class="ingredients-page__title">{{ $t('ingredients.title') }}</text>
@@ -59,8 +59,10 @@ import { ref, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import HdEmpty from '@/components/common/HdEmpty.vue'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
+const { fontLargeClass } = usePageFontSize()
 
 // 分类数据
 const categories = ref([

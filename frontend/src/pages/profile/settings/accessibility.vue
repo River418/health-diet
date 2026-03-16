@@ -1,10 +1,10 @@
 <template>
   <view 
     class="accessibility-page" 
-    :class="{ 
+    :class="[fontLargeClass, { 
       'accessibility-page--large-font': accessibilityStore.isLargeFont,
       'accessibility-page--high-contrast': accessibilityStore.highContrast 
-    }"
+    }]"
   >
     <!-- 页面标题 -->
     <view class="accessibility-page__header">
@@ -142,9 +142,11 @@ import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import { useAccessibilityStore, FontSize } from '@/stores/accessibility'
 import HdButton from '@/components/common/HdButton.vue'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t } = useI18n()
 const accessibilityStore = useAccessibilityStore()
+const { fontLargeClass } = usePageFontSize()
 
 // 预览文本样式
 const previewStyle = computed(() => {
