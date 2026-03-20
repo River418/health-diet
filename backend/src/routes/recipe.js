@@ -134,12 +134,11 @@ router.get('/:id', optionalAuth, async (req, res) => {
     
     // 查询配方详情
     const recipesResult = await req.db.query(
-      `SELECT 
+      `SELECT
         r.id,
         ${nameField} as name,
         ${descField} as description,
         r.cover_image,
-        r.images,
         r.video_url,
         r.video_duration,
         r.crowd_tags,
@@ -333,6 +332,165 @@ router.delete('/:id/favorite', authenticate, async (req, res) => {
       success: false,
       error: '取消收藏失败',
       code: 'UNFAVORITE_FAILED'
+    });
+  }
+});
+
+/**
+ * @GET /api/v1/recipes/:id/comments
+ * 获取配方评论列表
+ */
+router.get('/:id/comments', async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
+
+    // 检查配方是否存在
+    const recipeResult = await req.db.query(
+      'SELECT id FROM recipes WHERE id = $1 AND status = 1',
+      [recipeId]
+    );
+
+    if (recipeResult.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: '配方不存在',
+        code: 'RECIPE_NOT_FOUND'
+      });
+    }
+
+    // 查询评论列表
+    const commentsResult = await req.db.query(
+      `SELECT
+        c.id,
+        c.content,
+        c.rating,
+        c.images,
+        c.likes,
+        c.reply_count,
+        c.created_at,
+        u.id as user_id,
+        u.nickname,
+        u.avatar
+      FROM comments c
+      JOIN users u ON c.user_id = u.id
+      WHERE c.recipe_id = $1 AND c.status = 1 AND c.parent_id IS NULL
+      ORDER BY c.created_at DESC
+      LIMIT $2 OFFSET $3`,
+      [recipeId, pageSize, offset]
+    );
+    const comments = commentsResult.rows;
+
+    // 获取总数
+    const countResult = await req.db.query(
+      'SELECT COUNT(*) as total FROM comments WHERE recipe_id = $1 AND status = 1 AND parent_id IS NULL',
+      [recipeId]
+    );
+    const total = parseInt(countResult.rows[0].total);
+
+    res.json({
+      success: true,
+      data: buildPaginationResponse(comments, total, page, pageSize)
+    });
+  } catch (error) {
+    console.error('Get recipe comments error:', error);
+    res.status(500).json({
+      success: false,
+      error: '获取评论列表失败',
+      code: 'GET_COMMENTS_FAILED'
+    });
+  }
+});
+
+/**
+ * @GET /api/v1/recipes/:id/related
+ * 获取相关配方推荐
+ */
+router.get('/:id/related', async (req, res) => {
+  try {
+    const recipeId = req.params.id;
+    const limit = Math.min(parseInt(req.query.limit) || 6, 20);
+
+    // 获取当前配方的分类和功效标签
+    const recipeResult = await req.db.query(
+      `SELECT crowd_tags, efficacy_tags
+       FROM recipes
+       WHERE id = $1 AND status = 1`,
+      [recipeId]
+    );
+
+    if (recipeResult.rows.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: '配方不存在',
+        code: 'RECIPE_NOT_FOUND'
+      });
+    }
+
+    const { crowd_tags, efficacy_tags } = recipeResult.rows[0];
+
+    const language = req.user?.language || config.defaultLanguage;
+    const nameField = language === 'zh-TW' ? 'r.name_zh_tw' :
+                      language === 'en' ? 'r.name_en' : 'r.name_zh_cn';
+
+    // 提取标签数组用于匹配
+    const crowdTagList = crowd_tags || [];
+    const efficacyTagList = efficacy_tags || [];
+
+    // 查询相关配方：同分类或同功效，排除当前配方
+    // 使用 jsonb_array_elements 来匹配任意一个标签
+    const relatedResult = await req.db.query(
+      `SELECT DISTINCT
+        r.id,
+        ${nameField} as name,
+        r.cover_image,
+        r.crowd_tags,
+        r.efficacy_tags,
+        r.rating,
+        r.view_count,
+        r.favorite_count,
+        (
+          CASE WHEN EXISTS (
+            SELECT 1 FROM jsonb_array_elements_text(r.crowd_tags) ct
+            WHERE ct = ANY($2::text[])
+          ) THEN 2 ELSE 0 END +
+          CASE WHEN EXISTS (
+            SELECT 1 FROM jsonb_array_elements_text(r.efficacy_tags) et
+            WHERE et = ANY($3::text[])
+          ) THEN 1 ELSE 0 END
+        ) as relevance_score
+      FROM recipes r
+      WHERE r.id != $1
+        AND r.status = 1
+        AND (
+          EXISTS (
+            SELECT 1 FROM jsonb_array_elements_text(r.crowd_tags) ct
+            WHERE ct = ANY($2::text[])
+          )
+          OR EXISTS (
+            SELECT 1 FROM jsonb_array_elements_text(r.efficacy_tags) et
+            WHERE et = ANY($3::text[])
+          )
+        )
+      ORDER BY relevance_score DESC, r.rating DESC, r.view_count DESC
+      LIMIT $4`,
+      [recipeId, crowdTagList, efficacyTagList, limit]
+    );
+
+    res.json({
+      success: true,
+      data: relatedResult.rows
+    });
+  } catch (error) {
+    console.error('Get related recipes error:', error);
+    res.status(500).json({
+      success: false,
+      error: '获取相关配方失败',
+      code: 'GET_RELATED_FAILED'
     });
   }
 });

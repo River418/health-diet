@@ -1,20 +1,15 @@
-/**
- * Health-Diet 后端服务入口
- * PRD 技术栈: Node.js + Express + PostgreSQL + Redis
- */
-
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const compression = require('compression');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 require('dotenv').config();
 
 const config = require('./config');
 const { createPool, createRedisClient } = require('./config/database');
 const logger = require('./utils/logger');
 
-// 导入路由
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const recipeRoutes = require('./routes/recipe');
@@ -22,14 +17,13 @@ const categoryRoutes = require('./routes/category');
 const commentRoutes = require('./routes/comment');
 const contentRoutes = require('./routes/content');
 const searchRoutes = require('./routes/search');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
-// 创建数据库连接池
 const dbPool = createPool();
 const redisClient = createRedisClient();
 
-// 中间件
 app.use(helmet());
 app.use(cors({
   origin: ['http://localhost:10086', 'http://localhost:10087', 'http://localhost:3000', 'http://192.168.2.248:10086', 'http://192.168.2.248:10087'],
@@ -40,10 +34,9 @@ app.use(cors({
 }));
 app.use(compression());
 
-// 限流配置
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15分钟
-  max: 1000, // 每IP最多1000请求
+  windowMs: 15 * 60 * 1000,
+  max: 1000,
   message: {
     success: false,
     error: '请求过于频繁，请稍后再试',
@@ -52,19 +45,17 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// 请求体解析
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// 数据库连接中间件
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 app.use((req, res, next) => {
-  // PostgreSQL: 提供 query 方法
   req.db = dbPool;
   req.redis = redisClient;
   next();
 });
 
-// 请求日志
 app.use((req, res, next) => {
   logger.info(`${req.method} ${req.path}`, {
     ip: req.ip,
@@ -73,7 +64,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// 健康检查
 app.get('/api/v1/health', (req, res) => {
   res.json({
     success: true,
@@ -85,7 +75,6 @@ app.get('/api/v1/health', (req, res) => {
   });
 });
 
-// API 路由
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
 app.use('/api/v1/recipes', recipeRoutes);
@@ -93,8 +82,8 @@ app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/comments', commentRoutes);
 app.use('/api/v1/contents', contentRoutes);
 app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/admin', adminRoutes);
 
-// 404 处理
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -103,7 +92,6 @@ app.use((req, res) => {
   });
 });
 
-// 错误处理
 app.use((err, req, res, next) => {
   logger.error('Server Error:', err);
   
@@ -114,10 +102,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 启动服务器
 const startServer = async () => {
   try {
-    // 连接 Redis
     await redisClient.connect();
     
     app.listen(config.server.port, config.server.host, () => {
@@ -129,7 +115,6 @@ const startServer = async () => {
   }
 };
 
-// 优雅关闭
 process.on('SIGTERM', async () => {
   logger.info('SIGTERM received, shutting down gracefully');
   await redisClient.quit();

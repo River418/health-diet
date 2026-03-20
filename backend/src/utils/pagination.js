@@ -13,7 +13,8 @@ const config = require('../config');
 function validatePagination(query) {
   // FIX: page 参数默认为 1，避免前端未传参时报错
   let page = parseInt(query.page) || 1;
-  let pageSize = parseInt(query.pageSize);
+  // 支持 limit 作为 pageSize 的别名
+  let pageSize = parseInt(query.pageSize) || parseInt(query.limit);
   
   // BUG-002 修复: 负数页码未校验 - page必须 >= 1
   if (page < 1) {

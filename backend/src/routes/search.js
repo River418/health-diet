@@ -9,8 +9,121 @@ const config = require('../config');
 const { validatePagination, buildPaginationResponse } = require('../utils/pagination');
 
 /**
+ * @GET /api/v1/search/recipes
+ * 搜索食谱 - 支持关键词、分页和筛选
+ */
+router.get('/recipes', async (req, res) => {
+  try {
+    const { 
+      q: keyword,
+      category,
+      difficulty
+    } = req.query;
+    
+    // 分页校验（支持 limit 作为 pageSize 的别名）
+    const pagination = validatePagination(req.query);
+    if (pagination.error) {
+      return res.status(400).json(pagination.error);
+    }
+    const { page, pageSize, offset } = pagination;
+    
+    if (!keyword || keyword.trim().length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: '请输入搜索关键词',
+        code: 'MISSING_KEYWORD'
+      });
+    }
+    
+    const language = req.headers['accept-language'] || config.defaultLanguage;
+    // 严格校验语言参数，防止SQL注入
+    const validLanguage = config.languages && config.languages.includes(language) ? language : (config.defaultLanguage || 'zh-CN');
+    const nameField = validLanguage === 'zh-TW' ? 'r.name_zh_tw' : 
+                      validLanguage === 'en' ? 'r.name_en' : 'r.name_zh_cn';
+    
+    const searchTerm = `%${keyword.trim()}%`;
+    
+    // 构建查询条件
+    let whereClause = 'WHERE r.status = 1';
+    const params = [];
+    
+    // 关键词搜索
+    whereClause += ` AND (${nameField} ILIKE $${params.length + 1} OR r.description_zh_cn ILIKE $${params.length + 2})`;
+    params.push(searchTerm, searchTerm);
+    
+    // 分类筛选 - 通过 crowd_tags 或 efficacy_tags JSONB 字段筛选
+    if (category) {
+      whereClause += ` AND (r.crowd_tags @> $${params.length + 1}::jsonb OR r.efficacy_tags @> $${params.length + 1}::jsonb)`;
+      params.push(JSON.stringify([category]));
+    }
+    
+    // 难度筛选 - 当前数据模型不支持，暂注释
+    // if (difficulty) {
+    //   whereClause += ` AND r.difficulty = $${params.length + 1}`;
+    //   params.push(difficulty);
+    // }
+    
+    // 搜索配方
+    const recipesQuery = `
+      SELECT 
+        r.id,
+        ${nameField} as name,
+        r.cover_image,
+        r.crowd_tags,
+        r.efficacy_tags,
+        r.rating,
+        r.view_count,
+        r.favorite_count,
+        r.comment_count
+      FROM recipes r
+      ${whereClause}
+      ORDER BY 
+        CASE WHEN ${nameField} ILIKE $${params.length + 1} THEN 1 ELSE 2 END,
+        r.rating DESC,
+        r.view_count DESC
+      LIMIT $${params.length + 2} OFFSET $${params.length + 3}
+    `;
+    
+    const recipesResult = await req.db.query(recipesQuery, [...params, `${keyword.trim()}%`, pageSize, offset]);
+    const recipes = recipesResult.rows;
+    
+    // 获取总数
+    const countQuery = `
+      SELECT COUNT(*) as total FROM recipes r
+      ${whereClause}
+    `;
+    const countResult = await req.db.query(countQuery, params);
+    const total = parseInt(countResult.rows[0].total);
+    
+    // 保存搜索历史到 Redis（用于热门搜索统计）
+    if (req.redis && req.redis.isReady) {
+      await req.redis.zIncrBy('search:hot', 1, keyword.trim());
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        keyword: keyword.trim(),
+        filters: {
+          category: category || null,
+          difficulty: difficulty || null
+        },
+        ...buildPaginationResponse(recipes, total, page, pageSize)
+      }
+    });
+  } catch (error) {
+    console.error('Search recipes error:', error);
+    res.status(500).json({
+      success: false,
+      error: '搜索失败',
+      code: 'SEARCH_FAILED'
+    });
+  }
+});
+
+/**
  * @GET /api/v1/search
- * 搜索配方
+ * 搜索配方（兼容旧版）
  */
 router.get('/', async (req, res) => {
   try {
