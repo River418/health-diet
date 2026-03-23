@@ -99,6 +99,7 @@ const handleClick = () => {
   // 块级
   &--block {
     width: 100%;
+    display: flex;
   }
   
   // 类型
