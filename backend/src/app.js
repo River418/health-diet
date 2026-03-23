@@ -26,7 +26,13 @@ const redisClient = createRedisClient();
 
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:10086', 'http://localhost:10087', 'http://localhost:3000', 'http://192.168.2.248:10086', 'http://192.168.2.248:10087'],
+  origin: process.env.CORS_ORIGIN ? process.env.CORS_ORIGIN.split(',') : [
+    'http://localhost:10086',
+    'http://localhost:10087',
+    'http://localhost:3000',
+    'http://192.168.2.248:10086',
+    'http://192.168.2.248:10087'
+  ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   credentials: true,
