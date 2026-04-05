@@ -17,6 +17,12 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
   // 语音辅助开关
   const voiceAssist = ref(false)
   
+  // 深色模式
+  const darkMode = ref(false)
+  
+  // 计算属性：是否是深色模式
+  const isDarkMode = computed(() => darkMode.value)
+  
   // 计算属性：是否是大字体模式
   const isLargeFont = computed(() => fontSize.value === 'large')
   
@@ -52,6 +58,11 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     }
     if (storedVoiceAssist !== '') {
       voiceAssist.value = storedVoiceAssist === true || storedVoiceAssist === 'true'
+    }
+    
+    const storedDarkMode = Taro.getStorageSync('accessibility_darkMode')
+    if (storedDarkMode !== '') {
+      darkMode.value = storedDarkMode === true || storedDarkMode === 'true'
     }
     
     // 如果跟随系统字体大小
@@ -138,6 +149,20 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     Taro.setStorageSync('accessibility_voiceAssist', value)
   }
   
+  // 设置深色模式
+  const setDarkMode = (enabled: boolean) => {
+    darkMode.value = enabled
+    Taro.setStorageSync('accessibility_darkMode', enabled)
+    applyDarkMode()
+  }
+  
+  // 切换深色模式
+  const toggleDarkMode = () => {
+    darkMode.value = !darkMode.value
+    Taro.setStorageSync('accessibility_darkMode', darkMode.value)
+    applyDarkMode()
+  }
+  
   // 应用字体大小到页面
   // 通过触发全局事件，让各个页面组件响应字体大小变化
   const applyFontSize = () => {
@@ -174,6 +199,52 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     })
   }
   
+  // 应用深色模式到页面
+  const applyDarkMode = () => {
+    const isDark = darkMode.value
+  
+    // 保存到 storage，供页面加载时读取
+    Taro.setStorageSync('dark_mode_class', isDark ? 'dark-mode' : '')
+  
+    // 在 Web/H5 环境下，操作 document.documentElement
+    try {
+      if (typeof document !== 'undefined' && document.documentElement) {
+        if (isDark) {
+          document.documentElement.classList.add('dark-mode')
+        } else {
+          document.documentElement.classList.remove('dark-mode')
+        }
+      }
+    } catch (e) {
+      // 忽略非 H5 环境的错误
+    }
+  
+    // 更新 TabBar 样式
+    try {
+      if (isDark) {
+        Taro.setTabBarStyle({
+          color: '#a9aa9e',
+          selectedColor: '#8BAF4A',
+          backgroundColor: '#1e1f19'
+        })
+      } else {
+        Taro.setTabBarStyle({
+          color: '#999999',
+          selectedColor: '#6B8E23',
+          backgroundColor: '#fefdf1'
+        })
+      }
+    } catch (e) {
+      // TabBar 可能还未初始化，忽略
+    }
+  
+    // 触发全局事件，让所有页面组件响应深色模式变化
+    Taro.eventCenter.trigger('accessibility:darkModeChanged', {
+      isDark,
+      darkMode: darkMode.value
+    })
+  }
+  
   // 获取字体大小对应的数值
   const getFontSizeValue = (baseSize: number): number => {
     return Math.round(baseSize * scaleRatio.value)
@@ -196,7 +267,9 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     highContrast,
     followSystemFont,
     voiceAssist,
+    darkMode,
     isLargeFont,
+    isDarkMode,
     rootFontSize,
     scaleRatio,
     initSettings,
@@ -207,7 +280,10 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     setFollowSystem,
     toggleVoiceAssist,
     setVoiceAssist,
+    setDarkMode,
+    toggleDarkMode,
     applyFontSize,
+    applyDarkMode,
     getFontSizeValue,
     speak
   }
