@@ -206,3 +206,40 @@ $category-office: #64B5F6;      // 白领 - 天蓝
 $category-female: #F48FB1;      // 女性 - 粉色
 $category-children: #FFD54F;    // 儿童 - 暖黄
 $category-general: #9E9E9E;     // 通用 - 灰色
+
+// --------------------------------------------
+// 14. 深色模式颜色（Material Design 动态深色方案）
+// 基于橄榄绿主色 #6B8E23 生成
+// --------------------------------------------
+$dark-bg-page: #12130e;              // 深色页面背景
+$dark-bg-card: #1e1f19;              // 深色卡片背景
+$dark-bg-surface-low: #262720;       // 深色低层表面
+$dark-bg-surface-high: #2e2f27;      // 深色高层表面
+$dark-bg-surface-highest: #36372e;   // 深色最高层表面
+$dark-bg-divider: #2a2b24;           // 深色分割线
+$dark-bg-hover: #2a2b24;             // 深色悬浮
+
+$dark-text-primary: #e3e4d8;         // 深色主文字
+$dark-text-secondary: #c6c7bb;       // 深色次要文字
+$dark-text-tertiary: #a9aa9e;        // 深色三级文字
+$dark-text-disabled: #5a5b52;        // 深色禁用文字
+
+$dark-border-color: #44453c;         // 深色边框
+$dark-brand-primary: #8BAF4A;        // 深色主色（提亮以适应深色背景）
+$dark-brand-light: #a3c45e;          // 深色主色浅
+$dark-brand-primary-10: rgba(139, 175, 74, 0.15);
+
+$dark-accent-orange: #FFB74D;        // 深色暖橙
+$dark-accent-orange-10: rgba(255, 183, 77, 0.15);
+$dark-accent-blue: #90CAF9;          // 深色天蓝
+$dark-accent-blue-10: rgba(144, 202, 249, 0.15);
+$dark-accent-pink: #F8BBD0;          // 深色粉色
+$dark-accent-pink-10: rgba(248, 187, 208, 0.15);
+$dark-accent-yellow: #FFE082;        // 深色暖黄
+$dark-accent-yellow-10: rgba(255, 224, 130, 0.15);
+
+$dark-success: #66BB6A;              // 深色成功
+$dark-warning: #FFCA28;              // 深色警告
+$dark-error: #EF5350;                // 深色错误
+$dark-info: #64B5F6;                 // 深色信息
+
