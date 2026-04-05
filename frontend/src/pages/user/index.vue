@@ -1,5 +1,5 @@
 <template>
-  <view class="user-page" :class="fontLargeClass">
+  <view class="user-page" :class="[fontLargeClass, darkModeClass]">
     <scroll-view scroll-y class="user-page__scroll">
       <!-- 头部区域（渐变背景） -->
       <view class="user-page__header">
@@ -206,19 +206,35 @@ import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { useUserStore } from '@/stores/user'
+import { useAccessibilityStore } from '@/stores/accessibility'
 import { DEFAULT_IMAGES } from '@/utils/image'
-import { usePageFontSize } from '@/composables'
+import { usePageFontSize, useTheme } from '@/composables'
 
 const { t: $t, locale } = useI18n()
 const userStore = useUserStore()
+const accessibilityStore = useAccessibilityStore()
 const { fontLargeClass } = usePageFontSize()
+const { darkModeClass } = useTheme()
 
 // 数据
 const userInfo = computed(() => userStore.userInfo)
 const defaultAvatar = DEFAULT_IMAGES.avatar
-const largeFont = ref(false)
-const darkMode = ref(false)
 const showLanguageModal = ref(false)
+
+// 绑定到 store 状态
+const largeFont = computed({
+  get: () => accessibilityStore.isLargeFont,
+  set: (value: boolean) => {
+    accessibilityStore.setFontSize(value ? 'large' : 'normal')
+  }
+})
+
+const darkMode = computed({
+  get: () => accessibilityStore.isDarkMode,
+  set: (value: boolean) => {
+    accessibilityStore.setDarkMode(value)
+  }
+})
 
 const languages = [
   { code: 'zh-CN', name: '简体中文' },
@@ -375,16 +391,12 @@ const goToNotifications = () => {
 
 // 切换大字模式
 const toggleLargeFont = (e: any) => {
-  largeFont.value = e.detail.value
-  Taro.setStorageSync('largeFont', largeFont.value)
-  // TODO: 应用大字模式
+  accessibilityStore.setFontSize(e.detail.value ? 'large' : 'normal')
 }
 
 // 切换夜间模式
 const toggleDarkMode = (e: any) => {
-  darkMode.value = e.detail.value
-  Taro.setStorageSync('darkMode', darkMode.value)
-  // TODO: 应用夜间模式
+  accessibilityStore.setDarkMode(e.detail.value)
 }
 
 // 跳转到帮助
@@ -433,10 +445,6 @@ const handleLogout = () => {
 }
 
 onMounted(() => {
-  // 从存储中读取设置
-  largeFont.value = Taro.getStorageSync('largeFont') || false
-  darkMode.value = Taro.getStorageSync('darkMode') || false
-  
   fetchUserStats()
 })
 </script>

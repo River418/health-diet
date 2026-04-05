@@ -6,26 +6,67 @@
 @import './variables.scss';
 
 // --------------------------------------------
-// 基础样式重置
+// 根元素 CSS 变量（浅色模式默认值）
 // --------------------------------------------
-// 根元素 CSS 变量定义
 :root,
 page {
+  // 字体缩放
   --font-scale: 1;
   --root-font-size: 16px;
+
+  // 背景颜色
+  --bg-page: #{$bg-page};
+  --bg-card: #{$bg-card};
+  --bg-divider: #{$bg-divider};
+  --bg-hover: #{$bg-hover};
+  --bg-surface-low: #{$bg-surface-low};
+  --bg-surface-high: #{$bg-surface-high};
+  --bg-surface-highest: #{$bg-surface-highest};
+
+  // 文字颜色
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-tertiary: #{$text-tertiary};
+  --text-disabled: #{$text-disabled};
+
+  // 品牌色
+  --brand-primary: #{$brand-primary};
+  --brand-light: #{$brand-light};
+  --brand-dark: #{$brand-dark};
+  --brand-primary-10: #{$brand-primary-10};
+
+  // 辅助色
+  --accent-orange: #{$accent-orange};
+  --accent-orange-10: #{$accent-orange-10};
+  --accent-yellow: #{$accent-yellow};
+  --accent-yellow-10: #{$accent-yellow-10};
+  --accent-blue: #{$accent-blue};
+  --accent-blue-10: #{$accent-blue-10};
+  --accent-pink: #{$accent-pink};
+  --accent-pink-10: #{$accent-pink-10};
+
+  // 功能色
+  --success: #{$success};
+  --warning: #{$warning};
+  --error: #{$error};
+  --info: #{$info};
+
+  // 边框
+  --border-color: #{$border-color};
 }
 
-// 大字模式样式 - 支持页面级和视图级应用
+// --------------------------------------------
+// 大字模式
+// --------------------------------------------
 page.font-large,
 .font-large {
   --font-scale: 1.125;
   --root-font-size: 18px;
 }
 
-// 大字模式下的字体大小调整
 .font-large {
   font-size: $font-size-base;
-  
+
   text,
   view,
   label {
@@ -33,12 +74,63 @@ page.font-large,
   }
 }
 
+// --------------------------------------------
+// 深色模式
+// --------------------------------------------
+page.dark-mode,
+.dark-mode {
+  --bg-page: #{$dark-bg-page};
+  --bg-card: #{$dark-bg-card};
+  --bg-divider: #{$dark-bg-divider};
+  --bg-hover: #{$dark-bg-hover};
+  --bg-surface-low: #{$dark-bg-surface-low};
+  --bg-surface-high: #{$dark-bg-surface-high};
+  --bg-surface-highest: #{$dark-bg-surface-highest};
+
+  --text-primary: #{$dark-text-primary};
+  --text-secondary: #{$dark-text-secondary};
+  --text-tertiary: #{$dark-text-tertiary};
+  --text-disabled: #{$dark-text-disabled};
+
+  --brand-primary: #{$dark-brand-primary};
+  --brand-light: #{$dark-brand-light};
+  --brand-primary-10: #{$dark-brand-primary-10};
+
+  --accent-orange: #{$dark-accent-orange};
+  --accent-orange-10: #{$dark-accent-orange-10};
+  --accent-blue: #{$dark-accent-blue};
+  --accent-blue-10: #{$dark-accent-blue-10};
+  --accent-pink: #{$dark-accent-pink};
+  --accent-pink-10: #{$dark-accent-pink-10};
+  --accent-yellow: #{$dark-accent-yellow};
+  --accent-yellow-10: #{$dark-accent-yellow-10};
+
+  --success: #{$dark-success};
+  --warning: #{$dark-warning};
+  --error: #{$dark-error};
+  --info: #{$dark-info};
+
+  --border-color: #{$dark-border-color};
+}
+
+// --------------------------------------------
+// 大字模式 + 深色模式 叠加
+// --------------------------------------------
+page.font-large.dark-mode,
+.font-large.dark-mode {
+  --font-scale: 1.125;
+  --root-font-size: 18px;
+}
+
+// --------------------------------------------
+// 页面基础样式
+// --------------------------------------------
 page {
   font-family: $font-family-base;
   font-size: $font-size-base;
   line-height: $line-height-normal;
-  color: $text-primary;
-  background-color: $bg-page;
+  color: var(--text-primary);
+  background-color: var(--bg-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -58,7 +150,7 @@ page {
 // 卡片样式
 // --------------------------------------------
 .card {
-  background: $bg-card;
+  background: var(--bg-card);
   border-radius: $radius-xl;
   padding: $spacing-lg;
   margin-bottom: $spacing-md;
@@ -70,7 +162,7 @@ page {
 }
 
 .card-flat {
-  background: $bg-surface-low;
+  background: var(--bg-surface-low);
   border-radius: $radius-xl;
   padding: $spacing-lg;
   margin-bottom: $spacing-md;
@@ -80,27 +172,27 @@ page {
 // 文本样式
 // --------------------------------------------
 .text-primary {
-  color: $text-primary;
+  color: var(--text-primary);
 }
 
 .text-secondary {
-  color: $text-secondary;
+  color: var(--text-secondary);
 }
 
 .text-tertiary {
-  color: $text-tertiary;
+  color: var(--text-tertiary);
 }
 
 .text-disabled {
-  color: $text-disabled;
+  color: var(--text-disabled);
 }
 
 .text-brand {
-  color: $brand-primary;
+  color: var(--brand-primary);
 }
 
 .text-accent {
-  color: $accent-orange;
+  color: var(--accent-orange);
 }
 
 // 字体大小
@@ -149,23 +241,23 @@ page {
 // 主色调背景
 // --------------------------------------------
 .bg-brand {
-  background-color: $brand-primary;
+  background-color: var(--brand-primary);
 }
 
 .bg-brand-light {
-  background-color: $brand-light;
+  background-color: var(--brand-light);
 }
 
 .bg-brand-dark {
-  background-color: $brand-dark;
+  background-color: var(--brand-dark);
 }
 
 .bg-page {
-  background-color: $bg-page;
+  background-color: var(--bg-page);
 }
 
 .bg-card {
-  background-color: $bg-card;
+  background-color: var(--bg-card);
 }
 
 // --------------------------------------------
@@ -185,38 +277,38 @@ page {
   // 主按钮
   &-primary {
     height: $btn-height-lg;
-    background-color: $brand-primary;
+    background-color: var(--brand-primary);
     color: #fff;
     box-shadow: $shadow-brand;
-    
+
     &:active {
-      background-color: $brand-dark;
+      background-color: var(--brand-dark);
       transform: scale(0.96);
     }
   }
-  
+
   // 次按钮
   &-secondary {
     height: $btn-height-lg;
-    background-color: $bg-card;
-    border: 1px solid $brand-primary;
-    color: $brand-primary;
-    
+    background-color: var(--bg-card);
+    border: 1px solid var(--brand-primary);
+    color: var(--brand-primary);
+
     &:active {
-      background-color: $brand-primary-10;
+      background-color: var(--brand-primary-10);
     }
   }
-  
+
   // 文字按钮
   &-text {
     height: auto;
     padding: $spacing-sm $spacing-md;
     background: transparent;
-    color: $brand-primary;
+    color: var(--brand-primary);
     font-size: $font-size-sm;
-    
+
     &:active {
-      color: $brand-dark;
+      color: var(--brand-dark);
     }
   }
   
@@ -245,26 +337,26 @@ page {
   line-height: 1;
   
   &-primary {
-    background-color: $brand-primary-10;
-    color: $brand-primary;
+    background-color: var(--brand-primary-10);
+    color: var(--brand-primary);
   }
-  
+
   &-secondary {
-    background-color: $accent-orange-10;
-    color: $accent-orange;
+    background-color: var(--accent-orange-10);
+    color: var(--accent-orange);
   }
-  
+
   &-info {
-    background-color: $accent-blue-10;
-    color: $accent-blue;
+    background-color: var(--accent-blue-10);
+    color: var(--accent-blue);
   }
-  
+
   // 功效标签（圆角更大）
   &-efficacy {
     padding: 6px 12px;
     border-radius: $radius-full;
-    background-color: $brand-primary-10;
-    color: $brand-primary;
+    background-color: var(--brand-primary-10);
+    color: var(--brand-primary);
   }
 }
 
@@ -280,14 +372,14 @@ page {
   transition: all $duration-fast $ease-standard;
   
   &-default {
-    background: $bg-card;
-    border: 1px solid $border-color;
-    color: $text-tertiary;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-tertiary);
   }
-  
+
   &-active {
-    background: $brand-primary;
-    border: 1px solid $brand-primary;
+    background: var(--brand-primary);
+    border: 1px solid var(--brand-primary);
     color: #fff;
   }
 }
@@ -296,22 +388,22 @@ page {
 // 安全提示样式（免责声明）
 // --------------------------------------------
 .disclaimer {
-  background-color: $bg-surface-high;
+  background-color: var(--bg-surface-high);
   border-radius: $radius-md;
   padding: $spacing-md $spacing-lg;
   display: flex;
   align-items: flex-start;
   gap: $spacing-sm;
-  
+
   &__icon {
     font-size: $font-size-sm;
-    color: $warning;
+    color: var(--warning);
     flex-shrink: 0;
   }
-  
+
   &__text {
     font-size: $font-size-xs;
-    color: $warning;
+    color: var(--warning);
     line-height: $line-height-normal;
     flex: 1;
   }
@@ -321,7 +413,7 @@ page {
 // 加载状态
 // --------------------------------------------
 .skeleton {
-  background: linear-gradient(90deg, $bg-divider 25%, $bg-hover 50%, $bg-divider 75%);
+  background: linear-gradient(90deg, var(--bg-divider) 25%, var(--bg-hover) 50%, var(--bg-divider) 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
   border-radius: $radius-sm;
@@ -354,19 +446,19 @@ page {
     justify-content: center;
     font-size: 40px;
     margin-bottom: $spacing-lg;
-    color: $text-disabled;
+    color: var(--text-disabled);
   }
-  
+
   &__title {
     font-size: $font-size-lg;
     font-weight: $font-weight-medium;
-    color: $text-primary;
+    color: var(--text-primary);
     margin-bottom: $spacing-sm;
   }
-  
+
   &__desc {
     font-size: $font-size-sm;
-    color: $text-tertiary;
+    color: var(--text-tertiary);
     margin-bottom: $spacing-xl;
     text-align: center;
   }
@@ -380,23 +472,23 @@ page {
   grid-template-columns: repeat(4, 1fr);
   gap: $spacing-md;
   padding: $spacing-lg;
-  background: $bg-card;
+  background: var(--bg-card);
   border-radius: $radius-lg;
   margin: 0 $spacing-lg $spacing-md;
-  
+
   &__item {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    
+
     &:active {
       opacity: 0.7;
       transform: scale(0.95);
       transition: all $duration-fast $ease-standard;
     }
   }
-  
+
   &__icon {
     width: $icon-size-xl;
     height: $icon-size-xl;
@@ -406,15 +498,15 @@ page {
     justify-content: center;
     margin-bottom: $spacing-sm;
     transition: all $duration-fast $ease-standard;
-    
+
     &-text {
       font-size: 28px;
     }
   }
-  
+
   &__text {
     font-size: $font-size-sm;
-    color: $text-primary;
+    color: var(--text-primary);
     text-align: center;
   }
 }
@@ -423,24 +515,24 @@ page {
 // 列表样式
 // --------------------------------------------
 .list {
-  background: $bg-card;
+  background: var(--bg-card);
   border-radius: $radius-xl;
-  
+
   &-item {
     display: flex;
     align-items: center;
     min-height: 56px;
     padding: 0 $spacing-lg;
-    
+
     &:not(:last-child) {
-      background: $bg-surface-low;
+      background: var(--bg-surface-low);
       margin-bottom: 1px;
     }
-    
+
     &:active {
-      background: $bg-hover;
+      background: var(--bg-hover);
     }
-    
+
     &__icon {
       width: $icon-size-md;
       height: $icon-size-md;
@@ -450,22 +542,22 @@ page {
       justify-content: center;
       font-size: 20px;
     }
-    
+
     &__text {
       flex: 1;
       font-size: $font-size-base;
-      color: $text-primary;
+      color: var(--text-primary);
     }
-    
+
     &__value {
       font-size: $font-size-sm;
-      color: $text-tertiary;
+      color: var(--text-tertiary);
       margin-right: $spacing-sm;
     }
-    
+
     &__arrow {
       font-size: $font-size-md;
-      color: $text-tertiary;
+      color: var(--text-tertiary);
     }
   }
 }
@@ -477,22 +569,22 @@ page {
   display: flex;
   align-items: center;
   gap: $spacing-xs;
-  
+
   &__star {
-    color: $accent-orange;
+    color: var(--accent-orange);
     font-size: $font-size-sm;
   }
-  
+
   &__score {
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    color: $accent-orange;
+    color: var(--accent-orange);
     font-family: $font-family-number;
   }
-  
+
   &__count {
     font-size: $font-size-xs;
-    color: $text-tertiary;
+    color: var(--text-tertiary);
   }
 }
 
@@ -502,11 +594,11 @@ page {
 .step {
   display: flex;
   gap: $spacing-md;
-  
+
   &__number {
     width: 28px;
     height: 28px;
-    background: $brand-primary;
+    background: var(--brand-primary);
     color: #fff;
     border-radius: 50%;
     display: flex;
@@ -516,21 +608,21 @@ page {
     font-weight: $font-weight-bold;
     flex-shrink: 0;
   }
-  
+
   &__content {
     flex: 1;
   }
-  
+
   &__title {
     font-size: $font-size-md;
     font-weight: $font-weight-medium;
-    color: $text-primary;
+    color: var(--text-primary);
     margin-bottom: $spacing-xs;
   }
-  
+
   &__desc {
     font-size: $font-size-base;
-    color: $text-secondary;
+    color: var(--text-secondary);
     line-height: $line-height-normal;
   }
 }
@@ -640,6 +732,6 @@ text-ellipsis {
 
 // 聚焦样式
 :focus-visible {
-  outline: 2px solid $brand-primary;
+  outline: 2px solid var(--brand-primary);
   outline-offset: 2px;
 }
