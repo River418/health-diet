@@ -108,18 +108,6 @@
               @change="toggleLargeFont"
             />
           </view>
-          <view class="user-page__list-item">
-            <view class="user-page__list-icon-wrapper" style="background: #EDE7F6;">
-              <text class="user-page__list-icon">🌙</text>
-            </view>
-            <text class="user-page__list-text">{{ $t('user.darkMode') }}</text>
-            <switch
-              class="user-page__list-switch"
-              :checked="darkMode"
-              :color="$brand-primary"
-              @change="toggleDarkMode"
-            />
-          </view>
         </view>
       </view>
       
@@ -208,13 +196,12 @@ import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { useUserStore } from '@/stores/user'
 import { useAccessibilityStore } from '@/stores/accessibility'
 import { DEFAULT_IMAGES } from '@/utils/image'
-import { usePageFontSize, useTheme } from '@/composables'
+import { usePageFontSize } from '@/composables'
 
 const { t: $t, locale } = useI18n()
 const userStore = useUserStore()
 const accessibilityStore = useAccessibilityStore()
 const { fontLargeClass } = usePageFontSize()
-const { darkModeClass } = useTheme()
 
 // 数据
 const userInfo = computed(() => userStore.userInfo)
@@ -226,13 +213,6 @@ const largeFont = computed({
   get: () => accessibilityStore.isLargeFont,
   set: (value: boolean) => {
     accessibilityStore.setFontSize(value ? 'large' : 'normal')
-  }
-})
-
-const darkMode = computed({
-  get: () => accessibilityStore.isDarkMode,
-  set: (value: boolean) => {
-    accessibilityStore.setDarkMode(value)
   }
 })
 
@@ -394,11 +374,6 @@ const toggleLargeFont = (e: any) => {
   accessibilityStore.setFontSize(e.detail.value ? 'large' : 'normal')
 }
 
-// 切换夜间模式
-const toggleDarkMode = (e: any) => {
-  accessibilityStore.setDarkMode(e.detail.value)
-}
-
 // 跳转到帮助
 const goToHelp = () => {
   Taro.navigateTo({
@@ -454,7 +429,7 @@ onMounted(() => {
 
 .user-page {
   min-height: 100vh;
-  background: $bg-page;
+  background: var(--bg-page);
   
   &__scroll {
     min-height: 100vh;

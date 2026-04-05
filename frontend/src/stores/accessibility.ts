@@ -202,10 +202,10 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
   // 应用深色模式到页面
   const applyDarkMode = () => {
     const isDark = darkMode.value
-  
+
     // 保存到 storage，供页面加载时读取
     Taro.setStorageSync('dark_mode_class', isDark ? 'dark-mode' : '')
-  
+
     // 在 Web/H5 环境下，操作 document.documentElement
     try {
       if (typeof document !== 'undefined' && document.documentElement) {
@@ -218,7 +218,7 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     } catch (e) {
       // 忽略非 H5 环境的错误
     }
-  
+
     // 更新 TabBar 样式
     try {
       if (isDark) {
@@ -237,7 +237,7 @@ export const useAccessibilityStore = defineStore('accessibility', () => {
     } catch (e) {
       // TabBar 可能还未初始化，忽略
     }
-  
+
     // 触发全局事件，让所有页面组件响应深色模式变化
     Taro.eventCenter.trigger('accessibility:darkModeChanged', {
       isDark,
