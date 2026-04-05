@@ -1,5 +1,5 @@
 <template>
-  <view class="notifications-page">
+  <view class="notifications-page" :class="fontLargeClass">
     <view class="notifications-page__section">
       <view class="notifications-page__list">
         <view class="notifications-page__list-item">
@@ -37,6 +37,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import Taro from '@tarojs/taro'
+import { usePageFontSize } from '@/composables'
+
+const { fontLargeClass } = usePageFontSize()
 
 const pushEnabled = ref(true)
 const recipeEnabled = ref(true)
