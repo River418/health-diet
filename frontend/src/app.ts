@@ -48,7 +48,10 @@ const App = createApp({
     
     // 应用字体大小设置到页面
     accessibilityStore.applyFontSize()
-    
+
+    // 应用深色模式设置到页面
+    accessibilityStore.applyDarkMode()
+
     // 检查是否需要显示引导页
     const onboardingCompleted = Taro.getStorageSync('onboardingCompleted')
     if (!onboardingCompleted) {
