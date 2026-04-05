@@ -37,7 +37,7 @@
               :style="{ '--card-color': item.color }"
               @click="goToRecipeList('crowd', item)"
             >
-              <view class="category-page__crowd-icon-wrapper" :style="{ background: item.gradient }">
+              <view class="category-page__crowd-icon-wrapper" :style="{ background: item.color }">
                 <text class="category-page__crowd-icon">{{ item.icon }}</text>
               </view>
               <view class="category-page__crowd-info">
@@ -95,7 +95,7 @@
               :style="{ '--card-color': item.color }"
               @click="goToRecipeList('efficacy', item)"
             >
-              <view class="category-page__efficacy-icon-wrapper" :style="{ background: item.gradient }">
+              <view class="category-page__efficacy-icon-wrapper" :style="{ background: item.color }">
                 <text class="category-page__efficacy-icon">{{ item.icon }}</text>
               </view>
               <text class="category-page__efficacy-name">{{ item.name }}</text>
@@ -173,46 +173,41 @@ const crowdCategories = computed(() => [
     key: 'elderly',
     icon: '🧓',
     name: $t('category.elderly'),
-    desc: $t('category.elderlyDesc'),
+    desc: '针对50+人群',
     filterValue: '中老年',
-    color: '#FF8C42',
-    gradient: 'linear-gradient(135deg, #FF8C42, #FFB74D)'
+    color: '#E8F5E9'
   },
   {
     key: 'office',
     icon: '💼',
     name: $t('category.office'),
-    desc: $t('category.officeDesc'),
+    desc: '缓解亚健康',
     filterValue: '白领',
-    color: '#64B5F6',
-    gradient: 'linear-gradient(135deg, #64B5F6, #90CAF9)'
+    color: '#E3F2FD'
   },
   {
     key: 'female',
     icon: '👩',
     name: $t('category.female'),
-    desc: $t('category.femaleDesc'),
+    desc: '调理气血',
     filterValue: '女性',
-    color: '#F48FB1',
-    gradient: 'linear-gradient(135deg, #F48FB1, #F8BBD9)'
+    color: '#FCE4EC'
   },
   {
     key: 'children',
     icon: '👶',
     name: $t('category.children'),
-    desc: $t('category.childrenDesc'),
+    desc: '健康成长',
     filterValue: '儿童',
-    color: '#FFD54F',
-    gradient: 'linear-gradient(135deg, #FFD54F, #FFE082)'
+    color: '#FFF3E0'
   },
   {
     key: 'general',
     icon: '👨‍👩‍👧‍👦',
     name: $t('category.general'),
-    desc: $t('category.generalDesc'),
+    desc: '适合全家',
     filterValue: '通用',
-    color: '#81C784',
-    gradient: 'linear-gradient(135deg, #81C784, #A5D6A7)'
+    color: '#F5F5F5'
   }
 ])
 
@@ -220,54 +215,54 @@ const crowdCategories = computed(() => [
 const currentSolar = computed(() => ({
   icon: '🌸',
   name: $t('solar.惊蛰'),
-  desc: $t('solar.惊蛰Desc')
+  desc: '春雷响，万物生'
 }))
 
 // 二十四节气
 // 注意：filterValue 是后端 API 需要的筛选值（节气名称）
 const solarTerms = computed(() => [
   {
-    name: $t('season.spring'),
+    name: '春季',
     terms: [
-      { key: 'lichun', name: $t('solar.立春'), filterValue: '立春' },
-      { key: 'yushui', name: $t('solar.雨水'), filterValue: '雨水' },
-      { key: 'jingzhe', name: $t('solar.惊蛰'), filterValue: '惊蛰' },
-      { key: 'chunfen', name: $t('solar.春分'), filterValue: '春分' },
-      { key: 'qingming', name: $t('solar.清明'), filterValue: '清明' },
-      { key: 'guyu', name: $t('solar.谷雨'), filterValue: '谷雨' }
+      { key: 'lichun', name: '立春', filterValue: '立春' },
+      { key: 'yushui', name: '雨水', filterValue: '雨水' },
+      { key: 'jingzhe', name: '惊蛰', filterValue: '惊蛰' },
+      { key: 'chunfen', name: '春分', filterValue: '春分' },
+      { key: 'qingming', name: '清明', filterValue: '清明' },
+      { key: 'guyu', name: '谷雨', filterValue: '谷雨' }
     ]
   },
   {
-    name: $t('season.summer'),
+    name: '夏季',
     terms: [
-      { key: 'lixia', name: $t('solar.立夏'), filterValue: '立夏' },
-      { key: 'xiaoman', name: $t('solar.小满'), filterValue: '小满' },
-      { key: 'mangzhong', name: $t('solar.芒种'), filterValue: '芒种' },
-      { key: 'xiazhi', name: $t('solar.夏至'), filterValue: '夏至' },
-      { key: 'xiaoshu', name: $t('solar.小暑'), filterValue: '小暑' },
-      { key: 'dashu', name: $t('solar.大暑'), filterValue: '大暑' }
+      { key: 'lixia', name: '立夏', filterValue: '立夏' },
+      { key: 'xiaoman', name: '小满', filterValue: '小满' },
+      { key: 'mangzhong', name: '芒种', filterValue: '芒种' },
+      { key: 'xiazhi', name: '夏至', filterValue: '夏至' },
+      { key: 'xiaoshu', name: '小暑', filterValue: '小暑' },
+      { key: 'dashu', name: '大暑', filterValue: '大暑' }
     ]
   },
   {
-    name: $t('season.autumn'),
+    name: '秋季',
     terms: [
-      { key: 'liqiu', name: $t('solar.立秋'), filterValue: '立秋' },
-      { key: 'chushu', name: $t('solar.处暑'), filterValue: '处暑' },
-      { key: 'bailu', name: $t('solar.白露'), filterValue: '白露' },
-      { key: 'qiufen', name: $t('solar.秋分'), filterValue: '秋分' },
-      { key: 'hanlu', name: $t('solar.寒露'), filterValue: '寒露' },
-      { key: 'shuangjiang', name: $t('solar.霜降'), filterValue: '霜降' }
+      { key: 'liqiu', name: '立秋', filterValue: '立秋' },
+      { key: 'chushu', name: '处暑', filterValue: '处暑' },
+      { key: 'bailu', name: '白露', filterValue: '白露' },
+      { key: 'qiufen', name: '秋分', filterValue: '秋分' },
+      { key: 'hanlu', name: '寒露', filterValue: '寒露' },
+      { key: 'shuangjiang', name: '霜降', filterValue: '霜降' }
     ]
   },
   {
-    name: $t('season.winter'),
+    name: '冬季',
     terms: [
-      { key: 'lidong', name: $t('solar.立冬'), filterValue: '立冬' },
-      { key: 'xiaoxue', name: $t('solar.小雪'), filterValue: '小雪' },
-      { key: 'daxue', name: $t('solar.大雪'), filterValue: '大雪' },
-      { key: 'dongzhi', name: $t('solar.冬至'), filterValue: '冬至' },
-      { key: 'xiaohan', name: $t('solar.小寒'), filterValue: '小寒' },
-      { key: 'dahan', name: $t('solar.大寒'), filterValue: '大寒' }
+      { key: 'lidong', name: '立冬', filterValue: '立冬' },
+      { key: 'xiaoxue', name: '小雪', filterValue: '小雪' },
+      { key: 'daxue', name: '大雪', filterValue: '大雪' },
+      { key: 'dongzhi', name: '冬至', filterValue: '冬至' },
+      { key: 'xiaohan', name: '小寒', filterValue: '小寒' },
+      { key: 'dahan', name: '大寒', filterValue: '大寒' }
     ]
   }
 ])
@@ -275,86 +270,16 @@ const solarTerms = computed(() => [
 // 功效分类
 // 注意：filterValue 是后端 API 需要的筛选值
 const efficacyCategories = computed(() => [
-  {
-    key: 'blood',
-    icon: '🩸',
-    name: $t('efficacy.blood'),
-    filterValue: '补气养血',
-    color: '#F48FB1',
-    gradient: 'linear-gradient(135deg, #F48FB1, #F8BBD9)'
-  },
-  {
-    key: 'stomach',
-    icon: '🍚',
-    name: $t('efficacy.stomach'),
-    filterValue: '健脾养胃',
-    color: '#81C784',
-    gradient: 'linear-gradient(135deg, #81C784, #A5D6A7)'
-  },
-  {
-    key: 'sleep',
-    icon: '🌙',
-    name: $t('efficacy.sleep'),
-    filterValue: '安神助眠',
-    color: '#9575CD',
-    gradient: 'linear-gradient(135deg, #9575CD, #B39DDB)'
-  },
-  {
-    key: 'beauty',
-    icon: '✨',
-    name: $t('efficacy.beauty'),
-    filterValue: '美容养颜',
-    color: '#F06292',
-    gradient: 'linear-gradient(135deg, #F06292, #F48FB1)'
-  },
-  {
-    key: 'heat',
-    icon: '🔥',
-    name: $t('efficacy.heat'),
-    filterValue: '清热解毒',
-    color: '#FF8C42',
-    gradient: 'linear-gradient(135deg, #FF8C42, #FFB74D)'
-  },
-  {
-    key: 'lung',
-    icon: '🫁',
-    name: $t('efficacy.lung'),
-    filterValue: '润肺止咳',
-    color: '#64B5F6',
-    gradient: 'linear-gradient(135deg, #64B5F6, #90CAF9)'
-  },
-  {
-    key: 'kidney',
-    icon: '💪',
-    name: $t('efficacy.kidney'),
-    filterValue: '补肾壮阳',
-    color: '#FFD54F',
-    gradient: 'linear-gradient(135deg, #FFD54F, #FFE082)'
-  },
-  {
-    key: 'dampness',
-    icon: '💧',
-    name: $t('efficacy.dampness'),
-    filterValue: '祛湿排毒',
-    color: '#4DD0E1',
-    gradient: 'linear-gradient(135deg, #4DD0E1, #80DEEA)'
-  },
-  {
-    key: 'pressure',
-    icon: '🩺',
-    name: $t('efficacy.pressure'),
-    filterValue: '降压降脂',
-    color: '#7986CB',
-    gradient: 'linear-gradient(135deg, #7986CB, #9FA8DA)'
-  },
-  {
-    key: 'immune',
-    icon: '🛡️',
-    name: $t('efficacy.immune'),
-    filterValue: '增强免疫',
-    color: '#A1887F',
-    gradient: 'linear-gradient(135deg, #A1887F, #BCAAA4)'
-  }
+  { key: 'blood', icon: '🩸', name: '补气养血', filterValue: '补气养血', color: '#FCE4EC' },
+  { key: 'stomach', icon: '🍚', name: '健脾养胃', filterValue: '健脾养胃', color: '#E8F5E9' },
+  { key: 'sleep', icon: '🌙', name: '安神助眠', filterValue: '安神助眠', color: '#EDE7F6' },
+  { key: 'beauty', icon: '✨', name: '美容养颜', filterValue: '美容养颜', color: '#FCE4EC' },
+  { key: 'heat', icon: '🔥', name: '清热解毒', filterValue: '清热解毒', color: '#FFEBEE' },
+  { key: 'lung', icon: '🫁', name: '润肺止咳', filterValue: '润肺止咳', color: '#E3F2FD' },
+  { key: 'kidney', icon: '💪', name: '补肾壮阳', filterValue: '补肾壮阳', color: '#FFF3E0' },
+  { key: 'dampness', icon: '💧', name: '祛湿排毒', filterValue: '祛湿排毒', color: '#E0F2F1' },
+  { key: 'pressure', icon: '🩺', name: '降压降脂', filterValue: '降压降脂', color: '#E8EAF6' },
+  { key: 'immune', icon: '🛡️', name: '增强免疫', filterValue: '增强免疫', color: '#E8F5E9' }
 ])
 
 // 常见食材
@@ -426,43 +351,36 @@ const goToSearch = () => {
 
 .category-page {
   min-height: 100vh;
-  background: $bg-page;
+  background: #FFFFFF;
   display: flex;
   flex-direction: column;
   
   // 导航栏
   &__nav {
-    height: $nav-height;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 $spacing-lg;
-    background: $bg-card;
-    box-shadow: $shadow-level-1;
+    padding: 0 16px;
+    background: #FFFFFF;
+    border-bottom: 1px solid #EEEEEE;
     
     &-title {
-      font-size: $font-size-lg;
-      font-weight: $font-weight-bold;
-      color: $text-primary;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333333;
     }
     
     &-search {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: $bg-hover;
-      border-radius: 50%;
-      cursor: pointer;
-      
-      &:active {
-        background: $bg-divider;
-      }
       
       &-icon {
-        font-size: $font-size-lg;
-        color: $text-tertiary;
+        font-size: 24px;
+        color: #333333;
       }
     }
   }
@@ -476,9 +394,8 @@ const goToSearch = () => {
   // 左侧分类导航
   &__sidebar {
     width: 80px;
-    background: $bg-page;
+    background: #F5F5F5;
     flex-shrink: 0;
-    border-right: 1px solid $border-color;
     
     &-item {
       display: flex;
@@ -488,10 +405,10 @@ const goToSearch = () => {
       height: 72px;
       cursor: pointer;
       position: relative;
-      transition: all $duration-fast $ease-standard;
+      transition: all 0.2s ease;
       
       &.is-active {
-        background: $bg-card;
+        background: #FFFFFF;
         
         &::before {
           content: '';
@@ -501,47 +418,42 @@ const goToSearch = () => {
           transform: translateY(-50%);
           width: 3px;
           height: 24px;
-          background: linear-gradient(180deg, $brand-primary, $brand-light);
-          border-radius: 0 2px 2px 0;
+          background: #4CAF50;
         }
         
         .category-page__sidebar-icon,
         .category-page__sidebar-text {
-          color: $brand-primary;
+          color: #4CAF50;
         }
-      }
-      
-      &:active {
-        opacity: 0.7;
       }
     }
     
     &-icon {
       font-size: 24px;
-      margin-bottom: $spacing-xs;
-      color: $text-tertiary;
-      transition: color $duration-fast $ease-standard;
+      margin-bottom: 4px;
+      color: #999999;
     }
     
     &-text {
-      font-size: $font-size-xs;
-      color: $text-tertiary;
-      transition: color $duration-fast $ease-standard;
+      font-size: 13px;
+      color: #999999;
     }
   }
   
   // 右侧内容区
   &__main {
     flex: 1;
-    padding: $spacing-lg;
+    padding: 16px;
+    background: #FFFFFF;
   }
   
   &__panel {
     &-title {
-      font-size: $font-size-md;
-      font-weight: $font-weight-bold;
-      color: $text-primary;
-      margin-bottom: $spacing-md;
+      font-size: 16px;
+      font-weight: 600;
+      color: #333333;
+      margin-bottom: 16px;
+      display: block;
     }
   }
   
@@ -549,25 +461,21 @@ const goToSearch = () => {
   &__crowd-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
+    gap: 16px;
   }
   
   &__crowd-card {
-    background: $bg-card;
-    border-radius: $radius-lg;
-    padding: $spacing-lg;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    cursor: pointer;
-    box-shadow: $shadow-card;
-    border-left: 3px solid var(--card-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     
     &:active {
-      transform: translateY(-2px);
-      box-shadow: $shadow-card-hover;
-      transition: all $duration-fast $ease-standard;
+      transform: scale(0.98);
     }
   }
   
@@ -578,128 +486,103 @@ const goToSearch = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: $spacing-sm;
-    box-shadow: $shadow-level-1;
+    margin-bottom: 8px;
   }
   
   &__crowd-icon {
     font-size: 28px;
   }
   
-  &__crowd-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-  
   &__crowd-name {
-    font-size: $font-size-base;
-    font-weight: $font-weight-medium;
-    color: $text-primary;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 2px;
   }
   
   &__crowd-desc {
-    font-size: $font-size-xs;
-    color: $text-tertiary;
+    font-size: 13px;
+    color: #999999;
   }
   
   // 当前节气
   &__current-solar {
-    margin-bottom: $spacing-xl;
+    margin-bottom: 24px;
     
     &-bg {
-      background: linear-gradient(135deg, $brand-primary, $brand-light);
-      border-radius: $radius-lg;
-      padding: $spacing-xl;
+      background: linear-gradient(135deg, #4CAF50, #388E3C);
+      border-radius: 12px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      box-shadow: $shadow-brand;
     }
     
     &-icon {
       font-size: 64px;
-      margin-bottom: $spacing-xs;
+      margin-bottom: 8px;
     }
     
     &-name {
-      font-size: $font-size-xl;
-      font-weight: $font-weight-bold;
-      color: #fff;
-      margin-bottom: $spacing-xs;
+      font-size: 24px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 4px;
     }
     
     &-desc {
-      font-size: $font-size-sm;
+      font-size: 14px;
       color: rgba(255, 255, 255, 0.9);
-      margin-bottom: $spacing-md;
+      margin-bottom: 16px;
     }
     
     &-btn {
-      padding: $spacing-xs $spacing-lg;
+      padding: 6px 16px;
       border: 1px solid rgba(255, 255, 255, 0.8);
-      border-radius: $radius-full;
-      cursor: pointer;
-      
-      &:active {
-        background: rgba(255, 255, 255, 0.2);
-      }
+      border-radius: 100px;
       
       &-text {
-        font-size: $font-size-sm;
-        color: #fff;
+        font-size: 14px;
+        color: #FFFFFF;
       }
-    }
-  }
-  
-  // 二十四节气
-  &__solar-section {
-    .category-page__panel-title {
-      margin-top: $spacing-xl;
     }
   }
   
   &__solar-season {
-    margin-bottom: $spacing-lg;
+    margin-bottom: 20px;
     
     &-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: $spacing-sm;
+      margin-bottom: 10px;
     }
     
     &-name {
-      font-size: $font-size-sm;
-      font-weight: $font-weight-medium;
-      color: $text-secondary;
-      padding: $spacing-xs $spacing-sm;
-      background: $bg-hover;
-      border-radius: $radius-sm;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333333;
     }
   }
   
   &__solar-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: $spacing-xs;
+    gap: 12px;
   }
   
   &__solar-tag {
-    padding: $spacing-sm $spacing-md;
-    background: $bg-card;
-    border-radius: $radius-md;
-    font-size: $font-size-sm;
-    color: $text-primary;
-    cursor: pointer;
-    box-shadow: $shadow-level-1;
-    transition: all $duration-fast $ease-standard;
+    width: calc(25% - 9px);
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F5F5F5;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #333333;
     
-    &:active,
     &.is-active {
-      background: $brand-primary;
-      color: #fff;
-      box-shadow: $shadow-brand;
+      background: #4CAF50;
+      color: #FFFFFF;
     }
   }
   
@@ -707,25 +590,21 @@ const goToSearch = () => {
   &__efficacy-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: $spacing-md;
+    gap: 16px;
   }
   
   &__efficacy-card {
-    background: $bg-card;
-    border-radius: $radius-lg;
-    padding: $spacing-xl $spacing-lg;
+    background: #FFFFFF;
+    border-radius: 12px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    cursor: pointer;
-    box-shadow: $shadow-card;
-    border-top: 3px solid var(--card-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
     
     &:active {
-      transform: translateY(-2px);
-      box-shadow: $shadow-card-hover;
-      transition: all $duration-fast $ease-standard;
+      transform: scale(0.98);
     }
   }
   
@@ -736,8 +615,8 @@ const goToSearch = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: $spacing-sm;
-    box-shadow: $shadow-level-1;
+    margin-bottom: 8px;
+    background: #F5F5F5;
   }
   
   &__efficacy-icon {
@@ -745,43 +624,41 @@ const goToSearch = () => {
   }
   
   &__efficacy-name {
-    font-size: $font-size-base;
-    font-weight: $font-weight-medium;
-    color: $text-primary;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333333;
   }
   
   // 食材分类
   &__ingredient-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-md;
+    gap: 11px;
   }
   
   &__ingredient-card {
-    background: $bg-card;
-    border-radius: $radius-md;
+    background: #FFFFFF;
+    border-radius: 8px;
     overflow: hidden;
-    cursor: pointer;
-    box-shadow: $shadow-card;
-    
-    &:active {
-      transform: scale(0.98);
-      transition: transform $duration-fast $ease-standard;
-    }
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   
   &__ingredient-image {
     width: 100%;
     aspect-ratio: 1;
-    background: $bg-hover;
+    border-radius: 8px;
+    background: #F5F5F5;
+    margin-bottom: 6px;
   }
   
   &__ingredient-name {
-    display: block;
+    font-size: 14px;
+    color: #333333;
     text-align: center;
-    padding: $spacing-sm;
-    font-size: $font-size-sm;
-    color: $text-primary;
   }
 }
 </style>

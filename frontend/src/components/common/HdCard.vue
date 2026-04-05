@@ -41,11 +41,11 @@ const handleClick = () => {
 
 .hd-card {
   background: $bg-card;
-  border-radius: $radius-lg;
+  border-radius: $radius-xl;
   padding: $spacing-lg;
   
   &--shadow {
-    box-shadow: $shadow-card;
+    background: $bg-surface-high;
   }
   
   &--hover {
@@ -53,7 +53,6 @@ const handleClick = () => {
     
     &:active {
       transform: translateY(-2px);
-      box-shadow: $shadow-card-hover;
       transition: all $duration-fast $ease-standard;
     }
   }

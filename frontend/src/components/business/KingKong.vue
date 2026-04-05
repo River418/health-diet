@@ -31,63 +31,63 @@ interface KingKongItem {
   query?: Record<string, string>
 }
 
-const items = computed<KingKongItem[]>(() => [
+const items = computed<KingKongItem[]>(() => ([
   {
     icon: '🧓',
     name: t('home.kingKong.elderly'),
-    gradient: 'linear-gradient(135deg, #FF8C42, #FFB74D)',
+    gradient: 'linear-gradient(135deg, #E8F5E9, #E8F5E9)',
     path: '/pages/recipe/list/index',
     query: { crowd: '中老年' }
   },
   {
     icon: '💼',
     name: t('home.kingKong.office'),
-    gradient: 'linear-gradient(135deg, #64B5F6, #90CAF9)',
+    gradient: 'linear-gradient(135deg, #E3F2FD, #E3F2FD)',
     path: '/pages/recipe/list/index',
     query: { crowd: '白领' }
   },
   {
     icon: '🌸',
     name: t('home.kingKong.solar'),
-    gradient: 'linear-gradient(135deg, #FFD54F, #FFE082)',
+    gradient: 'linear-gradient(135deg, #FFF3E0, #FFF3E0)',
     path: '/pages/category/index',
     query: { tab: 'solar' }
   },
   {
     icon: '🩸',
     name: t('home.kingKong.blood'),
-    gradient: 'linear-gradient(135deg, #F48FB1, #F8BBD9)',
+    gradient: 'linear-gradient(135deg, #FCE4EC, #FCE4EC)',
     path: '/pages/recipe/list/index',
     query: { efficacy: '补气养血' }
   },
   {
     icon: '🍚',
     name: t('home.kingKong.stomach'),
-    gradient: 'linear-gradient(135deg, #81C784, #A5D6A7)',
+    gradient: 'linear-gradient(135deg, #E8F5E9, #E8F5E9)',
     path: '/pages/recipe/list/index',
     query: { efficacy: '健脾养胃' }
   },
   {
     icon: '🌙',
     name: t('home.kingKong.sleep'),
-    gradient: 'linear-gradient(135deg, #9575CD, #B39DDB)',
+    gradient: 'linear-gradient(135deg, #EDE7F6, #EDE7F6)',
     path: '/pages/recipe/list/index',
     query: { efficacy: '安神助眠' }
   },
   {
     icon: '✨',
     name: t('home.kingKong.beauty'),
-    gradient: 'linear-gradient(135deg, #F06292, #F48FB1)',
+    gradient: 'linear-gradient(135deg, #FCE4EC, #FCE4EC)',
     path: '/pages/recipe/list/index',
     query: { efficacy: '美容养颜' }
   },
   {
     icon: '➕',
     name: t('home.kingKong.more'),
-    gradient: 'linear-gradient(135deg, #E0E0E0, #F5F5F5)',
+    gradient: 'linear-gradient(135deg, #F5F5F5, #F5F5F5)',
     path: '/pages/category/index'
   }
-])
+] as KingKongItem[]))
 
 const emit = defineEmits<{
   click: [item: KingKongItem]
@@ -105,42 +105,40 @@ const handleClick = (item: KingKongItem) => {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: $spacing-md;
-  padding: $spacing-lg;
-  background: $bg-card;
-  border-radius: $radius-lg;
-  margin: 0 $spacing-lg $spacing-md;
+  padding: $spacing-md $spacing-lg;
+  background: #FFFFFF;
+  margin-bottom: $spacing-md;
   
   &__item {
     display: flex;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    padding: $spacing-xs 0;
     
     &:active {
-      opacity: 0.7;
       transform: scale(0.95);
       transition: all $duration-fast $ease-standard;
     }
   }
   
   &__icon {
-    width: $icon-size-xl;
-    height: $icon-size-xl;
-    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: $spacing-sm;
-    box-shadow: $shadow-level-1;
+    margin-bottom: $spacing-xs;
     
     &-text {
-      font-size: 28px;
+      font-size: 24px;
     }
   }
   
   &__text {
-    font-size: $font-size-xs;
-    color: $text-primary;
+    font-size: 13px;
+    color: #333333;
     text-align: center;
     line-height: $line-height-tight;
   }

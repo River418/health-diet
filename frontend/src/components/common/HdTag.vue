@@ -39,36 +39,29 @@ withDefaults(defineProps<Props>(), {
   
   // 尺寸
   &--small {
-    padding: 2px 6px;
+    padding: 2px 8px;
     font-size: 10px;
-    border-radius: $radius-sm;
+    border-radius: $radius-full;
+    min-height: 40px;
   }
   
   &--medium {
-    padding: 4px 8px;
+    padding: 4px 10px;
     font-size: $font-size-xs;
-    border-radius: $radius-sm;
+    border-radius: $radius-full;
+    min-height: 48px;
   }
   
   &--large {
-    padding: 6px 12px;
+    padding: 6px 14px;
     font-size: $font-size-sm;
-    border-radius: $radius-md;
+    border-radius: $radius-full;
+    min-height: 48px;
   }
   
-  // 圆角
+  // 圆角（所有标签默认全圆角）
   &--round {
-    &.hd-tag--small {
-      border-radius: 10px;
-    }
-    
-    &.hd-tag--medium {
-      border-radius: $radius-full;
-    }
-    
-    &.hd-tag--large {
-      border-radius: $radius-full;
-    }
+    border-radius: $radius-full;
   }
   
   // 类型

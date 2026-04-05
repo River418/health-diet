@@ -30,11 +30,11 @@
             @click="handleBannerClick(banner)"
           >
             <view class="home-page__banner-item">
-<image
-                 class="home-page__banner-image"
-                 :src="getBannerImageUrl(banner)"
-                 mode="aspectFill"
-               />
+              <image
+                class="home-page__banner-image"
+                :src="getBannerImageUrl(banner)"
+                mode="aspectFill"
+              />
               <view class="home-page__banner-overlay">
                 <text class="home-page__banner-title">{{ banner.title }}</text>
                 <text v-if="banner.subtitle" class="home-page__banner-subtitle">{{ banner.subtitle }}</text>
@@ -56,16 +56,14 @@
             <text class="home-page__section-more-icon">></text>
           </text>
         </view>
-        <scroll-view scroll-x class="home-page__recipe-scroll" show-scrollbar="false">
-          <view class="home-page__recipe-list">
-            <recipe-card-horizontal
-              v-for="recipe in recommendRecipes"
-              :key="recipe.id"
-              :recipe="recipe"
-              @click="goToRecipeDetail(recipe.id)"
-            />
-          </view>
-        </scroll-view>
+        <view class="home-page__recipe-grid">
+          <recipe-card
+            v-for="recipe in recommendRecipes.slice(0, 4)"
+            :key="recipe.id"
+            :recipe="recipe"
+            @click="goToRecipeDetail(recipe.id)"
+          />
+        </view>
       </view>
       
       <!-- 养生资讯 -->
@@ -77,23 +75,27 @@
             <text class="home-page__section-more-icon">></text>
           </text>
         </view>
-        <view class="home-page__content-list">
+        <view class="home-page__content-grid">
           <view
             v-for="(item, index) in contentList"
             :key="index"
-            class="home-page__content-item"
+            class="home-page__content-card"
             @click="goToContentDetail(item)"
           >
-<image
-               class="home-page__content-image"
-               :src="getContentImageUrl(item)"
-               mode="aspectFill"
-             />
-            <view class="home-page__content-info">
-              <text class="home-page__content-title">{{ item.title }}</text>
-              <text class="home-page__content-meta">
-                {{ item.readTime }} · {{ item.viewCount }}{{ $t('common.views') }}
-              </text>
+            <view class="home-page__content-image-wrapper">
+              <image
+                class="home-page__content-card-image"
+                :src="getContentImageUrl(item)"
+                mode="aspectFill"
+              />
+              <view v-if="item.type === 'video'" class="home-page__content-video-icon">▶</view>
+            </view>
+            <view class="home-page__content-card-info">
+              <text class="home-page__content-card-title">{{ item.title }}</text>
+              <view class="home-page__content-card-footer">
+                <text class="home-page__content-card-author">{{ item.author || '养生堂' }}</text>
+                <text class="home-page__content-card-views">{{ item.viewCount || 0 }}次阅读</text>
+              </view>
             </view>
           </view>
         </view>
@@ -119,7 +121,7 @@ import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import SearchBar from '@/components/business/SearchBar.vue'
 import KingKong from '@/components/business/KingKong.vue'
-import RecipeCardHorizontal from '@/components/business/RecipeCardHorizontal.vue'
+import RecipeCard from '@/components/business/RecipeCard.vue'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { getBanners, getRecommendRecipes, getContentList } from '@/api/home'
 import { DEFAULT_IMAGES, getImageUrl } from '@/utils/image'
@@ -281,26 +283,11 @@ const goToMoreContent = () => {
 
 // 内容详情
 const goToContentDetail = (item: any) => {
-  console.log('[goToContentDetail] item:', item)
   if (item.id) {
-    // 跳转到内容详情页
-    console.log('[goToContentDetail] navigating to:', `/pages/content/detail/index?id=${item.id}`)
     Taro.navigateTo({
-      url: `/pages/content/detail/index?id=${item.id}`,
-      success: () => {
-        console.log('[goToContentDetail] navigate success')
-      },
-      fail: (err) => {
-        console.error('[goToContentDetail] navigate failed:', err)
-      }
+      url: `/pages/content/detail/index?id=${item.id}`
     })
   } else if (item.source_url) {
-    // 外部链接处理
-    // #ifdef H5
-    window.open(item.source_url, '_blank')
-    // #endif
-    // #ifndef H5
-    // 小程序中复制链接或提示
     Taro.setClipboardData({
       data: item.source_url,
       success: () => {
@@ -309,12 +296,6 @@ const goToContentDetail = (item: any) => {
           icon: 'success'
         })
       }
-    })
-    // #endif
-  } else {
-    Taro.showToast({
-      title: '内容详情暂未开放',
-      icon: 'none'
     })
   }
 }
@@ -341,7 +322,7 @@ onMounted(() => {
 
 .home-page {
   min-height: 100vh;
-  background: $bg-page;
+  background: #F8F9FA;
   display: flex;
   flex-direction: column;
   
@@ -352,14 +333,13 @@ onMounted(() => {
   
   // Banner区域
   &__banner {
-    padding: 0 $spacing-lg;
-    margin-bottom: $spacing-md;
+    padding: 16px;
     
     &-item {
       position: relative;
       width: 100%;
       height: 100%;
-      border-radius: $radius-lg;
+      border-radius: 12px;
       overflow: hidden;
     }
     
@@ -373,143 +353,164 @@ onMounted(() => {
       bottom: 0;
       left: 0;
       right: 0;
-      padding: $spacing-lg;
+      padding: 16px;
       background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
     }
     
     &-title {
-      font-size: $font-size-lg;
-      font-weight: $font-weight-bold;
-      color: #fff;
-      margin-bottom: $spacing-xs;
+      font-size: 18px;
+      font-weight: 600;
+      color: #FFFFFF;
+      margin-bottom: 4px;
     }
     
     &-subtitle {
-      font-size: $font-size-sm;
+      font-size: 12px;
       color: rgba(255,255,255,0.9);
     }
   }
   
   &__swiper {
-    height: 160px;
-    border-radius: $radius-lg;
+    height: calc((100vw - 32px) * 9 / 16);
+    border-radius: 12px;
     overflow: hidden;
   }
   
   // 区块样式
   &__section {
-    margin-bottom: $spacing-lg;
+    margin-bottom: 24px;
     
     &-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 $spacing-lg;
-      margin-bottom: $spacing-md;
+      padding: 0 16px;
+      margin-bottom: 12px;
     }
     
     &-title {
-      font-size: $font-size-lg;
-      font-weight: $font-weight-bold;
-      color: $text-primary;
+      font-size: 18px;
+      font-weight: 600;
+      color: #333333;
     }
     
     &-more {
-      font-size: $font-size-sm;
-      color: $text-tertiary;
+      font-size: 14px;
+      color: #999999;
       display: flex;
       align-items: center;
-      gap: $spacing-xs;
+      gap: 4px;
       
       &-icon {
-        font-size: $font-size-xs;
+        font-size: 12px;
       }
     }
   }
   
-  // 推荐配方横向滚动
-  &__recipe-scroll {
-    white-space: nowrap;
+  // 推荐配方网格
+  &__recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 0 16px;
   }
   
-  &__recipe-list {
-    display: flex;
-    gap: $spacing-md;
-    padding: 0 $spacing-lg;
-    padding-bottom: $spacing-sm;
+  // 养生资讯网格
+  &__content-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    padding: 0 16px;
   }
   
-  // 养生资讯列表
-  &__content-list {
-    padding: 0 $spacing-lg;
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-md;
-  }
-  
-  &__content-item {
-    display: flex;
-    gap: $spacing-md;
-    background: $bg-card;
-    border-radius: $radius-lg;
-    padding: $spacing-md;
-    box-shadow: $shadow-card;
+  &__content-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     
     &:active {
-      transform: translateY(-2px);
-      box-shadow: $shadow-card-hover;
-      transition: all $duration-fast $ease-standard;
+      transform: translateY(2px);
     }
   }
   
-  &__content-image {
-    width: 80px;
-    height: 80px;
-    border-radius: $radius-md;
-    flex-shrink: 0;
+  &__content-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; // 4:3
   }
   
-  &__content-info {
-    flex: 1;
+  &__content-card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  &__content-video-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 80px;
+    align-items: center;
+    justify-content: center;
+    color: $brand-primary;
+    font-size: 14px;
+    padding-left: 2px;
   }
   
-  &__content-title {
-    font-size: $font-size-md;
-    font-weight: $font-weight-medium;
-    color: $text-primary;
-    line-height: $line-height-tight;
+  &__content-card-info {
+    padding: 10px;
+  }
+  
+  &__content-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333;
+    line-height: 1.4;
+    height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    margin-bottom: 8px;
   }
   
-  &__content-meta {
-    font-size: $font-size-xs;
-    color: $text-tertiary;
+  &__content-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  &__content-card-author,
+  &__content-card-views {
+    font-size: 11px;
+    color: #999999;
   }
   
   // 免责声明
   &__disclaimer {
-    margin: 0 $spacing-lg $spacing-lg;
+    margin: 0 16px 24px;
   }
   
   // 加载状态
   &__loading-more,
   &__no-more {
     text-align: center;
-    padding: $spacing-lg;
+    padding: 16px;
   }
   
   &__loading-text,
   &__no-more-text {
-    font-size: $font-size-sm;
-    color: $text-tertiary;
+    font-size: 13px;
+    color: #999999;
   }
 }
 </style>

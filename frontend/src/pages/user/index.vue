@@ -51,7 +51,7 @@
         <view class="user-page__section-title">{{ $t('user.commonFunctions') }}</view>
         <view class="user-page__functions">
           <view class="user-page__function" @click="goToMyRecipes">
-            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #81C784, #A5D6A7);">
+            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #6B8E23, #8BAF4A);">
               <text>📝</text>
             </view>
             <text class="user-page__function-text">{{ $t('user.myRecipes') }}</text>
@@ -495,7 +495,6 @@ onMounted(() => {
     height: 72px;
     border-radius: 50%;
     border: 3px solid rgba(255, 255, 255, 0.8);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     background: rgba(255, 255, 255, 0.3);
   }
@@ -537,10 +536,9 @@ onMounted(() => {
     align-items: center;
     justify-content: space-around;
     background: $bg-card;
-    border-radius: $radius-lg;
+    border-radius: $radius-xl;
     margin: -$spacing-lg $spacing-lg $spacing-lg;
     padding: $spacing-lg 0;
-    box-shadow: $shadow-card;
     position: relative;
     z-index: 2;
   }
@@ -572,24 +570,23 @@ onMounted(() => {
     &-divider {
       width: 1px;
       height: 30px;
-      background: $border-color;
+      background: $bg-surface-high;
     }
   }
   
   // 区块样式
   &__section {
     background: $bg-card;
-    border-radius: $radius-lg;
+    border-radius: $radius-xl;
     margin: 0 $spacing-lg $spacing-md;
     overflow: hidden;
-    box-shadow: $shadow-card;
     
     &-title {
       font-size: $font-size-sm;
       font-weight: $font-weight-medium;
       color: $text-tertiary;
       padding: $spacing-md $spacing-lg;
-      background: $bg-page;
+      background: $bg-surface-low;
     }
   }
   
@@ -622,7 +619,6 @@ onMounted(() => {
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      box-shadow: $shadow-level-1;
     }
     
     &-text {
@@ -638,11 +634,11 @@ onMounted(() => {
       align-items: center;
       height: 56px;
       padding: 0 $spacing-lg;
-      border-bottom: 1px solid $border-color;
       cursor: pointer;
       
-      &:last-child {
-        border-bottom: none;
+      &:not(:last-child) {
+        background: $bg-surface-low;
+        margin-bottom: 1px;
       }
       
       &:active {

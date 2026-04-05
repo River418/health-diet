@@ -2,10 +2,10 @@ import { Config } from '@tarojs/taro'
 
 const config: Config = {
   navigationBarTitleText: '首页',
-  navigationBarBackgroundColor: '#4CAF50',
+  navigationBarBackgroundColor: '#6B8E23',
   navigationBarTextStyle: 'white',
   enablePullDownRefresh: false,
-  backgroundColor: '#F5F5F5'
+  backgroundColor: '#fefdf1'
 }
 
 export default config

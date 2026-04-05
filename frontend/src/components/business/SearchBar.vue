@@ -43,26 +43,30 @@ const handleClick = () => {
 @import '@/styles/variables.scss';
 
 .search-bar {
-  padding: $spacing-md $spacing-lg;
-  background: $bg-card;
+  height: 56px;
+  padding: 0 $spacing-lg;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
   
   &--sticky {
     position: sticky;
     top: 0;
     z-index: 100;
-    box-shadow: $shadow-level-1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   }
   
   &__brand {
     display: flex;
     align-items: center;
     gap: $spacing-sm;
-    margin-bottom: $spacing-md;
+    flex-shrink: 0;
   }
   
   &__logo {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     background: linear-gradient(135deg, $brand-primary, $brand-light);
     border-radius: 50%;
     display: flex;
@@ -70,24 +74,25 @@ const handleClick = () => {
     justify-content: center;
     
     &-icon {
-      font-size: 18px;
+      font-size: 16px;
     }
   }
   
   &__brand-text {
-    font-size: $font-size-lg;
+    font-size: $font-size-md;
     font-weight: $font-weight-bold;
     color: $brand-primary;
   }
   
   &__input-wrapper {
-    height: $input-height;
-    background: $bg-hover;
-    border-radius: $radius-full;
+    flex: 1;
+    height: 40px;
+    background: #F5F5F5;
+    border-radius: 20px;
     display: flex;
     align-items: center;
-    padding: 0 $spacing-lg;
-    gap: $spacing-sm;
+    padding: 0 $spacing-md;
+    gap: $spacing-xs;
     
     &:active {
       background: $bg-divider;
@@ -95,13 +100,13 @@ const handleClick = () => {
   }
   
   &__icon {
-    font-size: $font-size-lg;
-    color: $text-tertiary;
+    font-size: 18px;
+    color: #999999;
   }
   
   &__placeholder {
-    font-size: $font-size-base;
-    color: $text-tertiary;
+    font-size: 14px;
+    color: #999999;
   }
 }
 </style>

@@ -2,9 +2,9 @@ import { Config } from '@tarojs/taro'
 
 const config: Config = {
   navigationBarTitleText: '分类',
-  navigationBarBackgroundColor: '#ffffff',
+  navigationBarBackgroundColor: '#fefdf1',
   navigationBarTextStyle: 'black',
-  backgroundColor: '#F5F5F5'
+  backgroundColor: '#fefdf1'
 }
 
 export default config

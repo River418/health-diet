@@ -12,14 +12,14 @@ const config: Config = {
   ],
   window: {
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#4CAF50',
+    navigationBarBackgroundColor: '#6B8E23',
     navigationBarTitleText: 'Health-Diet',
     navigationBarTextStyle: 'white'
   },
   tabBar: {
     color: '#999999',
-    selectedColor: '#4CAF50',
-    backgroundColor: '#ffffff',
+    selectedColor: '#6B8E23',
+    backgroundColor: '#fefdf1',
     borderStyle: 'black',
     list: [
       {

@@ -1,11 +1,12 @@
 const config = {
   projectName: 'health-diet',
   date: '2026-3-10',
-  designWidth: 750,
+  designWidth: 375,
   deviceRatio: {
     640: 2.34 / 2,
     750: 1,
-    828: 1.81 / 2
+    828: 1.81 / 2,
+    375: 2 / 1
   },
   sourceRoot: 'src',
   outputRoot: 'dist',
@@ -94,6 +95,18 @@ const config = {
       autoprefixer: {
         enable: true,
         config: {
+        }
+      },
+      pxtransform: {
+        enable: true,
+        config: {
+          designWidth: 375,
+          deviceRatio: {
+            640: 2.34 / 2,
+            750: 1,
+            828: 1.81 / 2,
+            375: 2 / 1
+          }
         }
       },
       cssModules: {

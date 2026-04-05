@@ -24,12 +24,11 @@ withDefaults(defineProps<Props>(), {
 @import '@/styles/variables.scss';
 
 .hd-disclaimer {
-  background-color: #FFF8E1;
-  border: 1px solid #FFE082;
+  background-color: #FFF3CD;
   border-radius: $radius-md;
-  padding: $spacing-md $spacing-lg;
+  padding: 12px 16px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: $spacing-sm;
   
   &--fixed {
@@ -40,14 +39,14 @@ withDefaults(defineProps<Props>(), {
   }
   
   &__icon {
-    font-size: $font-size-sm;
+    font-size: 16px;
     flex-shrink: 0;
-    color: #F57C00;
+    color: #856404;
   }
   
   &__text {
-    font-size: $font-size-xs;
-    color: #F57C00;
+    font-size: 13px;
+    color: #856404;
     line-height: $line-height-normal;
     flex: 1;
   }

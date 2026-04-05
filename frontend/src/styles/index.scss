@@ -59,21 +59,19 @@ page {
 // --------------------------------------------
 .card {
   background: $bg-card;
-  border-radius: $radius-lg;
+  border-radius: $radius-xl;
   padding: $spacing-lg;
   margin-bottom: $spacing-md;
-  box-shadow: $shadow-card;
-  
+
   &:active {
     transform: translateY(-2px);
-    box-shadow: $shadow-card-hover;
     transition: all $duration-fast $ease-standard;
   }
 }
 
 .card-flat {
-  background: $bg-card;
-  border-radius: $radius-lg;
+  background: $bg-surface-low;
+  border-radius: $radius-xl;
   padding: $spacing-lg;
   margin-bottom: $spacing-md;
 }
@@ -242,7 +240,7 @@ page {
   display: inline-flex;
   align-items: center;
   padding: $spacing-xs $spacing-sm;
-  border-radius: $radius-sm;
+  border-radius: $radius-full;
   font-size: $font-size-xs;
   line-height: 1;
   
@@ -298,8 +296,7 @@ page {
 // 安全提示样式（免责声明）
 // --------------------------------------------
 .disclaimer {
-  background-color: #FFF8E1;
-  border: 1px solid #FFE082;
+  background-color: $bg-surface-high;
   border-radius: $radius-md;
   padding: $spacing-md $spacing-lg;
   display: flex;
@@ -308,13 +305,13 @@ page {
   
   &__icon {
     font-size: $font-size-sm;
-    color: #F57C00;
+    color: $warning;
     flex-shrink: 0;
   }
   
   &__text {
     font-size: $font-size-xs;
-    color: #F57C00;
+    color: $warning;
     line-height: $line-height-normal;
     flex: 1;
   }
@@ -427,17 +424,17 @@ page {
 // --------------------------------------------
 .list {
   background: $bg-card;
-  border-radius: $radius-lg;
+  border-radius: $radius-xl;
   
   &-item {
     display: flex;
     align-items: center;
     min-height: 56px;
     padding: 0 $spacing-lg;
-    border-bottom: 1px solid $border-color;
     
-    &:last-child {
-      border-bottom: none;
+    &:not(:last-child) {
+      background: $bg-surface-low;
+      margin-bottom: 1px;
     }
     
     &:active {

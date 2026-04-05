@@ -88,10 +88,9 @@ const formatNumber = (num: number): string => {
 @import '@/styles/variables.scss';
 
 .recipe-card {
-  background: #fff;
-  border-radius: 12px;
+  background: $bg-card;
+  border-radius: $radius-xl;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
   &:active {
     transform: scale(0.98);

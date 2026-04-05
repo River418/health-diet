@@ -73,9 +73,8 @@ const coverImageUrl = computed(() => {
 .recipe-card-h {
   width: 160px;
   background: $bg-card;
-  border-radius: $radius-lg;
+  border-radius: $radius-xl;
   overflow: hidden;
-  box-shadow: $shadow-card;
   flex-shrink: 0;
   
   &:active {
@@ -100,7 +99,7 @@ const coverImageUrl = computed(() => {
     top: $spacing-xs;
     left: $spacing-xs;
     background: $accent-orange;
-    border-radius: $radius-sm;
+    border-radius: $radius-full;
     padding: 2px $spacing-xs;
     
     &-text {
@@ -157,7 +156,7 @@ const coverImageUrl = computed(() => {
     display: inline-flex;
     align-items: center;
     padding: 2px $spacing-xs;
-    border-radius: $radius-sm;
+    border-radius: $radius-full;
     font-size: 10px;
     background: $brand-primary-10;
     color: $brand-primary;
