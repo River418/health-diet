@@ -75,7 +75,7 @@ const handleClick = () => {
     justify-content: center;
     
     &-icon {
-      font-size: 16px;
+      font-size: $font-size-sm;
     }
   }
   
@@ -95,6 +95,7 @@ const handleClick = () => {
     padding: $spacing-xs $spacing-md;
     box-sizing: border-box;
     gap: $spacing-xs;
+    line-height: 1.4;
     
     &:active {
       background: $bg-divider;
@@ -102,13 +103,14 @@ const handleClick = () => {
   }
   
   &__icon {
-    font-size: 18px;
+    font-size: $font-size-base;
     color: #999999;
   }
   
   &__placeholder {
-    font-size: 14px;
+    font-size: $font-size-sm;
     color: #999999;
+    line-height: 1.4;
   }
 }
 </style>

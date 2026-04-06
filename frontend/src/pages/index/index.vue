@@ -328,7 +328,7 @@ onMounted(() => {
   
   &__scroll {
     flex: 1;
-    height: calc(100vh - 56px);
+    min-height: 0;  // 允许 flex item 收缩，避免固定高度
   }
   
   // Banner区域
