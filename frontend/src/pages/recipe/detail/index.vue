@@ -256,6 +256,7 @@ import { getRecipeDetail, getRecipeComments, getRelatedRecipes } from '@/api/rec
 import { useUserStore } from '@/stores/user'
 import { DEFAULT_IMAGES, getImageUrl } from '@/utils/image'
 import { usePageFontSize } from '@/composables'
+import { withLoginGuard } from '@/services/auth/requireLogin'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
@@ -351,20 +352,13 @@ const handleBack = () => {
 
 // 收藏
 const toggleFavorite = async () => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  
-  try {
+  await withLoginGuard(async () => {
     isFavorited.value = !isFavorited.value
     Taro.showToast({
       title: isFavorited.value ? $t('recipe.favorited') : $t('recipe.cancelFavorite'),
       icon: 'success'
     })
-  } catch (error) {
-    console.error('收藏失败', error)
-  }
+  })
 }
 
 // 分享
@@ -412,15 +406,13 @@ const goToAllComments = () => {
 }
 
 // 显示评论输入
-const showCommentInput = () => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  // TODO: 显示评论输入框
-  Taro.showToast({
-    title: '评论功能开发中',
-    icon: 'none'
+const showCommentInput = async () => {
+  await withLoginGuard(async () => {
+    // TODO: 显示评论输入框
+    Taro.showToast({
+      title: '评论功能开发中',
+      icon: 'none'
+    })
   })
 }
 

@@ -197,6 +197,7 @@ import { useUserStore } from '@/stores/user'
 import { useAccessibilityStore } from '@/stores/accessibility'
 import { DEFAULT_IMAGES } from '@/utils/image'
 import { usePageFontSize } from '@/composables'
+import { withLoginGuard } from '@/services/auth/requireLogin'
 
 const { t: $t, locale } = useI18n()
 const userStore = useUserStore()
@@ -251,24 +252,21 @@ const fetchUserStats = async () => {
 }
 
 // 登录点击
-const handleLoginClick = () => {
+const handleLoginClick = async () => {
   if (!userStore.isLoggedIn) {
-    Taro.navigateTo({
-      url: '/pages/login/index'
+    await withLoginGuard(async () => {
+      // 登录成功后刷新用户统计
+      await fetchUserStats()
     })
   }
 }
 
 // 跳转到个人资料
-const goToProfile = () => {
-  if (!userStore.isLoggedIn) {
+const goToProfile = async () => {
+  await withLoginGuard(async () => {
     Taro.navigateTo({
-      url: '/pages/login/index'
+      url: '/pages/profile/profile/index'
     })
-    return
-  }
-  Taro.navigateTo({
-    url: '/pages/profile/profile/index'
   })
 }
 

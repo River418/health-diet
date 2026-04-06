@@ -92,6 +92,7 @@ import { getRecipeComments, submitComment } from '@/api/recipe'
 import { useUserStore } from '@/stores/user'
 import { DEFAULT_IMAGES } from '@/utils/image'
 import { usePageFontSize } from '@/composables'
+import { withLoginGuard } from '@/services/auth/requireLogin'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
@@ -169,52 +170,45 @@ const previewImage = (images: string[], current: number) => {
 }
 
 // 点赞评论
-const likeComment = (comment: any) => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  // TODO: 调用点赞API
-  comment.likeCount = (comment.likeCount || 0) + 1
+const likeComment = async (comment: any) => {
+  await withLoginGuard(async () => {
+    // TODO: 调用点赞API
+    comment.likeCount = (comment.likeCount || 0) + 1
+  })
 }
 
 // 回复评论
-const replyComment = (comment: any) => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  showCommentInput()
+const replyComment = async (comment: any) => {
+  await withLoginGuard(async () => {
+    showCommentInput()
+  })
 }
 
 // 显示评论输入
-const showCommentInput = () => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  
-  Taro.showModal({
-    title: $t('comment.write'),
-    editable: true,
-    placeholderText: $t('comment.placeholder'),
-    success: async (res) => {
-      if (res.confirm && res.content) {
-        try {
-          await submitComment(recipeId.value, { content: res.content, rating: 5 })
-          Taro.showToast({
-            title: $t('comment.submitSuccess'),
-            icon: 'success'
-          })
-          onRefresh()
-        } catch (error) {
-          Taro.showToast({
-            title: $t('error.server'),
-            icon: 'none'
-          })
+const showCommentInput = async () => {
+  await withLoginGuard(async () => {
+    Taro.showModal({
+      title: $t('comment.write'),
+      editable: true,
+      placeholderText: $t('comment.placeholder'),
+      success: async (res) => {
+        if (res.confirm && res.content) {
+          try {
+            await submitComment(recipeId.value, { content: res.content, rating: 5 })
+            Taro.showToast({
+              title: $t('comment.submitSuccess'),
+              icon: 'success'
+            })
+            onRefresh()
+          } catch (error) {
+            Taro.showToast({
+              title: $t('error.server'),
+              icon: 'none'
+            })
+          }
         }
       }
-    }
+    })
   })
 }
 

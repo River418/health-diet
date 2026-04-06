@@ -52,85 +52,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import Taro from '@tarojs/taro'
 import HdButton from '@/components/common/HdButton.vue'
 import HdDisclaimer from '@/components/common/HdDisclaimer.vue'
 import { useUserStore } from '@/stores/user'
-import { wechatLogin, douyinLogin } from '@/api/auth'
 import { usePageFontSize } from '@/composables'
+import { loginByCurrentPlatform } from '@/services/auth/login'
 
 const { t: $t } = useI18n()
 const userStore = useUserStore()
 const { fontLargeClass } = usePageFontSize()
 
-const loading = ref<string>('')
+const loading = ref(false)
 
-// 微信登录
-const handleWechatLogin = async () => {
+const runLogin = async () => {
   if (loading.value) return
-  loading.value = 'wechat'
-  
-  try {
-    const loginRes = await Taro.login()
-    if (loginRes.code) {
-      const res = await wechatLogin(loginRes.code)
-      handleLoginSuccess(res)
-    }
-  } catch (error) {
-    Taro.showToast({
-      title: $t('error.network'),
-      icon: 'none'
-    })
-  } finally {
-    loading.value = ''
+  loading.value = true
+
+  const result = await loginByCurrentPlatform()
+
+  if (result.success) {
+    Taro.showToast({ title: $t('login.success'), icon: 'success' })
+    setTimeout(() => {
+      Taro.switchTab({ url: '/pages/user/index' })
+    }, 1200)
   }
+
+  loading.value = false
 }
 
-// 抖音登录
-const handleDouyinLogin = async () => {
-  if (loading.value) return
-  loading.value = 'douyin'
-  
-  try {
-    const loginRes = await Taro.login({
-      force: true
-    })
-    if (loginRes.code) {
-      const res = await douyinLogin(loginRes.code, loginRes.anonymousCode)
-      handleLoginSuccess(res)
-    }
-  } catch (error) {
-    Taro.showToast({
-      title: $t('error.network'),
-      icon: 'none'
-    })
-  } finally {
-    loading.value = ''
-  }
-}
-
-// 登录成功处理
-const handleLoginSuccess = (res: any) => {
-  userStore.setToken(res.token)
-  userStore.setUserInfo(res.user)
-  
-  Taro.showToast({
-    title: $t('login.success'),
-    icon: 'success'
-  })
-  
-  setTimeout(() => {
-    // 返回上一页或跳转到首页
-    const pages = Taro.getCurrentPages()
-    if (pages.length > 1) {
-      Taro.navigateBack()
-    } else {
-      Taro.switchTab({ url: '/pages/index/index' })
-    }
-  }, 1500)
-}
+onMounted(() => {
+  void runLogin()
+})
 
 // 返回
 const handleBack = () => {
