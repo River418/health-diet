@@ -79,21 +79,24 @@ const handleClick = () => {
   
   // 尺寸
   &--small {
-    height: $btn-height-sm;
-    padding: 0 $spacing-lg;
+    min-height: $btn-height-sm;
+    padding: 8px $spacing-lg;
     font-size: $font-size-sm;
+    line-height: 1.5;
   }
   
   &--medium {
-    height: $btn-height-md;
-    padding: 0 $spacing-xl;
+    min-height: $btn-height-md;
+    padding: 12px $spacing-xl;
     font-size: $font-size-base;
+    line-height: 1.5;
   }
   
   &--large {
-    height: $btn-height-lg;
-    padding: 0 $spacing-xxl;
+    min-height: $btn-height-lg;
+    padding: 14px $spacing-xxl;
     font-size: $font-size-md;
+    line-height: 1.5;
   }
   
   // 块级
