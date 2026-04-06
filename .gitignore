@@ -126,3 +126,6 @@ dist
 build
 unpackage
 .worktrees/
+
+# Config files with secrets
+opencode.json
