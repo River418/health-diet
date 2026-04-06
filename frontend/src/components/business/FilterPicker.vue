@@ -137,7 +137,7 @@ const handleClose = () => {
   }
   
   &__list {
-    max-height: 300px;
+    max-height: 60vh;
     overflow-y: auto;
   }
   
@@ -145,8 +145,9 @@ const handleClose = () => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
-    padding: 0 $spacing-lg;
+    min-height: 56px;
+    padding: $spacing-sm $spacing-lg;
+    box-sizing: border-box;
     cursor: pointer;
     
     &.is-active {
