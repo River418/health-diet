@@ -615,8 +615,8 @@ onMounted(() => {
     &-item {
       display: flex;
       align-items: center;
-      height: 56px;
-      padding: 0 $spacing-lg;
+      min-height: 56px;
+      padding: 16px $spacing-lg;
       cursor: pointer;
       
       &:not(:last-child) {
@@ -675,13 +675,15 @@ onMounted(() => {
     margin: 0 $spacing-lg $spacing-lg;
     
     &-btn {
-      height: $btn-height-lg;
+      min-height: $btn-height-lg;
+      padding: 12px 0;
       background: $bg-card;
       border: 1px solid $error;
       border-radius: $radius-full;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-sizing: border-box;
       
       &:active {
         background: rgba(244, 67, 54, 0.05);
@@ -748,8 +750,8 @@ onMounted(() => {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 56px;
-      padding: 0 $spacing-lg;
+      min-height: 56px;
+      padding: 16px $spacing-lg;
       cursor: pointer;
       
       &.is-active {
@@ -776,13 +778,15 @@ onMounted(() => {
     }
     
     &-cancel {
-      height: $btn-height-lg;
+      min-height: $btn-height-lg;
+      padding: 12px $spacing-lg;
       display: flex;
       align-items: center;
       justify-content: center;
       background: $bg-hover;
       border-radius: $radius-lg;
       cursor: pointer;
+      box-sizing: border-box;
       
       &:active {
         background: $bg-divider;

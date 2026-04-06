@@ -474,12 +474,9 @@ onMounted(() => {
     font-weight: 500;
     color: #333333;
     line-height: 1.4;
-    height: 40px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    min-height: 40px;
+    word-wrap: break-word;
+    word-break: break-word;
     margin-bottom: 8px;
   }
   

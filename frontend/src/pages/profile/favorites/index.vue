@@ -602,12 +602,8 @@ onMounted(() => {
     font-weight: $font-weight-medium;
     color: $text-primary;
     line-height: $line-height-tight;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
+    word-wrap: break-word;
+    word-break: break-word;
   }
   
   &__meta {
@@ -705,14 +701,15 @@ onMounted(() => {
     }
     
     &-btn {
-      height: $btn-height-lg;
-      padding: 0 $spacing-xl;
+      min-height: $btn-height-lg;
+      padding: 12px $spacing-xl;
       background: $brand-primary;
       border-radius: $radius-full;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: $shadow-brand;
+      box-sizing: border-box;
       
       &:active {
         background: $brand-dark;
@@ -746,15 +743,16 @@ onMounted(() => {
     bottom: 0;
     left: 0;
     right: 0;
-    height: 56px;
+    min-height: 56px;
+    padding: 12px $spacing-lg;
+    padding-bottom: $safe-area-bottom;
     background: $bg-card;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 $spacing-lg;
-    padding-bottom: $safe-area-bottom;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
     z-index: 100;
+    box-sizing: border-box;
     
     &-select {
       display: flex;
@@ -795,14 +793,15 @@ onMounted(() => {
     }
     
     &-delete {
-      height: 40px;
-      padding: 0 $spacing-lg;
+      min-height: 40px;
+      padding: 8px $spacing-lg;
       background: $error;
       border-radius: $radius-full;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      box-sizing: border-box;
       
       &.is-disabled {
         background: $text-disabled;
