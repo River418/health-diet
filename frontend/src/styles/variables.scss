@@ -243,3 +243,20 @@ $dark-warning: #FFCA28;              // 深色警告
 $dark-error: #EF5350;                // 深色错误
 $dark-info: #64B5F6;                 // 深色信息
 
+// --------------------------------------------
+// 15. 大字模式专用变量（适配中老年用户）
+// --------------------------------------------
+// 大字模式下使用更大的间距和最小高度
+:root.font-large {
+  --spacing-xs: 8px;
+  --spacing-sm: 12px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  --component-min-height: 48px;
+  --card-padding: 16px;
+  --list-row-padding: 16px 12px;
+  --touch-target-min: 48px;
+}
+

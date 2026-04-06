@@ -402,7 +402,8 @@ const goToSearch = () => {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 72px;
+      min-height: 72px;
+      padding: 12px 8px;
       cursor: pointer;
       position: relative;
       transition: all 0.2s ease;
@@ -571,7 +572,8 @@ const goToSearch = () => {
   
   &__solar-tag {
     width: calc(25% - 9px);
-    height: 36px;
+    min-height: 36px;
+    padding: 8px 4px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -579,6 +581,7 @@ const goToSearch = () => {
     border-radius: 8px;
     font-size: 13px;
     color: #333333;
+    box-sizing: border-box;
     
     &.is-active {
       background: #4CAF50;

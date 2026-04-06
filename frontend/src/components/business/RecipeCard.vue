@@ -112,7 +112,7 @@ const formatNumber = (num: number): string => {
   }
   
   &__content {
-    padding: 12px;
+    padding: 12px 12px 16px;
   }
   
   &__title {
@@ -121,12 +121,8 @@ const formatNumber = (num: number): string => {
     font-weight: $font-weight-medium;
     color: $text-primary;
     margin-bottom: 8px;
-    line-height: 1.4;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    word-wrap: break-word;
   }
   
   &__stats {

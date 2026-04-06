@@ -43,8 +43,9 @@ const handleClick = () => {
 @import '@/styles/variables.scss';
 
 .search-bar {
-  height: 56px;
-  padding: 0 $spacing-lg;
+  min-height: 56px;
+  padding: $spacing-sm $spacing-lg;
+  box-sizing: border-box;
   background: #FFFFFF;
   display: flex;
   align-items: center;
@@ -74,7 +75,7 @@ const handleClick = () => {
     justify-content: center;
     
     &-icon {
-      font-size: 16px;
+      font-size: $font-size-sm;
     }
   }
   
@@ -86,12 +87,13 @@ const handleClick = () => {
   
   &__input-wrapper {
     flex: 1;
-    height: 40px;
+    min-height: 40px;
     background: #F5F5F5;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    padding: 0 $spacing-md;
+    padding: 8px $spacing-md;
+    box-sizing: border-box;
     gap: $spacing-xs;
     
     &:active {
@@ -100,13 +102,14 @@ const handleClick = () => {
   }
   
   &__icon {
-    font-size: 18px;
+    font-size: $font-size-base;
     color: #999999;
   }
   
   &__placeholder {
-    font-size: 14px;
+    font-size: $font-size-sm;
     color: #999999;
+    line-height: 1.4;
   }
 }
 </style>
