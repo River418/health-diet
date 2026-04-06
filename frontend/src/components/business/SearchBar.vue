@@ -43,8 +43,9 @@ const handleClick = () => {
 @import '@/styles/variables.scss';
 
 .search-bar {
-  height: 56px;
-  padding: 0 $spacing-lg;
+  min-height: 56px;
+  padding: $spacing-sm $spacing-lg;
+  box-sizing: border-box;
   background: #FFFFFF;
   display: flex;
   align-items: center;
@@ -86,12 +87,13 @@ const handleClick = () => {
   
   &__input-wrapper {
     flex: 1;
-    height: 40px;
+    min-height: 40px;
     background: #F5F5F5;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    padding: 0 $spacing-md;
+    padding: $spacing-xs $spacing-md;
+    box-sizing: border-box;
     gap: $spacing-xs;
     
     &:active {
