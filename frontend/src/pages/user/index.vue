@@ -46,37 +46,6 @@
         </view>
       </view>
       
-      <!-- 常用功能 -->
-      <view class="user-page__section">
-        <view class="user-page__section-title">{{ $t('user.commonFunctions') }}</view>
-        <view class="user-page__functions">
-          <view class="user-page__function" @click="goToMyRecipes">
-            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #6B8E23, #8BAF4A);">
-              <text>📝</text>
-            </view>
-            <text class="user-page__function-text">{{ $t('user.myRecipes') }}</text>
-          </view>
-          <view class="user-page__function" @click="goToMyReviews">
-            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #FFD54F, #FFE082);">
-              <text>⭐</text>
-            </view>
-            <text class="user-page__function-text">{{ $t('user.myReviews') }}</text>
-          </view>
-          <view class="user-page__function" @click="goToHealthData">
-            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #64B5F6, #90CAF9);">
-              <text>📊</text>
-            </view>
-            <text class="user-page__function-text">{{ $t('user.healthData') }}</text>
-          </view>
-          <view class="user-page__function" @click="goToMemberCenter">
-            <view class="user-page__function-icon" style="background: linear-gradient(135deg, #F48FB1, #F8BBD9);">
-              <text>🎁</text>
-            </view>
-            <text class="user-page__function-text">{{ $t('user.memberCenter') }}</text>
-          </view>
-        </view>
-      </view>
-      
       <!-- 设置 -->
       <view class="user-page__section">
         <view class="user-page__section-title">{{ $t('user.settings') }}</view>
@@ -293,31 +262,6 @@ const goToFollowing = () => {
   Taro.showToast({
     title: '敬请期待',
     icon: 'none'
-  })
-}
-
-// 常用功能
-const goToMyRecipes = async () => {
-  await withLoginGuard(async () => {
-    Taro.showToast({ title: '功能开发中', icon: 'none' })
-  })
-}
-
-const goToMyReviews = async () => {
-  await withLoginGuard(async () => {
-    Taro.showToast({ title: '功能开发中', icon: 'none' })
-  })
-}
-
-const goToHealthData = async () => {
-  await withLoginGuard(async () => {
-    Taro.showToast({ title: '功能开发中', icon: 'none' })
-  })
-}
-
-const goToMemberCenter = async () => {
-  await withLoginGuard(async () => {
-    Taro.showToast({ title: '功能开发中', icon: 'none' })
   })
 }
 
@@ -552,43 +496,6 @@ onMounted(() => {
       color: $text-tertiary;
       padding: $spacing-md $spacing-lg;
       background: $bg-surface-low;
-    }
-  }
-  
-  // 常用功能
-  &__functions {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: $spacing-md;
-    padding: $spacing-lg;
-  }
-  
-  &__function {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: $spacing-sm;
-    cursor: pointer;
-    
-    &:active {
-      opacity: 0.7;
-      transform: scale(0.95);
-      transition: all $duration-fast $ease-standard;
-    }
-    
-    &-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-    
-    &-text {
-      font-size: $font-size-xs;
-      color: $text-primary;
     }
   }
   
