@@ -71,7 +71,9 @@ const coverImageUrl = computed(() => {
 @import '@/styles/variables.scss';
 
 .recipe-card-h {
-  width: 160px;
+  min-width: 160px;
+  max-width: 220px;
+  width: 100%;
   background: $bg-card;
   border-radius: $radius-xl;
   overflow: hidden;
@@ -85,7 +87,8 @@ const coverImageUrl = computed(() => {
   &__image-wrapper {
     position: relative;
     width: 100%;
-    height: 120px;
+    min-height: 120px;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
   }
   
@@ -120,11 +123,9 @@ const coverImageUrl = computed(() => {
     color: $text-primary;
     margin-bottom: $spacing-xs;
     line-height: $line-height-tight;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   
   &__rating {
