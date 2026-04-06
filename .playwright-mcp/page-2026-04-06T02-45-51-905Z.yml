@@ -1,0 +1,78 @@
+- generic [ref=e2]:
+  - generic [ref=e134]:
+    - generic [ref=e138]:
+      - img [ref=e141]
+      - generic [ref=e142]:
+        - generic [ref=e143]: 未登录
+        - generic [ref=e144]: 点击登录
+    - generic [ref=e145]:
+      - generic [ref=e146] [cursor=pointer]:
+        - generic [ref=e147]: "12"
+        - generic [ref=e148]: 我的收藏
+      - generic [ref=e150] [cursor=pointer]:
+        - generic [ref=e151]: "58"
+        - generic [ref=e152]: 浏览历史
+      - generic [ref=e154] [cursor=pointer]:
+        - generic [ref=e155]: "6"
+        - generic [ref=e156]: 我的关注
+    - generic [ref=e157]:
+      - generic [ref=e158]: 常用功能
+      - generic [ref=e159]:
+        - generic [ref=e160] [cursor=pointer]:
+          - generic [ref=e162]: 📝
+          - generic [ref=e163]: 我的食谱
+        - generic [ref=e164] [cursor=pointer]:
+          - generic [ref=e166]: ⭐
+          - generic [ref=e167]: 我的评价
+        - generic [ref=e168] [cursor=pointer]:
+          - generic [ref=e170]: 📊
+          - generic [ref=e171]: 健康数据
+        - generic [ref=e172] [cursor=pointer]:
+          - generic [ref=e174]: 🎁
+          - generic [ref=e175]: 会员中心
+    - generic [ref=e176]:
+      - generic [ref=e177]: 设置
+      - generic [ref=e178]:
+        - generic [ref=e179] [cursor=pointer]:
+          - generic [ref=e181]: 🔔
+          - generic [ref=e182]: 消息通知
+          - generic [ref=e183]: ›
+        - generic [ref=e184] [cursor=pointer]:
+          - generic [ref=e186]: 🌐
+          - generic [ref=e187]: 语言设置
+          - generic [ref=e188]: 简体中文
+          - generic [ref=e189]: ›
+        - generic [ref=e190] [cursor=pointer]:
+          - generic [ref=e192]: 👁️
+          - generic [ref=e193]: 大字模式
+          - checkbox [checked] [active] [ref=e195]
+    - generic [ref=e197]:
+      - generic [ref=e198] [cursor=pointer]:
+        - generic [ref=e200]: ❓
+        - generic [ref=e201]: 帮助与反馈
+        - generic [ref=e202]: ›
+      - generic [ref=e203] [cursor=pointer]:
+        - generic [ref=e205]: ℹ️
+        - generic [ref=e206]: 关于我们
+        - generic [ref=e207]: ›
+      - generic [ref=e208] [cursor=pointer]:
+        - generic [ref=e210]: 📄
+        - generic [ref=e211]: 用户协议
+        - generic [ref=e212]: ›
+      - generic [ref=e213] [cursor=pointer]:
+        - generic [ref=e215]: 🔒
+        - generic [ref=e216]: 隐私政策
+        - generic [ref=e217]: ›
+    - generic [ref=e218]:
+      - generic [ref=e219]: ⚠️
+      - generic [ref=e220]: 食疗养生，不替代药物治疗。如有身体不适，请及时就医。
+  - generic [ref=e122]:
+    - link "首页" [ref=e123] [cursor=pointer]:
+      - /url: javascript:;
+      - paragraph [ref=e125]: 首页
+    - link "分类" [ref=e126] [cursor=pointer]:
+      - /url: javascript:;
+      - paragraph [ref=e128]: 分类
+    - link "我的" [ref=e129] [cursor=pointer]:
+      - /url: javascript:;
+      - paragraph [ref=e131]: 我的

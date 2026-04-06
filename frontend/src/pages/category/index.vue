@@ -403,7 +403,8 @@ const goToSearch = () => {
       align-items: center;
       justify-content: center;
       min-height: 72px;
-      padding: 12px 8px;
+      padding: $spacing-sm $spacing-xs;
+      box-sizing: border-box;
       cursor: pointer;
       position: relative;
       transition: all 0.2s ease;

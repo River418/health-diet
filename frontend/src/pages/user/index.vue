@@ -598,7 +598,8 @@ onMounted(() => {
       display: flex;
       align-items: center;
       min-height: 56px;
-      padding: 16px $spacing-lg;
+      padding: $spacing-sm $spacing-lg;
+      box-sizing: border-box;
       cursor: pointer;
       
       &:not(:last-child) {
@@ -658,7 +659,7 @@ onMounted(() => {
     
     &-btn {
       min-height: $btn-height-lg;
-      padding: 12px 0;
+      padding: $spacing-sm 0;
       background: $bg-card;
       border: 1px solid $error;
       border-radius: $radius-full;
@@ -733,7 +734,8 @@ onMounted(() => {
       align-items: center;
       justify-content: space-between;
       min-height: 56px;
-      padding: 16px $spacing-lg;
+      padding: $spacing-sm $spacing-lg;
+      box-sizing: border-box;
       cursor: pointer;
       
       &.is-active {
@@ -761,7 +763,7 @@ onMounted(() => {
     
     &-cancel {
       min-height: $btn-height-lg;
-      padding: 12px $spacing-lg;
+      padding: $spacing-sm $spacing-lg;
       display: flex;
       align-items: center;
       justify-content: center;

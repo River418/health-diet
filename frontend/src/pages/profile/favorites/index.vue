@@ -702,7 +702,7 @@ onMounted(() => {
     
     &-btn {
       min-height: $btn-height-lg;
-      padding: 12px $spacing-xl;
+      padding: $spacing-sm $spacing-xl;
       background: $brand-primary;
       border-radius: $radius-full;
       display: flex;
@@ -744,7 +744,7 @@ onMounted(() => {
     left: 0;
     right: 0;
     min-height: 56px;
-    padding: 12px $spacing-lg;
+    padding: $spacing-sm $spacing-lg;
     padding-bottom: $safe-area-bottom;
     background: $bg-card;
     display: flex;
@@ -794,7 +794,7 @@ onMounted(() => {
     
     &-delete {
       min-height: 40px;
-      padding: 8px $spacing-lg;
+      padding: $spacing-sm $spacing-lg;
       background: $error;
       border-radius: $radius-full;
       display: flex;

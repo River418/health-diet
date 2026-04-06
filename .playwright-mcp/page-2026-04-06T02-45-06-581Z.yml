@@ -1,0 +1,58 @@
+- generic [ref=e2]:
+  - generic [ref=e62]:
+    - generic [ref=e63]:
+      - generic [ref=e64]:
+        - generic [ref=e66]: 🌿
+        - generic [ref=e67]: 食疗有方
+      - generic [ref=e68]:
+        - generic [ref=e69]: ⌕
+        - generic [ref=e70]: 搜索食疗配方、食材
+    - generic [ref=e71]:
+      - generic [ref=e76]:
+        - generic [ref=e77] [cursor=pointer]:
+          - generic [ref=e79]: 🧓
+          - generic [ref=e80]: 中老年养生
+        - generic [ref=e81] [cursor=pointer]:
+          - generic [ref=e83]: 💼
+          - generic [ref=e84]: 白领调理
+        - generic [ref=e85] [cursor=pointer]:
+          - generic [ref=e87]: 🌸
+          - generic [ref=e88]: 节气养生
+        - generic [ref=e89] [cursor=pointer]:
+          - generic [ref=e91]: 🩸
+          - generic [ref=e92]: 补气养血
+        - generic [ref=e93] [cursor=pointer]:
+          - generic [ref=e95]: 🍚
+          - generic [ref=e96]: 健脾养胃
+        - generic [ref=e97] [cursor=pointer]:
+          - generic [ref=e99]: 🌙
+          - generic [ref=e100]: 安神助眠
+        - generic [ref=e101] [cursor=pointer]:
+          - generic [ref=e103]: ✨
+          - generic [ref=e104]: 美容养颜
+        - generic [ref=e105] [cursor=pointer]:
+          - generic [ref=e107]: ➕
+          - generic [ref=e108]: 更多分类
+      - generic [ref=e110]:
+        - generic [ref=e111]: 推荐配方
+        - generic [ref=e112]:
+          - text: 更多
+          - generic [ref=e113]: ">"
+      - generic [ref=e115]:
+        - generic [ref=e116]: 养生资讯
+        - generic [ref=e117]:
+          - text: 更多
+          - generic [ref=e118]: ">"
+      - generic [ref=e119]:
+        - generic [ref=e120]: ⚠️
+        - generic [ref=e121]: 食疗养生，不替代药物治疗。如有身体不适，请及时就医。
+  - generic [ref=e122]:
+    - link "首页" [ref=e123] [cursor=pointer]:
+      - /url: javascript:;
+      - paragraph [ref=e125]: 首页
+    - link "分类" [ref=e126] [cursor=pointer]:
+      - /url: javascript:;
+      - paragraph [ref=e128]: 分类
+    - link "我的" [ref=e129] [cursor=pointer]:
+      - /url: javascript:;
+      - paragraph [ref=e131]: 我的
