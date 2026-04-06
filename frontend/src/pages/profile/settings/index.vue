@@ -189,7 +189,7 @@ const handleLogout = () => {
         })
         setTimeout(() => {
           Taro.reLaunch({
-            url: '/pages/login/index'
+            url: '/pages/user/index'
           })
         }, 1500)
       }
