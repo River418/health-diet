@@ -59,6 +59,7 @@ const handleClick = () => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   border-radius: $radius-full;
   font-weight: $font-weight-medium;
   transition: all $duration-fast $ease-standard;
@@ -167,7 +168,7 @@ const handleClick = () => {
   }
   
   &__text {
-    line-height: 1;
+    line-height: inherit;
   }
 }
 
