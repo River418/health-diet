@@ -92,10 +92,9 @@ const handleClick = () => {
     border-radius: 20px;
     display: flex;
     align-items: center;
-    padding: $spacing-xs $spacing-md;
+    padding: 8px $spacing-md;
     box-sizing: border-box;
     gap: $spacing-xs;
-    line-height: 1.4;
     
     &:active {
       background: $bg-divider;
