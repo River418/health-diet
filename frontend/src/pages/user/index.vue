@@ -271,28 +271,20 @@ const goToProfile = async () => {
 }
 
 // 跳转到收藏
-const goToFavorites = () => {
-  if (!userStore.isLoggedIn) {
+const goToFavorites = async () => {
+  await withLoginGuard(async () => {
     Taro.navigateTo({
-      url: '/pages/login/index'
+      url: '/pages/profile/favorites/index'
     })
-    return
-  }
-  Taro.navigateTo({
-    url: '/pages/profile/favorites/index'
   })
 }
 
 // 跳转到历史
-const goToHistory = () => {
-  if (!userStore.isLoggedIn) {
+const goToHistory = async () => {
+  await withLoginGuard(async () => {
     Taro.navigateTo({
-      url: '/pages/login/index'
+      url: '/pages/profile/history/index'
     })
-    return
-  }
-  Taro.navigateTo({
-    url: '/pages/profile/history/index'
   })
 }
 
@@ -305,36 +297,28 @@ const goToFollowing = () => {
 }
 
 // 常用功能
-const goToMyRecipes = () => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  Taro.showToast({ title: '功能开发中', icon: 'none' })
+const goToMyRecipes = async () => {
+  await withLoginGuard(async () => {
+    Taro.showToast({ title: '功能开发中', icon: 'none' })
+  })
 }
 
-const goToMyReviews = () => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  Taro.showToast({ title: '功能开发中', icon: 'none' })
+const goToMyReviews = async () => {
+  await withLoginGuard(async () => {
+    Taro.showToast({ title: '功能开发中', icon: 'none' })
+  })
 }
 
-const goToHealthData = () => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  Taro.showToast({ title: '功能开发中', icon: 'none' })
+const goToHealthData = async () => {
+  await withLoginGuard(async () => {
+    Taro.showToast({ title: '功能开发中', icon: 'none' })
+  })
 }
 
-const goToMemberCenter = () => {
-  if (!userStore.isLoggedIn) {
-    Taro.navigateTo({ url: '/pages/login/index' })
-    return
-  }
-  Taro.showToast({ title: '功能开发中', icon: 'none' })
+const goToMemberCenter = async () => {
+  await withLoginGuard(async () => {
+    Taro.showToast({ title: '功能开发中', icon: 'none' })
+  })
 }
 
 // 显示语言选择
