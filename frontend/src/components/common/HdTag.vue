@@ -32,9 +32,10 @@ withDefaults(defineProps<Props>(), {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
   
   &__text {
-    line-height: 1;
+    line-height: inherit;
   }
   
   // 尺寸
